@@ -1,0 +1,13 @@
+FAR 	- stdf version
+MIR	- header information
+MRR	- header information on lot end
+PCR	- part count ( good / all )
+HBR	- hard bin information
+SBR	- soft bin information
+PMR	- package pin information
+PGR	- package group pin information
+SDR	- site information
+PIR	- head and site number for each device
+PRR	- device information ( partid , bin , testcount , testtime , P/F )
+TSR	- test synopsis information ( min , max , count by site )
+PTR	- parameter data ( limit , units , sitenumber , testid , test text , result )
