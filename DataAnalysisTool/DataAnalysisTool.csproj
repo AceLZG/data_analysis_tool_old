@@ -191,12 +191,6 @@
     <Content Include="VanchipLogo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Vanchip Library\Vanchip.Data\Vanchip.Data.csproj">
-      <Project>{1295CBB6-FC48-410A-A327-119A7694B920}</Project>
-      <Name>Vanchip.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="JMP">
       <Guid>{DCD36DE0-78F8-11CF-9E68-0020AF24E9FE}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -206,6 +200,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vanchip.Data\Vanchip.Data.csproj">
+      <Project>{1295cbb6-fc48-410a-a327-119a7694b920}</Project>
+      <Name>Vanchip.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

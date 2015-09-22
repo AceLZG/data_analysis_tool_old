@@ -255,3 +255,30 @@ C:\Users\Ace\Documents\Vanchip\Project\Project_DataAnalysisTool\DataAnalysisTool
 \\psf\Home\Documents\Vanchip\Production Test\BENCH\Code\Project_DataAnalysisTool\DataAnalysisTool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.csproj.GenerateResource.Cache
 \\psf\Home\Documents\Vanchip\Production Test\BENCH\Code\Project_DataAnalysisTool\DataAnalysisTool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.exe.manifest
 \\psf\Home\Documents\Vanchip\Production Test\BENCH\Code\Project_DataAnalysisTool\DataAnalysisTool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.application
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.exe.config
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\Interop.JMP.dll
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.csproj.ResolveComReference.cache
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.exe
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.pdb
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Main.resx
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Main.cs
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Main.Designer.cs
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.exe.manifest
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.application
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.exe
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.pdb
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\LumenWorks.Framework.IO.dll
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Vanchip.Data.dll
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\stdf4j-0.0.2.dll
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\IKVM.OpenJDK.Core.dll
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Vanchip.Data.pdb
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.csprojResolveAssemblyReference.cache
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.frmAbout.resources
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.GoldenSample.resources
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.ImportGold.resources
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.frmJMPScriptSelect.resources
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.Main.resources
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.Test.resources
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.csproj.GenerateResource.Cache
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.exe.manifest
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.application

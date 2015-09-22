@@ -1,0 +1,7 @@
+D:\Douments\Vanchip\Project\Vanchip.Testing\bin\x64\Debug\Vanchip.Testing.dll
+D:\Douments\Vanchip\Project\Vanchip.Testing\bin\x64\Debug\Vanchip.Testing.pdb
+D:\Douments\Vanchip\Project\Vanchip.Testing\bin\x64\Debug\LumenWorks.Framework.IO.dll
+D:\Douments\Vanchip\Project\Vanchip.Testing\bin\x64\Debug\LumenWorks.Framework.IO.xml
+D:\Douments\Vanchip\Project\Vanchip.Testing\obj\x64\Debug\ResolveAssemblyReference.cache
+D:\Douments\Vanchip\Project\Vanchip.Testing\obj\x64\Debug\Vanchip.Testing.dll
+D:\Douments\Vanchip\Project\Vanchip.Testing\obj\x64\Debug\Vanchip.Testing.pdb

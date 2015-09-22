@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1295CBB6-FC48-410A-A327-119A7694B920}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vanchip.Data</RootNamespace>
+    <AssemblyName>Vanchip.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IKVM.OpenJDK.Core">
+      <HintPath>..\..\_Resources\Useful Libraries &amp; Samples\ikvmbin-7.2.4630.5\bin\IKVM.OpenJDK.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.XML.Parse">
+      <HintPath>..\..\_Resources\Useful Libraries &amp; Samples\ikvmbin-7.2.4630.5\bin\IKVM.OpenJDK.XML.Parse.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LumenWorks.Framework.IO">
+      <HintPath>Reference\CsvReader\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="stdf4j-0.0.2, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\_Resources\Useful Libraries &amp; Samples\stdf\stdf4j-0.0.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Analysis.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="DataParse.cs" />
+    <Compile Include="db.cs" />
+    <Compile Include="Export.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="stdfv4.cs" />
+    <Compile Include="STDF\ATRRecord.cs" />
+    <Compile Include="STDF\BPSRecord.cs" />
+    <Compile Include="STDF\BYTE_ORIENTATION.cs" />
+    <Compile Include="STDF\DTRRecord.cs" />
+    <Compile Include="STDF\EPSRecord.cs" />
+    <Compile Include="STDF\FARRecord.cs" />
+    <Compile Include="STDF\FTRRecord.cs" />
+    <Compile Include="STDF\GDRRecord.cs" />
+    <Compile Include="STDF\GDR_DataTypeCode.cs" />
+    <Compile Include="STDF\HBRRecord.cs" />
+    <Compile Include="STDF\MIRRecord.cs" />
+    <Compile Include="STDF\MPRRecord.cs" />
+    <Compile Include="STDF\MRRRecord.cs" />
+    <Compile Include="STDF\PCRRecord.cs" />
+    <Compile Include="STDF\PGRRecord.cs" />
+    <Compile Include="STDF\PIRRecord.cs" />
+    <Compile Include="STDF\PLRRecord.cs" />
+    <Compile Include="STDF\PLR_GRP_MODE.cs" />
+    <Compile Include="STDF\PLR_GRP_RADX.cs" />
+    <Compile Include="STDF\PMRRecord.cs" />
+    <Compile Include="STDF\PRRRecord.cs" />
+    <Compile Include="STDF\PTRRecord.cs" />
+    <Compile Include="STDF\RDRRecord.cs" />
+    <Compile Include="STDF\RTN_STAT.cs" />
+    <Compile Include="STDF\SBRRecord.cs" />
+    <Compile Include="STDF\SDRRecord.cs" />
+    <Compile Include="STDF\StatusMessage.cs" />
+    <Compile Include="STDF\STDFFileMode.cs" />
+    <Compile Include="STDF\STDFManager.cs" />
+    <Compile Include="STDF\STDFRecord.cs" />
+    <Compile Include="STDF\STDFRecordIndex.cs" />
+    <Compile Include="STDF\STDFRecordKeys.cs" />
+    <Compile Include="STDF\STDFRecordType.cs" />
+    <Compile Include="STDF\STDFRecord_IDX.cs" />
+    <Compile Include="STDF\TSRRecord.cs" />
+    <Compile Include="STDF\WCRRecord.cs" />
+    <Compile Include="STDF\WIRRecord.cs" />
+    <Compile Include="STDF\WRRRecord.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

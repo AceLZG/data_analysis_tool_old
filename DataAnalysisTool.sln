@@ -1,9 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAnalysisTool", "DataAnalysisTool\DataAnalysisTool.csproj", "{235B6AD7-18D2-40B6-8387-29DC4DADAAC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanchip.Data", "..\Vanchip Library\Vanchip.Data\Vanchip.Data.csproj", "{1295CBB6-FC48-410A-A327-119A7694B920}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanchip.Data", "Vanchip.Data\Vanchip.Data.csproj", "{1295CBB6-FC48-410A-A327-119A7694B920}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
