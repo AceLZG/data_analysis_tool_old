@@ -50,19 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>DXxDUv5Wc6LR+BaKJnv/Hp21bgI=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Core.dll" size="4331520">
-      <assemblyIdentity name="IKVM.OpenJDK.Core" version="7.2.4630.5" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>JMxSY0zzpnG7U9EZD8QFbtIi8Sk=</dsig:DigestValue>
+        <dsig:DigestValue>HcKLwiKe6Sp42b5qv+KHr5xomjA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -79,26 +67,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="stdf4j-0.0.2.dll" size="35328">
-      <assemblyIdentity name="stdf4j-0.0.2" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="STDF Viewer.dll" size="41472">
+      <assemblyIdentity name="STDF Viewer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Mwc9Zcm6/l7nVM+hYxCpPe5c5sQ=</dsig:DigestValue>
+        <dsig:DigestValue>l/SBFDgh2r/BjAeG8OfeCwVengM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Vanchip.Data.dll" size="139264">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Vanchip.Data.dll" size="145408">
       <assemblyIdentity name="Vanchip.Data" version="0.9.1.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>OtpUF7RVTNCyF2UlsYKzQ4smI+Y=</dsig:DigestValue>
+        <dsig:DigestValue>7YvVsUKwQ/kZP1UG3EK8tl0rIyA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

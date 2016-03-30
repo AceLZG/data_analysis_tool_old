@@ -3,7 +3,9 @@
 ///     Rev1.1      Add dual site data fetch function                                           AceLi       2012-02-25
 ///     Rev1.2      Fixed some bug in dual site data fetch                                      Ace Li      2012-03-06
 ///     Rev1.2.1    Fixed some bug when test data file is incompelete                           Ace Li      2012-03-24
-///     Rev1.9.0.0  Add STDF file parse solution
+///     Rev1.9.0.0  Add STDF file parse solution                                                Ace Li      2015-01-01
+///     Rev2.0.0.0  rewrite stdf lib, using stdf viewer for std/stdf file 
+///                 add function GetDataFromStdfviewer()                                        Ace Li      2016-03-31
 
 
 using System;
@@ -18,6 +20,7 @@ using LumenWorks.Framework.IO.Csv;
 using Vanchip.Common;
 using System.ComponentModel;
 using STDF_V4;
+using STDF_Viewer;
 
 
 namespace Vanchip.Data
@@ -2226,6 +2229,480 @@ namespace Vanchip.Data
                 //Parallel.ForEach(arrayFileName, fileName =>
                 {
                     DataParseResultTemp = this.GetDataFromStd(fileName);
+
+                    #region *** Caculate Properties ***
+                    header.SessionCount++;
+
+                    parseTime += m_ParseTime;
+                    insertTime += m_InsertTime;
+                    testedDevice += m_TestedDevice;
+                    passedDevice += m_PassedDevice;
+                    failedDevice += m_FailedDevice;
+
+                    header.FailQuantity += m_Header.FailQuantity;
+                    header.LotQuantity += m_Header.LotQuantity;
+                    header.PassQuantity += m_Header.PassQuantity;
+                    header.TestQuantity += m_Header.TestQuantity;
+                    header.enVision_Version = m_Header.enVision_Version;
+
+                    if (isFirstFile)
+                    {
+                        header.LotID = m_Header.LotID;
+                        header.SubLotID = m_Header.SubLotID;
+                        header.OperatorID = m_Header.OperatorID;
+                        header.TestBoard = m_Header.TestBoard;
+                        header.DeviceName = m_Header.DeviceName;
+                        header.Tester = m_Header.Tester;
+                        header.Handler = m_Header.Handler;
+                        header.TesterType = m_Header.TesterType;
+                        header.Product = m_Header.Product;
+                        header.ProgramRev = m_Header.ProgramRev;
+
+                        dtLotStart = Convert.ToDateTime(m_Header.LotStartDateTime);
+                        dtLotFinish = Convert.ToDateTime(m_Header.LotFinishDateTime);
+
+                        isFirstFile = false;
+                    }
+                    else
+                    {
+                        if (m_Header.LotID != "" && m_Header.LotID != null)
+                            header.LotID = header.LotID + " & " + m_Header.LotID;
+
+                        if (m_Header.SubLotID != "" && m_Header.SubLotID != null)
+                            header.SubLotID = header.SubLotID + " & " + m_Header.SubLotID;
+
+                        if (m_Header.OperatorID != "" && m_Header.OperatorID != null)
+                            header.OperatorID = header.OperatorID + " & " + m_Header.OperatorID;
+
+                        if (m_Header.TestBoard != "" && m_Header.TestBoard != null)
+                            header.TestBoard = header.TestBoard + " & " + m_Header.TestBoard;
+
+                        if (m_Header.Tester != "" && m_Header.Tester != null)
+                            header.Tester = header.Tester + " & " + m_Header.Tester;
+
+                        if (m_Header.TesterType != "" && m_Header.TesterType != null)
+                            header.TesterType = header.TesterType + " & " + m_Header.TesterType;
+
+                        if (m_Header.Handler != "" && m_Header.Handler != null)
+                            header.Handler = header.Handler + " & " + m_Header.Handler;
+
+                        //Lot Start Datetime
+                        if (m_Header.LotStartDateTime < dtLotStart)
+                        {
+                            dtLotStart = m_Header.LotStartDateTime;
+                        }
+                        //Lot Finish Datetime
+                        if (m_Header.LotFinishDateTime > dtLotFinish)
+                        {
+                            dtLotFinish = m_Header.LotFinishDateTime;
+                        }
+
+                        //Check Product Name
+                        if (m_Header.Product != header.Product)
+                        {
+                            throw new Exception("file " + fileName + " has different Product name with before.");
+                        }
+                        //Check Program Rev
+                        if (m_Header.ProgramRev != header.ProgramRev)
+                        {
+                            throw new Exception("file " + fileName + " has different Program Rev with before.");
+                        }
+                    }//end of if firstfile
+
+                    header.Yield = Math.Round(Convert.ToDouble(header.PassQuantity) / Convert.ToDouble(header.TestQuantity) * 100, 3);
+                    header.LotStartDateTime = dtLotStart;
+                    header.LotFinishDateTime = dtLotFinish;
+
+                    for (int i = 0; i < 8; i++)
+                    {
+                        bin.DeviceCount[i] += m_Bin.DeviceCount[i];
+                        bin.Name[i] = m_Bin.Name[i];
+                        bin.Number[i] = m_Bin.Number[i];
+                        bin.Percent[i] = Math.Round(Convert.ToDouble(bin.DeviceCount[i]) / Convert.ToDouble(m_TestedDevice) * 100, 3);
+                    }
+                    #endregion *** Caculate Properties ***
+
+                    #region *** Merge Data Table ***
+                    if (isFirstTable)
+                    {
+                        isFirstTable = false;
+                        //Build table structure
+                        DataParseResult = DataParseResultTemp.Clone();
+                        foreach (DataRow dr in DataParseResultTemp.Rows)
+                        {
+                            DataParseResult.ImportRow(dr);
+                        }
+                        //get first table device count
+                        deviceCount = DataParseResult.Rows.Count - 4;
+                    }
+                    else
+                    {
+                        //merge less columns datatable to more columns datatable
+                        if (DataParseResultTemp.Columns.Count > DataParseResult.Columns.Count)
+                        {
+                            foreach (DataRow dr in DataParseResult.Rows)
+                            {
+                                if (DataParseResult.Rows.IndexOf(dr) > 3)
+                                {
+                                    //reset device count
+                                    deviceCount++;
+                                    dr[0] = deviceCount;
+                                    DataParseResultTemp.ImportRow(dr);
+                                    //Move Status Column to last
+                                    int lastRowIndex = DataParseResultTemp.Rows.Count - 1;
+                                    int lastColumnIndex = DataParseResultTemp.Columns.Count - 1;
+                                    DataParseResultTemp.Rows[lastRowIndex][lastColumnIndex] = dr[DataParseResult.Columns.Count - 1];
+                                    DataParseResultTemp.Rows[lastRowIndex][DataParseResult.Columns.Count - 1] = null;
+                                }
+                            }
+                            DataParseResult = DataParseResultTemp;
+                        }
+                        else
+                        {
+                            foreach (DataRow dr in DataParseResultTemp.Rows)
+                            {
+                                if (DataParseResultTemp.Rows.IndexOf(dr) > 3)
+                                {
+                                    //reset device count
+                                    deviceCount++;
+                                    dr[0] = deviceCount;
+                                    DataParseResult.ImportRow(dr);
+                                    //Move Status Column to last
+                                    if (DataParseResultTemp.Columns.Count < DataParseResult.Columns.Count)
+                                    {
+                                        int lastRowIndex = DataParseResult.Rows.Count - 1;
+                                        int lastColumnIndex = DataParseResult.Columns.Count - 1;
+                                        DataParseResult.Rows[lastRowIndex][lastColumnIndex] = dr[DataParseResultTemp.Columns.Count - 1];
+                                        DataParseResult.Rows[lastRowIndex][DataParseResultTemp.Columns.Count - 1] = null;
+                                    }
+                                }
+                            }//end of foreach (DataRow dr in DataParseResultTemp.Rows)
+                        }//end of if (DataParseResultTemp.Columns.Count > DataParseResult.Columns.Count)
+                    }// end of if else (isFirstTable)
+
+                    #endregion *** Merge Data Table ***
+
+                }//);//end of foreach (string fileName in arrayFileName)
+
+                #region *** Final Properties ***
+                m_Bin = bin;
+                m_Header = header;
+                m_FailedDevice = failedDevice;
+                m_PassedDevice = passedDevice;
+                m_TestedDevice = testedDevice;
+                m_ParseTime = parseTime;
+                m_InsertTime = insertTime;
+
+                #endregion *** Final Properties ***
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Parse data error \n " + ex.Message);
+            }
+
+            #endregion *** Parse test data from txt file ***
+
+            DataParseResult.PrimaryKey = new DataColumn[] { DataParseResult.Columns[0] };
+            return DataParseResult;
+        }
+
+        ///<summary>
+        ///<para>Parse test data from LTX std test result in to datatable(use stdf viewer tool)</para>
+        ///<seealso cref="DataParse.GetDataFromTxt"/>
+        ///</summary>
+        /// <param name="fileName">Full patch with file name of the std/stdf file</param>
+        /// <returns>DataTable</returns>
+        public DataTable GetDataFromStdfviewer(string fileName)
+        {
+            #region *** Variable define ***
+            DateTime dtStart;
+            TimeSpan ts;
+
+            DataRow dr;
+            DataTable temp_header = new DataTable();
+            DataTable temp_data = new DataTable();
+            DataTable DataParseResult = new DataTable();
+            StringBuilder sbData1 = new StringBuilder();
+            StringBuilder sbData2 = new StringBuilder();
+
+            StringBuilder sbColumnName = new StringBuilder("Device#,1,2,3,4");
+            StringBuilder sbParameter = new StringBuilder("Test Item,Site No,Soft Bin,Hard Bin,Device ID");
+            StringBuilder sbLowLimit = new StringBuilder("Low Limit,,,,");
+            StringBuilder sbHighLimit = new StringBuilder("High Limit,,,,");
+            StringBuilder sbUnits = new StringBuilder("Units,,,,");
+
+            bool isLimitSet = false;
+            int ParameterLength = 0;
+            int intColumnLength = 0;
+            int intDeviceCounter = 1;
+            int i;
+
+            string PassFail1, PassFail2;
+
+
+            #endregion *** Variable define ***
+
+            #region *** Initialize properties ***
+            m_FreezeColumn = 5;
+            m_ParseTime = 0;
+            m_InsertTime = 0;
+            m_TestedDevice = 0;
+            m_PassedDevice = 0;
+            m_FailedDevice = 0;
+            m_Header = new DataHeader();
+            m_Bin = new Bin();
+            m_Bin.DeviceCount = new int[8];
+            m_Bin.Name = new string[8];
+            m_Bin.Number = new int[8];
+            m_Bin.Percent = new double[8];
+
+            m_Header.SessionCount = 0;
+
+            #endregion *** Initialize properties ***
+
+            //Timer session
+            dtStart = DateTime.Now;
+
+            #region // Analysis stdf file
+            STDF_Viewer.Record stdf_viewer = new STDF_Viewer.Record();
+            stdf_viewer.AnalyzeFile(fileName);
+            temp_header = stdf_viewer.GetHeaderStr();
+            temp_data = stdf_viewer.GetData();
+            #endregion
+
+            #region // Build datatable
+            int col_index = 0;
+            foreach (DataColumn temp_dc in temp_data.Columns)
+            {
+                if (col_index == 0)
+                    DataParseResult.Columns.Add("Device#", typeof(string));
+                else
+                {
+                    DataParseResult.Columns.Add(col_index.ToString(), typeof(string));
+
+                    if (col_index >= 5)
+                        sbParameter.Append("," + temp_dc.ColumnName.ToString());
+                }
+
+                col_index++;
+            }
+            #endregion
+
+            #region // insert test decription
+            col_index =0;
+            DataRow dr_Parameter = DataParseResult.NewRow();
+            string[] temp_array_Parameter = sbParameter.ToString().Split(',');
+            foreach (string temp_Parameter in temp_array_Parameter)
+            {
+                dr_Parameter[col_index] = temp_Parameter;
+                col_index++;
+            }
+            DataParseResult.Rows.Add(dr_Parameter);
+            #endregion
+
+            #region // Insert unit and limit
+            int row_index =0;
+            col_index = 0;
+            Dictionary<int, double> dic_multiplier = new Dictionary<int, double>();
+
+            foreach (DataRow temp_dr in temp_data.Rows)
+            {
+                //initialize the unit nultiplier
+                if (row_index == 0)
+                {
+                    temp_dr[0] = "Unit";
+                    for (col_index = 5; col_index < temp_dr.ItemArray.Length; col_index++)
+                    {
+                        if (temp_dr[col_index].ToString().ToUpper() == "A")
+                        {
+                            if (temp_data.Columns[col_index].ToString().ToLower().Contains("leakage"))
+                            {
+                                temp_dr[col_index] = "uA";
+                                dic_multiplier.Add(col_index, 1000 * 1000);
+                            }
+                            else
+                            {
+                                temp_dr[col_index] = "mA";
+                                dic_multiplier.Add(col_index, 1000);
+                            }
+                        }
+                        else if (temp_dr[col_index].ToString().ToUpper() == "S")
+                        {
+                            temp_dr[col_index] = "ms";
+                            dic_multiplier.Add(col_index, 1000);
+                        }
+                        else if (temp_data.Columns[col_index].ToString().ToLower().Contains("status"))
+                        {
+                            dic_multiplier.Add(col_index, 5272); // 5272 is keyValue for pass/fail columns
+                        }
+                    }
+                }
+                else
+                {
+                    if (row_index == 1)
+                        temp_dr[0] = "Low Limit";
+                    else if (row_index == 2)
+                        temp_dr[0] = "High Limit";
+
+                    // apply unit multiplier
+                    foreach (var item in dic_multiplier)
+                    {
+                        if (item.Value != 5272) temp_dr[item.Key] = Convert.ToDouble(temp_dr[item.Key]) * item.Value;
+                    }
+                }
+
+                DataParseResult.Rows.Add (temp_dr.ItemArray);
+
+                row_index++;
+                if (row_index > 2) break;
+            }
+            #endregion
+
+            #region // insert data
+            // remove limit and unit which none float rows
+            temp_data.Rows.RemoveAt(0);
+            temp_data.Rows.RemoveAt(0);
+            temp_data.Rows.RemoveAt(0);
+
+            // unit convertion (A -> mA / uA, S -> ms )
+            // generate extra columns by using multiplier then copy to new datatable
+            DataTable temp_data_mid = new DataTable();
+            temp_data_mid = temp_data.Clone();
+            for (col_index = 0; col_index < temp_data.Columns.Count; col_index++)
+            {
+                if (col_index < 5)
+                    temp_data_mid.Columns[col_index].DataType = typeof(int);
+                else if (col_index == temp_data.Columns.Count - 1)
+                    temp_data_mid.Columns[col_index].DataType = typeof(int);
+                else
+                    temp_data_mid.Columns[col_index].DataType = typeof(float);
+            }
+            
+            foreach (DataRow dr_mid in temp_data.Rows)
+            {
+                temp_data_mid.Rows.Add(dr_mid.ItemArray);
+            }
+            for (col_index = 0; col_index < temp_data.Columns.Count; col_index++)
+            {
+                DataColumn dc_temp_mid = new DataColumn(col_index.ToString(), typeof(string));
+                temp_data_mid.Columns.Add(dc_temp_mid);
+                // set exrpession
+                if (dic_multiplier.ContainsKey(col_index))
+                {
+                    if (dic_multiplier[col_index] == 5272)
+                        dc_temp_mid.Expression = "IIF(" + temp_data_mid.Columns[col_index].ColumnName + "=0, 'Pass', 'Fail')";
+                    else
+                        dc_temp_mid.Expression = "[" + temp_data_mid.Columns[col_index].ColumnName + "] * " + dic_multiplier[col_index];
+                }
+                else
+                    dc_temp_mid.Expression = "[" + temp_data_mid.Columns[col_index].ColumnName + "] * 1";
+                
+            }
+
+            int start = DataParseResult.Columns.Count;
+            int length = start;
+            foreach (DataRow dr_temp in temp_data_mid.Rows)
+            {
+                object[] arr_temp = new object[length];
+                Array.ConstrainedCopy(dr_temp.ItemArray, start, arr_temp, 0, length);
+                DataParseResult.Rows.Add(arr_temp);
+            }
+            #endregion
+
+            #region // header info
+            Dictionary<string, string> dic_header = new Dictionary<string, string>();
+            foreach (DataRow dc_header in temp_header.Rows)
+            {
+                dic_header.Add(dc_header[0].ToString().Trim(), dc_header[1].ToString().Trim());
+            }
+
+            string temp = dic_header["MIR.JOB_NAM"];
+            this.GetProgramNameRev(temp);
+
+            m_Header.SessionCount++;
+
+            m_Header.enVision_Version = dic_header["MIR.EXEC_VER"];
+            m_Header.LotID = dic_header["MIR.LOT_ID"];
+            m_Header.Tester = dic_header["MIR.NODE_NAM"];
+            m_Header.DeviceName = dic_header["MIR.PART_TYP"];
+            m_Header.SubLotID = dic_header["MIR.SBLOT_ID"];
+            m_Header.LotStartDateTime = DateTime.Parse(dic_header["MIR.START_T"]);
+            m_Header.TesterType = dic_header["MIR.TSTR_TYP"];
+
+            //m_Header.LotFinishDateTime = DateTime.Parse(dic_header["MRR.FINISH_T"]);
+            //m_Header.LotDesc = dic_header["MRR.USR_DESC"];
+
+            //m_TestedDevice = m_Header.TestQuantity = Convert.ToInt16(dic_header["PCR.PART_CNT"]);
+            //m_PassedDevice = m_Header.PassQuantity = Convert.ToInt16(dic_header["PCR.GOOD_CNT"]);
+            //m_FailedDevice = m_Header.FailQuantity = m_Header.TestQuantity - m_Header.PassQuantity;
+            ////Yield
+            //double yield = Convert.ToDouble(m_Header.PassQuantity) / Convert.ToDouble(m_Header.TestQuantity) * 100;
+            //m_Header.Yield = Math.Round(yield, 2);
+
+            #endregion
+
+            //Timer session
+            ts = DateTime.Now - dtStart;
+            ParseTime = ts.TotalMilliseconds;
+            dtStart = DateTime.Now;
+
+            //DataParseResult.PrimaryKey = new DataColumn[] { DataParseResult.Columns[0] };
+            return DataParseResult;
+            //throw new Exception("ooops");
+        }
+
+        ///<summary>
+        ///<para>Parse test data from LTX stdf test result in to datatable (multifile)</para>
+        ///<seealso cref="DataParse.GetDataFromStd"/>
+        ///</summary>
+        /// <param name="fileName">Full patch with file name of the stdf file (multifile)</param>
+        /// <returns>DataTable</returns>
+        public DataTable GetDataFromStdfviewer(string[] arrayFileName)
+        {
+
+            #region *** Variable define ***
+            DataTable DataParseResult = new DataTable();
+            DataTable DataParseResultTemp = new DataTable();
+
+            double parseTime = 0;
+            double insertTime = 0;
+
+            int deviceCount = 0;
+
+            int testedDevice = 0;
+            int passedDevice = 0;
+            int failedDevice = 0;
+
+            DataHeader header = new Common.DataHeader();
+            Bin bin = new Common.Bin();
+
+            bool isFirstFile = true;
+            bool isFirstTable = true;
+
+            DateTime dtLotStart = DateTime.Now;
+            DateTime dtLotFinish = DateTime.Now;
+
+            Dictionary<string, int> headerDic = new Dictionary<string, int>();
+
+            #endregion *** Variable define ***
+
+            #region *** Innitial Properties ***
+            bin.DeviceCount = new int[8];
+            bin.Name = new string[8];
+            bin.Number = new int[8];
+            bin.Percent = new double[8];
+
+            header.SessionCount = 0;
+
+            #endregion *** Innitial Properties ***
+
+            #region *** Get and merge data table ***
+            try
+            {
+                foreach (string fileName in arrayFileName)
+                //Parallel.ForEach(arrayFileName, fileName =>
+                {
+                    DataParseResultTemp = this.GetDataFromStdfviewer(fileName);
 
                     #region *** Caculate Properties ***
                     header.SessionCount++;

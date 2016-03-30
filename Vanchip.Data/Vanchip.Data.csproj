@@ -78,21 +78,12 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IKVM.OpenJDK.Core">
-      <HintPath>..\..\_Resources\Useful Libraries &amp; Samples\ikvmbin-7.2.4630.5\bin\IKVM.OpenJDK.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="IKVM.OpenJDK.XML.Parse">
-      <HintPath>..\..\_Resources\Useful Libraries &amp; Samples\ikvmbin-7.2.4630.5\bin\IKVM.OpenJDK.XML.Parse.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="LumenWorks.Framework.IO">
       <HintPath>Reference\CsvReader\LumenWorks.Framework.IO.dll</HintPath>
     </Reference>
-    <Reference Include="stdf4j-0.0.2, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\_Resources\Useful Libraries &amp; Samples\stdf\stdf4j-0.0.2.dll</HintPath>
+    <Reference Include="STDF Viewer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\STDF Viewer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -108,7 +99,6 @@
     <Compile Include="db.cs" />
     <Compile Include="Export.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="stdfv4.cs" />
     <Compile Include="STDF\ATRRecord.cs" />
     <Compile Include="STDF\BPSRecord.cs" />
     <Compile Include="STDF\BYTE_ORIENTATION.cs" />

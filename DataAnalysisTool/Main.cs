@@ -1,10 +1,11 @@
 ﻿///     Reversion history log
-///     Rev1.0      Initie build                                                                Ace Li      2011-10-21
-///     Rev1.1      Add dual site data analysis                                                 Ace Li      2012-02-25
-///     Rev1.2      Update dual site KGU analysis and JMP analysis                              Ace Li      2012-03-06
-///     Rev1.3      Add JMP script build function
-///                 support test time and index time caculation based on the unit               Ace Li      2012-07-04
-///     Rev1.3.1    Add support to Advantest test data                                          Ace Li      2014-06-19
+///     Rev1.0          Initie build                                                                Ace Li      2011-10-21
+///     Rev1.1          Add dual site data analysis                                                 Ace Li      2012-02-25
+///     Rev1.2          Update dual site KGU analysis and JMP analysis                              Ace Li      2012-03-06
+///     Rev1.3          Add JMP script build function
+///                     support test time and index time caculation based on the unit               Ace Li      2012-07-04
+///     Rev1.3.1        Add support to Advantest test data                                          Ace Li      2014-06-19
+///     Rev2.1.0.0      upgrade atdf lib                                                            Ace Li      2016-03-31
 
 using System;
 using System.Collections.Generic;
@@ -830,7 +831,7 @@ namespace DataAnalysisTool
             OpenFile = new OpenFileDialog();
             OpenFile.RestoreDirectory = true;
             OpenFile.Multiselect = true;
-            OpenFile.Filter = "TXT data file(*.txt)|*.txt|STDF data file(*.std)|*.std|Acetech data file(*.csv)|*.csv";
+            OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt|Acetech data file(*.csv)|*.csv";
             //OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt";
             OpenFile.ReadOnlyChecked = true;
 
@@ -873,12 +874,13 @@ namespace DataAnalysisTool
                     else if (strFileName.Length > 1)
                         tblData = _DataParse.GetDataFromTxt(strFileName);
                 }
-                else if (strExtension.ToLower() == ".std")
+                else if (strExtension.ToLower() == ".std" || strExtension.ToLower() == ".stdf")
                 {
                     if (strFileName.Length == 1)
-                        tblData = _DataParse.GetDataFromStd(strFileName[0]);
+                        //tblData = _DataParse.GetDataFromStd(strFileName[0]);
+                        tblData = _DataParse.GetDataFromStdfviewer(strFileName[0]);
                     else if (strFileName.Length > 1)
-                        tblData = _DataParse.GetDataFromStd(strFileName);
+                        tblData = _DataParse.GetDataFromStdfviewer(strFileName);
                 }
                 else if (strExtension.ToLower() == ".csv")
                 {
@@ -3097,12 +3099,6 @@ namespace DataAnalysisTool
             //_DataParse.Header = tHeader;
             #endregion ---
 
-        }
-
-        private void sTDFTestToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            stdfv4 atdf = new stdfv4();
-            atdf.stdf_parse();
         }
 
         private void dBTestToolStripMenuItem_Click(object sender, EventArgs e)

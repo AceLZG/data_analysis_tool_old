@@ -68,7 +68,6 @@
             this.testPlanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildKGUFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sTDFTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dBTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -365,7 +364,7 @@
             this.testLimitToolStripMenuItem,
             this.testPlanToolStripMenuItem});
             this.productionTestInfoToolStripMenuItem.Name = "productionTestInfoToolStripMenuItem";
-            this.productionTestInfoToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
+            this.productionTestInfoToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
             this.productionTestInfoToolStripMenuItem.Text = "Production Test";
             // 
             // kGUToolStripMenuItem1
@@ -397,30 +396,22 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buildKGUFileToolStripMenuItem,
-            this.sTDFTestToolStripMenuItem,
             this.dBTestToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // buildKGUFileToolStripMenuItem
             // 
             this.buildKGUFileToolStripMenuItem.Name = "buildKGUFileToolStripMenuItem";
-            this.buildKGUFileToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.buildKGUFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.buildKGUFileToolStripMenuItem.Text = "Build KGU file";
             this.buildKGUFileToolStripMenuItem.Click += new System.EventHandler(this.buildKGUFileToolStripMenuItem_Click);
-            // 
-            // sTDFTestToolStripMenuItem
-            // 
-            this.sTDFTestToolStripMenuItem.Name = "sTDFTestToolStripMenuItem";
-            this.sTDFTestToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.sTDFTestToolStripMenuItem.Text = "STDF_Test";
-            this.sTDFTestToolStripMenuItem.Click += new System.EventHandler(this.sTDFTestToolStripMenuItem_Click);
             // 
             // dBTestToolStripMenuItem
             // 
             this.dBTestToolStripMenuItem.Name = "dBTestToolStripMenuItem";
-            this.dBTestToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.dBTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dBTestToolStripMenuItem.Text = "DB_Test";
             this.dBTestToolStripMenuItem.Click += new System.EventHandler(this.dBTestToolStripMenuItem_Click);
             // 
@@ -471,14 +462,14 @@
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // dBVersionToolStripMenuItem
             // 
             this.dBVersionToolStripMenuItem.Name = "dBVersionToolStripMenuItem";
-            this.dBVersionToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.dBVersionToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.dBVersionToolStripMenuItem.Text = "DB Version";
             // 
             // flowLayoutPanel1
@@ -688,7 +679,6 @@
 
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buildKGUFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sTDFTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dBTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem productionTestInfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kGUToolStripMenuItem1;

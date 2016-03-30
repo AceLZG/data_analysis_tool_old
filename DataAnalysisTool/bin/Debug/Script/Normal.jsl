@@ -1,4 +1,0 @@
-Overlay Plot(
-	Overlay( 0 ),
-	Ungroup Plots( 1 )
-);
