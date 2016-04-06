@@ -2592,10 +2592,16 @@ namespace Vanchip.Data
                     if (dic_multiplier[col_index] == 5272)
                         dc_temp_mid.Expression = "IIF(" + temp_data_mid.Columns[col_index].ColumnName + "=0, 'Pass', 'Fail')";
                     else
+                    {
                         dc_temp_mid.Expression = "[" + temp_data_mid.Columns[col_index].ColumnName + "] * " + dic_multiplier[col_index];
+                        //dc_temp_mid.Expression = "Convert([" + temp_data_mid.Columns[col_index].ColumnName + "] * " + dic_multiplier[col_index] + " * 1000, 'System.Int32')/1000";
+                    }
                 }
                 else
+                {
                     dc_temp_mid.Expression = "[" + temp_data_mid.Columns[col_index].ColumnName + "] * 1";
+                    //dc_temp_mid.Expression = "Convert([" + temp_data_mid.Columns[col_index].ColumnName + "] * 1000, 'System.Int32')/1000";
+                }
                 
             }
 
@@ -2607,6 +2613,10 @@ namespace Vanchip.Data
                 Array.ConstrainedCopy(dr_temp.ItemArray, start, arr_temp, 0, length);
                 DataParseResult.Rows.Add(arr_temp);
             }
+
+            // set primary key
+            DataParseResult.PrimaryKey = new DataColumn[] { DataParseResult.Columns[0] };
+
             #endregion
 
             #region // header info
@@ -2626,18 +2636,43 @@ namespace Vanchip.Data
             m_Header.Tester = dic_header["MIR.NODE_NAM"];
             m_Header.DeviceName = dic_header["MIR.PART_TYP"];
             m_Header.SubLotID = dic_header["MIR.SBLOT_ID"];
-            m_Header.LotStartDateTime = DateTime.Parse(dic_header["MIR.START_T"]);
             m_Header.TesterType = dic_header["MIR.TSTR_TYP"];
+            m_Header.TestSession = dic_header["MIR.TEST_COD"];
+            try
+            {
+                m_Header.LotStartDateTime = DateTime.Parse(dic_header["MIR.START_T"]);
+            }
+            catch
+            {
+                m_Header.LotStartDateTime = DateTime.Parse("1900-1-1 0:00");
+            }
 
-            //m_Header.LotFinishDateTime = DateTime.Parse(dic_header["MRR.FINISH_T"]);
-            //m_Header.LotDesc = dic_header["MRR.USR_DESC"];
+            try
+            {
+                m_Header.LotFinishDateTime = DateTime.Parse(dic_header["MRR.FINISH_T"]);
+            }
+            catch
+            {
+                m_Header.LotFinishDateTime = DateTime.Parse("1900-1-1 0:00");
+            }
 
-            //m_TestedDevice = m_Header.TestQuantity = Convert.ToInt16(dic_header["PCR.PART_CNT"]);
-            //m_PassedDevice = m_Header.PassQuantity = Convert.ToInt16(dic_header["PCR.GOOD_CNT"]);
-            //m_FailedDevice = m_Header.FailQuantity = m_Header.TestQuantity - m_Header.PassQuantity;
-            ////Yield
-            //double yield = Convert.ToDouble(m_Header.PassQuantity) / Convert.ToDouble(m_Header.TestQuantity) * 100;
-            //m_Header.Yield = Math.Round(yield, 2);
+            m_Header.LotDesc = dic_header["MRR.USR_DESC"];
+
+            m_TestedDevice = m_Header.TestQuantity = Convert.ToInt32(dic_header["PCR.PART_CNT"]);
+            if (m_TestedDevice == 0) m_TestedDevice = m_Header.TestQuantity = DataParseResult.Rows.Count - 4;
+
+
+            m_PassedDevice = m_Header.PassQuantity = Convert.ToInt32(dic_header["PCR.GOOD_CNT"]);
+            if (m_PassedDevice == 0)
+            {
+                DataRow[] drs = DataParseResult.Select("[" + (DataParseResult.Columns.Count - 1) + "] Like 'Pass'");
+                m_PassedDevice = m_Header.PassQuantity = drs.Count();
+            }
+
+            m_FailedDevice = m_Header.FailQuantity = m_Header.TestQuantity - m_Header.PassQuantity;
+            //Yield
+            double yield = Convert.ToDouble(m_Header.PassQuantity) / Convert.ToDouble(m_Header.TestQuantity) * 100;
+            m_Header.Yield = Math.Round(yield, 2);
 
             #endregion
 
@@ -2646,7 +2681,7 @@ namespace Vanchip.Data
             ParseTime = ts.TotalMilliseconds;
             dtStart = DateTime.Now;
 
-            //DataParseResult.PrimaryKey = new DataColumn[] { DataParseResult.Columns[0] };
+            DataParseResult.PrimaryKey = new DataColumn[] { DataParseResult.Columns[0] };
             return DataParseResult;
             //throw new Exception("ooops");
         }
@@ -2731,6 +2766,7 @@ namespace Vanchip.Data
                         header.TesterType = m_Header.TesterType;
                         header.Product = m_Header.Product;
                         header.ProgramRev = m_Header.ProgramRev;
+                        header.TestSession = m_Header.TestSession;
 
                         dtLotStart = Convert.ToDateTime(m_Header.LotStartDateTime);
                         dtLotFinish = Convert.ToDateTime(m_Header.LotFinishDateTime);
@@ -2759,6 +2795,9 @@ namespace Vanchip.Data
 
                         if (m_Header.Handler != "" && m_Header.Handler != null)
                             header.Handler = header.Handler + " & " + m_Header.Handler;
+
+                        if (m_Header.TestSession != "" && m_Header.TestSession != null)
+                            header.TestSession = header.TestSession + " & " + m_Header.TestSession;
 
                         //Lot Start Datetime
                         if (m_Header.LotStartDateTime < dtLotStart)

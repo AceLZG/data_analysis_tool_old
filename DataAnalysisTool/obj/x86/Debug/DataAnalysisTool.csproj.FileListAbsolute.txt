@@ -260,9 +260,6 @@ C:\Users\Ace\Documents\Vanchip\Project\Project_DataAnalysisTool\DataAnalysisTool
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.csproj.ResolveComReference.cache
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.exe
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.pdb
-\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Main.resx
-\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Main.cs
-\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Main.Designer.cs
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.exe.manifest
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.application
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.exe
@@ -308,3 +305,4 @@ C:\Users\Ace\Documents\Vanchip\Project\Project_DataAnalysisTool\DataAnalysisTool
 \\Mac\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.exe.manifest
 \\Mac\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x86\Debug\DataAnalysisTool.application
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\STDF Viewer.dll
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\STDF Viewer.pdb

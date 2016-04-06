@@ -5,7 +5,7 @@
 ///     Rev1.3          Add JMP script build function
 ///                     support test time and index time caculation based on the unit               Ace Li      2012-07-04
 ///     Rev1.3.1        Add support to Advantest test data                                          Ace Li      2014-06-19
-///     Rev2.1.0.0      upgrade atdf lib                                                            Ace Li      2016-03-31
+///     Rev2.1.0.0      upgrade stdf lib                                                            Ace Li      2016-03-31
 
 using System;
 using System.Collections.Generic;
@@ -232,6 +232,11 @@ namespace DataAnalysisTool
                     try
                     {
                         double dblCellValue = Convert.ToDouble(e.Value);
+                        // format as #.000
+                        dblCellValue = Convert.ToInt32(dblCellValue * 1000);
+                        dblCellValue = dblCellValue / 1000;
+                        e.Value = dblCellValue;
+
                         double dblLowLimit = Convert.ToDouble(dgvData.Rows[2].Cells[e.ColumnIndex].Value);
                         double dblHighLimit = Convert.ToDouble(dgvData.Rows[3].Cells[e.ColumnIndex].Value);
 
@@ -479,8 +484,8 @@ namespace DataAnalysisTool
 
 
             //Dispaly Parse time
-            lblBar.Text = Math.Round(Convert.ToDouble(_DataParse.ParseTime), 2) + "ms / "
-                                               + Math.Round(Convert.ToDouble(_DataParse.InsertTime), 2) + "ms";
+            lblBar.Text = Math.Round(Convert.ToDouble(_DataParse.ParseTime), 2) + "ms";
+                                               //+ Math.Round(Convert.ToDouble(_DataParse.InsertTime), 2) + "ms";
             this.Refresh();
         }
 
@@ -497,34 +502,33 @@ namespace DataAnalysisTool
             {
                 isHeadNull = true;
             }
-            string cachedSafeFileName;
+            string cachedSafeFileName = "";
 
-            if(!isHeadNull)
+            if (!isHeadNull)
             {
                 if (_DataParse.Header.LotID.ToString() != null)
                 {
-                    cachedSafeFileName = _DataParse.Header.LotID.ToString();
+                    cachedSafeFileName += _DataParse.Header.LotID.ToString() + "_";
                 }
-                else if (_DataParse.Header.SubLotID.ToString() != null)
+
+                if (_DataParse.Header.SubLotID.ToString() != null)
                 {
-                    cachedSafeFileName = _DataParse.Header.SubLotID.ToString();
+                    cachedSafeFileName += _DataParse.Header.SubLotID.ToString() + "_";
                 }
-                else
+
+                if (_DataParse.Header.TestSession.ToString() != null)
                 {
-                    cachedSafeFileName = DateTime.Now.ToString();
-                    cachedSafeFileName = cachedSafeFileName.Replace("/", "");
-                    cachedSafeFileName = cachedSafeFileName.Replace(":", "");
-                    cachedSafeFileName = cachedSafeFileName.Replace(" ", "");
+                    cachedSafeFileName += _DataParse.Header.TestSession.ToString() + "_";
                 }
+
             }
-            else
-            {
-                cachedSafeFileName = DateTime.Now.ToString();
-                cachedSafeFileName = cachedSafeFileName.Replace("/", "");
-                cachedSafeFileName = cachedSafeFileName.Replace(":", "");
-                cachedSafeFileName = cachedSafeFileName.Replace(" ", "");
-            }
-            if (suffix !="") cachedSafeFileName = cachedSafeFileName + "_" + suffix;
+            // add datetime sufix for unique filename
+            cachedSafeFileName += DateTime.Now.ToString();
+            cachedSafeFileName = cachedSafeFileName.Replace("/", "");
+            cachedSafeFileName = cachedSafeFileName.Replace(":", "");
+            cachedSafeFileName = cachedSafeFileName.Replace(" ", "");
+
+            if (suffix != "") cachedSafeFileName = cachedSafeFileName + "_" + suffix;
             string TempFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Temp\";
             string tempFileName = TempFolderPath + cachedSafeFileName + ".csv";
             //if temp folder is nor exist, creat it
@@ -818,7 +822,7 @@ namespace DataAnalysisTool
         // *** Open file ***
         private void openToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            DateTime dtStart;
+            DateTime dtStart = DateTime.Now;
             TimeSpan ts;
 
             #region *** Variable define ***
@@ -831,7 +835,7 @@ namespace DataAnalysisTool
             OpenFile = new OpenFileDialog();
             OpenFile.RestoreDirectory = true;
             OpenFile.Multiselect = true;
-            OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt|Acetech data file(*.csv)|*.csv";
+            OpenFile.Filter = "STDF Files(*.std/*.stdf)|*.std;*.stdf|TXT data file(*.txt)|*.txt|Acetech data file(*.csv)|*.csv|All Files|*.*";
             //OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt";
             OpenFile.ReadOnlyChecked = true;
 
@@ -904,7 +908,8 @@ namespace DataAnalysisTool
             this.CacheData("");
             this.RemoveAllTab();
 
-
+            ts = DateTime.Now - dtStart;
+            lblBar.Text += " / " + Math.Round(ts.TotalMilliseconds, 2).ToString() + "ms";
         }
         private void OpenFile_FileOk(object sender, CancelEventArgs e)
         {
@@ -925,7 +930,7 @@ namespace DataAnalysisTool
             OpenFileDialog OpenFile = new OpenFileDialog();
             OpenFile.RestoreDirectory = true;
             OpenFile.Multiselect = true;
-            OpenFile.Filter = "TXT data file(*.txt)|*.txt|STDF data file(*.std)|*.std";
+            OpenFile.Filter = "STDF Files(*.std/*.stdf)|*.std;*.stdf|TXT data file(*.txt)|*.txt|All Files|*.*";
             //OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt";
             if (OpenFile.ShowDialog() != DialogResult.OK) return;
             strFileName = OpenFile.FileNames;
@@ -963,9 +968,9 @@ namespace DataAnalysisTool
                 else if (strExtension.ToLower() == ".std")
                 {
                     if (strFileName.Length == 1)
-                        tblCachedData = _DataParse.GetDataFromStd(strFileName[0]);
+                        tblCachedData = _DataParse.GetDataFromStdfviewer(strFileName[0]);
                     else if (strFileName.Length > 1)
-                        tblCachedData = _DataParse.GetDataFromStd(strFileName);
+                        tblCachedData = _DataParse.GetDataFromStdfviewer(strFileName);
                 }
             }
             catch (Exception ex)
@@ -2417,7 +2422,7 @@ namespace DataAnalysisTool
             #region *** Selected file ***
             OpenFileDialog OpenFile = new OpenFileDialog();
             OpenFile.RestoreDirectory = true;
-            OpenFile.Filter = "TXT data file(*.txt)|*.txt|STDF data file(*.std)|*.std";
+            OpenFile.Filter = "STDF Files(*.std/*.stdf)|*.std|All Files|*.*";
             //OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt";
             if (OpenFile.ShowDialog() != DialogResult.OK) return;
             strKGUPath = OpenFile.FileName;
@@ -2425,8 +2430,8 @@ namespace DataAnalysisTool
             //Import KGU data
             if (strExtension.ToLower() == ".txt")
                 tblKGURaw = _DataParse.GetDataFromTxt(strKGUPath);
-            else if (strExtension.ToLower() == ".std")
-                tblKGURaw = _DataParse.GetDataFromStd(strKGUPath);
+            else if (strExtension.ToLower() == ".std" || strExtension.ToLower() == ".stdf")
+                tblKGURaw = _DataParse.GetDataFromStdfviewer(strKGUPath);
 
             string[] tmp = _DataParse.Header.ProgramRev.Split('.');
             //strGoldenPath = Application.StartupPath + @".\GoldenSample\" + _DataParse.Header.Product.ToString() + "_" + _DataParse.Header.ProgramRev.Substring(0, 2)
