@@ -83,4 +83,3 @@ C:\Users\Ace\Documents\Vanchip\Project\Project_DataAnalysisTool\Vanchip Library\
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.pdb
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.dll
-\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache

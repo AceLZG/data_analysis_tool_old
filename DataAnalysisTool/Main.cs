@@ -71,6 +71,8 @@ namespace DataAnalysisTool
         static string strKGUTabName = "KGU";
         static string strCpkTabName = "Cpk_Limit";
 
+        string workingfolder = "";
+        
         static int TestDeviceColumnIndex = 13;      // !!!important .  used for data add and delete and analysis
 
         #endregion *** Variable declare ***
@@ -852,6 +854,7 @@ namespace DataAnalysisTool
                 if (extTemp == "")
                 {
                     strExtension = Path.GetExtension(name);
+                    workingfolder = Path.GetDirectoryName(name);
                 }
                 extTemp = Path.GetExtension(name);
 
@@ -1686,7 +1689,10 @@ namespace DataAnalysisTool
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "CSV File|*.csv";
                 if (!saveFileDialog1.CheckFileExists)
-                    saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                {
+                    saveFileDialog1.InitialDirectory = workingfolder;
+                    //saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                }
                 //Save Test data
                 if (tabcontrol.SelectedTab.Text == strTestDataTabName)
                 {
