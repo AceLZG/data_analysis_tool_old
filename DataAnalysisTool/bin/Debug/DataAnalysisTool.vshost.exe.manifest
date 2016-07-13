@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Help.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="DataAnalysisTool" version="2.2.1.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="DataAnalysisTool" version="2.2.2.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="DataAnalysisTool.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -44,13 +44,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DataAnalysisTool.exe" size="196096">
-      <assemblyIdentity name="DataAnalysisTool" version="2.2.1.0" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="DataAnalysisTool" version="2.2.2.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>j7zXC5c95PUcaxc/qGzWUFFjDeQ=</dsig:DigestValue>
+        <dsig:DigestValue>WqMgVPlw2z8UInOwp1O2lSqQyog=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -68,13 +68,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="STDF Viewer.dll" size="42496">
-      <assemblyIdentity name="STDF Viewer" version="1.1.0.1" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="STDF Viewer" version="1.2.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>yyceQgo75/SCY/FoJE/8JfQXXsA=</dsig:DigestValue>
+        <dsig:DigestValue>qT2nJYq2XDO/UjCsV3ZYsmPYsjw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +86,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>MhlP7xGyKpIEjdk8xQsd4YabNWI=</dsig:DigestValue>
+        <dsig:DigestValue>4FlP5hKLQA2URncutzSL8fO9j6g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
