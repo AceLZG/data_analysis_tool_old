@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Help.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="DataAnalysisTool" version="2.2.2.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="DataAnalysisTool" version="2.3.0.2" language="neutral" processorArchitecture="x86" />
     <commandLine file="DataAnalysisTool.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DataAnalysisTool.exe" size="196096">
-      <assemblyIdentity name="DataAnalysisTool" version="2.2.2.0" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DataAnalysisTool.exe" size="197632">
+      <assemblyIdentity name="DataAnalysisTool" version="2.3.0.2" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>WqMgVPlw2z8UInOwp1O2lSqQyog=</dsig:DigestValue>
+        <dsig:DigestValue>yRTpX4zj2Mz//qBGZ/+4o9fOynY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -79,14 +79,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Vanchip.Data.dll" size="146432">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Vanchip.Data.dll" size="147968">
       <assemblyIdentity name="Vanchip.Data" version="2.0.2.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>4FlP5hKLQA2URncutzSL8fO9j6g=</dsig:DigestValue>
+        <dsig:DigestValue>B2rr+fPeKHMihvK0myAUdztMRDo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

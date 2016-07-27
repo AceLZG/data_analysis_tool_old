@@ -68,6 +68,7 @@ namespace DataAnalysisTool
         static string strFailureModeTabName = "Failure Mode";
         static string strFailureRateTabName = "Failure Rate";
         static string strDistributionTabName = "Distribution";
+        static string strCustomViewTabName = "View";
         static string strKGUTabName = "KGU";
         static string strCpkTabName = "Cpk_Limit";
 
@@ -92,9 +93,13 @@ namespace DataAnalysisTool
             //Initialize tblHeader
             tblHeader.Columns.Add("Name", typeof(string));
             tblHeader.Columns.Add("Value", typeof(string));
+
+
         }
         
         #endregion  *** Initialize ***
+
+
 
 
         #region *** Sub Functions ***
@@ -179,23 +184,42 @@ namespace DataAnalysisTool
         // *** dgvData GridViewFormat
         private void dgvDataGridViewFormat()
         {
+            DateTime dtStart = DateTime.Now;
+
             float currentSize = dgvData.Font.SizeInPoints - 1;
             try
             {
-                for (int i = 0; i < dgvData.Columns.Count; i++)
-                {
-                    dgvData.Columns[i].Width = 70;
-                    dgvData.Columns[i].ReadOnly = true;
-                    dgvData.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-                    dgvData.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                    dgvData.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                // Complete the initialization of the DataGridView.
+                dgvData.Dock = DockStyle.Fill;
+                dgvData.VirtualMode = true;
+                dgvData.ReadOnly = true;
+                dgvData.RowHeadersVisible = false;
+                dgvData.AllowUserToResizeRows = false;
+                dgvData.AllowUserToAddRows = false;
+                dgvData.AllowUserToOrderColumns = false;
+                //dgvData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+                dgvData.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                    dgvData.EnableHeadersVisualStyles = true;
-                    dgvData.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised;
-                    DataGridViewCellStyle style = dgvData.ColumnHeadersDefaultCellStyle;
-                    style.Font = new Font(dgvData.Font, FontStyle.Bold);
-                    style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }
+                dgvData.EnableHeadersVisualStyles = true;
+                dgvData.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised;
+                DataGridViewCellStyle style = dgvData.ColumnHeadersDefaultCellStyle;
+                style.Font = new Font(dgvData.Font, FontStyle.Bold);
+                style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                TimeSpan ts1 = DateTime.Now - dtStart;
+
+                //for (int i = 0; i < dgvData.Columns.Count; i++)
+                //{
+                //    //dgvData.Columns[i].Width = 70;
+                //    dgvData.Columns[i].ReadOnly = true;
+                //    //dgvData.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                //    //dgvData.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                    
+                //}
+
+                TimeSpan ts2 = DateTime.Now - dtStart;
+
                 for (int i = 0; i < 4; i++)
                 {
                     dgvData.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
@@ -206,15 +230,12 @@ namespace DataAnalysisTool
                 {
                     dgvData.Columns[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
                     dgvData.Columns[i].DefaultCellStyle.BackColor = Color.LightGray;
-                    dgvData.Columns[i].Width = 45;
+                    //dgvData.Columns[i].Width = 45;
                     dgvData.Columns[i].Frozen = true;
                 }
-                dgvData.Columns[0].Width = 80;
-                dgvData.Columns[_DataParse.FreezeColumn - 1].Width = 65;
-                dgvData.RowHeadersVisible = false;
-                dgvData.ReadOnly = true;
-                dgvData.AllowUserToAddRows = false;
-                dgvData.AllowUserToResizeRows = false;
+
+
+                TimeSpan ts3 = DateTime.Now - dtStart;
             }
             catch (Exception ex)
             {
@@ -397,9 +418,19 @@ namespace DataAnalysisTool
         // *** Update DataGridView ***
         private void updateGrid(DataTable dataTable)
         {
+            DateTime dtStart = DateTime.Now;
+
+            dgvData.VirtualMode = true;
+          
+
             dgvData.DataSource = null;
+            TimeSpan ts1 = DateTime.Now - dtStart;
+
             dgvData.DataSource = dataTable;
+            TimeSpan ts2 = DateTime.Now - dtStart;
+
             this.dgvDataGridViewFormat();
+            TimeSpan ts3 = DateTime.Now - dtStart;
         }
 
         // *** Update Header information ***
@@ -906,6 +937,10 @@ namespace DataAnalysisTool
             #endregion *** Parsing data ***
 
             this.UpdateSessionInfomation();
+
+            ts = DateTime.Now - dtStart;
+            lblBar.Text += " / " + Math.Round(ts.TotalMilliseconds, 2).ToString() + "ms";
+
             this.updateGrid(tblData);
 
             this.CacheData("");
@@ -1675,6 +1710,116 @@ namespace DataAnalysisTool
         private void customViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            // Return if no any data
+            if (tblData.Rows.Count == 0)
+            {
+                MessageBox.Show("No any data!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Application.DoEvents();
+
+            #region *** Initialize controls ***
+
+            this.RemoveTab(strCustomViewTabName);
+            TabPage tabDistribution = new TabPage(strCustomViewTabName);
+            tabDistribution.Name = strCustomViewTabName;
+            tabcontrol.Controls.Add(tabDistribution);
+            tabcontrol.SelectedTab = tabDistribution;
+            tabDistribution.AutoScroll = true;
+
+            //Panel panelDistribution = new Panel();
+            //panelDistribution.Dock = DockStyle.Fill;
+
+            GroupBox gbParameter = new GroupBox();
+            gbParameter.Name = "gbParameter";
+            gbParameter.Text = "All Parameter";
+            gbParameter.Location = new Point(12, 12);
+            gbParameter.Size = new System.Drawing.Size(194, 373);
+
+            ListBox lbxParameter = new ListBox();
+            lbxParameter.Name = "lbxParameter";
+            lbxParameter.SelectionMode = SelectionMode.MultiExtended;
+            lbxParameter.Dock = DockStyle.Fill;
+            gbParameter.Controls.Add(lbxParameter);
+
+            GroupBox gbSelected = new GroupBox();
+            gbSelected.Name = "gbSelected";
+            gbSelected.Text = "Selected Parameter";
+            gbSelected.Location = new Point(270, 12);
+            gbSelected.Size = new System.Drawing.Size(194, 373);
+
+            ListBox lbxSelected = new ListBox();
+            lbxSelected.Name = "lbxSelected";
+            lbxSelected.SelectionMode = SelectionMode.MultiExtended;
+            lbxSelected.Dock = DockStyle.Fill;
+            gbSelected.Controls.Add(lbxSelected);
+
+            Button btnAdd = new Button();
+            btnAdd.Name = "btnAdd";
+            btnAdd.Text = ">>";
+            btnAdd.Location = new Point(219, 43);
+            btnAdd.Size = new System.Drawing.Size(39, 23);
+            btnAdd.Click += new EventHandler(btnAdd_Click);
+
+            Button btnRemove = new Button();
+            btnRemove.Name = "btnRemove";
+            btnRemove.Text = "<<";
+            btnRemove.Location = new Point(219, 73);
+            btnRemove.Size = new System.Drawing.Size(39, 23);
+            btnRemove.Click += new EventHandler(btnRemove_Click);
+
+            Button btnAddAll = new Button();
+            btnAddAll.Name = "btnAddAll";
+            btnAddAll.Text = ">>>";
+            btnAddAll.Location = new Point(219, 113);
+            btnAddAll.Size = new System.Drawing.Size(39, 23);
+            btnAddAll.Click += new EventHandler(btnAddAll_Click);
+
+            Button btnRemoveAll = new Button();
+            btnRemoveAll.Name = "btnRemoveAll";
+            btnRemoveAll.Text = "<<<";
+            btnRemoveAll.Location = new Point(219, 143);
+            btnRemoveAll.Size = new System.Drawing.Size(39, 23);
+            btnRemoveAll.Click += new EventHandler(btnRemoveAll_Click);
+
+            Button btnViewApply = new Button();
+            btnViewApply.Name = "btnViewApply";
+            btnViewApply.Text = "Apply";
+            btnViewApply.Location = new Point(476, 43);
+            btnViewApply.Size = new System.Drawing.Size(75, 23);
+            btnViewApply.Click += new EventHandler(btnViewApply_Click);
+
+            Button btnQuitJMP = new Button();
+            btnQuitJMP.Name = "btnQuitJMP";
+            btnQuitJMP.Text = "Quit JMP";
+            btnQuitJMP.Location = new Point(476, 73);
+            btnQuitJMP.Size = new System.Drawing.Size(75, 23);
+            btnQuitJMP.Click += new EventHandler(btnQuitJMP_Click);
+
+            //tabDistribution.Controls.Add(panelDistribution);
+            tabDistribution.Controls.Add(gbParameter);
+            tabDistribution.Controls.Add(btnAdd);
+            tabDistribution.Controls.Add(btnRemove);
+            tabDistribution.Controls.Add(btnAddAll);
+            tabDistribution.Controls.Add(btnRemoveAll);
+            tabDistribution.Controls.Add(gbSelected);
+            tabDistribution.Controls.Add(btnViewApply);
+            tabDistribution.Controls.Add(btnQuitJMP);
+
+            #endregion *** Initialize controls ***
+
+            #region *** Fill Parameter ***
+            int ParameterCount = tblData.Columns.Count - _DataParse.FreezeColumn;
+            Parameter = new string[ParameterCount];
+
+            for (int i = 0; i < ParameterCount; i++)
+            {
+                Parameter[i] = tblData.Rows[0][i + _DataParse.FreezeColumn].ToString();
+                lbxParameter.Items.Add(Parameter[i]);
+            }
+            //lbxParameter.DataSource = strParameter;
+            Application.DoEvents();
+            #endregion *** Fill Parameter ***
         }
 
         #endregion *** Delete Data ***
@@ -1758,7 +1903,7 @@ namespace DataAnalysisTool
         #endregion *** Export Data***
 
 
-        #region *** Distribution Sub Functions ***
+        #region *** Custom Tab Sub Functions ***
         // *** Start JMP ***
         private void startJMP()
         {
@@ -1888,6 +2033,10 @@ namespace DataAnalysisTool
             //myJMP.CloseWindowsOfType(JMP.jmpWindowTypeConstants.jmpDatatables);
             //myJMP.CloseWindowsOfType(JMP.jmpWindowTypeConstants.jmpJSLOutputFiles);
         }
+
+        // *** Apply Custom View ***
+        void btnViewApply_Click(object sender, EventArgs e)
+        { }
 
         // *** Get Parameter Index ***
         private void ListBoxInsert(ListBox listBox, object objInsertItem)
@@ -2113,12 +2262,12 @@ namespace DataAnalysisTool
             #endregion *** Initialize controls ***
 
             #region *** Fill Parameter ***
-            int ParameterCount = tblData.Columns.Count - 4;
+            int ParameterCount = tblData.Columns.Count - _DataParse.FreezeColumn;
             Parameter = new string[ParameterCount];
 
             for (int i = 0; i < ParameterCount;i++ )
             {
-                Parameter[i] = tblData.Rows[0][i + 3].ToString();
+                Parameter[i] = tblData.Rows[0][i + _DataParse.FreezeColumn].ToString();
                 lbxParameter.Items.Add(Parameter[i]);
             }
             //lbxParameter.DataSource = strParameter;
@@ -2270,7 +2419,12 @@ namespace DataAnalysisTool
             lblBar.Text = "Failure mode analysising";
             Application.DoEvents();
             List<FailureMode> failureModeList = new List<FailureMode>();
-            failureModeList = _Analysis.GetFailureModeList(tblData, _DataParse.FreezeColumn, AnalysisType.FailureMode);
+            //failureModeList = _Analysis.GetFailureModeList(tblData, _DataParse.FreezeColumn, AnalysisType.FailureMode);
+
+            Dictionary<int, string> dic_ExceptionList = new Dictionary<int, string>();
+            dic_ExceptionList.Add(36, "test1");
+
+            failureModeList = _Analysis.GetFailureModeList(tblData, _DataParse.FreezeColumn, AnalysisType.FailureMode, dic_ExceptionList);
 
             this.RemoveTab(strFailureModeTabName);
 

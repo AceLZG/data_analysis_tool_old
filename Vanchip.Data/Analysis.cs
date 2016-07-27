@@ -181,6 +181,140 @@ namespace Vanchip.Data
             return failureModeList;
         } //end of GetFailureModeList
 
+        public List<FailureMode> GetFailureModeList(DataTable dataTable, int DataStartColumn, AnalysisType failureAnalysisType, Dictionary<int, string>  ExceptionList)
+        {
+            #region *** Variable define ***
+            //m_FailureArray = new string[dataTable.Rows.Count - 3];
+            m_FailureArray = new string[100000];
+            string[] deviceNoArray;
+            Dictionary<string, string> myDic = new Dictionary<string, string>();
+            List<FailureMode> failureModeList = new List<FailureMode>();
+
+            #endregion *** Variable define ***
+
+            #region *** Generate failure parameter list for each device ***
+
+            m_FailureArray[0] = "This array contain failure parameter list for each device";
+
+            foreach (DataRow dr in dataTable.Rows) // for datatable rows
+            {
+                if (dataTable.Rows.IndexOf(dr) > 3 && Convert.ToString(dr[dataTable.Columns.Count - 1]).ToUpper() == "FAIL") //if Datarow
+                {
+                    for (int j = DataStartColumn; j < dataTable.Columns.Count - 1; j++)  //for Column loop
+                    {
+                        if (ExceptionList.ContainsKey(j)) continue;
+
+                        //if (dr[j] != DBNull.Value) //if DBNull
+                        if (util.IsNumeral(dr[j]))
+                        {
+                            double Value = Convert.ToDouble(dr[j]);
+                            double LowLimit = Convert.ToDouble(dataTable.Rows[2][j]);
+                            double HighLimit = Convert.ToDouble(dataTable.Rows[3][j]);
+                            int DeviceNo = Convert.ToInt32(dr[0]);
+
+                            if (Value < LowLimit || Value > HighLimit)
+                            {
+                                m_FailureArray[DeviceNo] += dataTable.Rows[0][j].ToString() + " " + '"' + " ";
+                            }
+                        }//end of if DBNull
+
+                    } //end of for Column loop
+
+                }// end of if Datarow
+
+            }// end of for datatable rows
+            #endregion *** Generate failure parameter list for each device ***
+
+            if (failureAnalysisType == AnalysisType.FailureMode)        //if Analysis type = failure mode
+            {
+                #region *** Caculate failure mode ***
+                for (int i = 1; i < m_FailureArray.Length; i++) // for failureArray length
+                {
+                    string FaulireModeTemp = m_FailureArray[i];
+                    if (FaulireModeTemp != null)
+                    {
+                        if (myDic.ContainsKey(FaulireModeTemp))
+                        {//if Contain key, append device no
+                            string DeviceNo = myDic[FaulireModeTemp] + "," + i.ToString();
+                            myDic[FaulireModeTemp] = DeviceNo;
+                        }
+                        else
+                        { //if not, add the failure mode and device no
+                            string DeviceNo = i.ToString();
+                            myDic.Add(FaulireModeTemp, DeviceNo);
+                        }
+                    }
+                }// end of for failureArray length
+
+                #endregion *** Caculate failure mode ***
+            } //end of if Analysis type = failure mode
+            else                                                        //if Analysis type = failure rate
+            {
+                #region *** Caculate failure rate ***
+                for (int i = 1; i < m_FailureArray.Length; i++) // for failureArray length
+                {
+                    if (m_FailureArray[i] != null)  //if (m_FailureArray[i] != null)
+                    {
+                        int stringLength = m_FailureArray[i].Length - 2;
+                        string[] failureRateTemp = m_FailureArray[i].Substring(0, stringLength).Split('"');
+                        for (int j = 0; j < failureRateTemp.Length; j++) //for failureRateTemp.Length
+                        {
+                            string failureParameter = failureRateTemp[j].Trim();
+                            if (myDic.ContainsKey(failureParameter))
+                            {//if Contain key, append device no
+                                string DeviceNo = myDic[failureParameter] + "," + i.ToString();
+                                myDic[failureParameter] = DeviceNo;
+                            }
+                            else
+                            { //if not, add the failure mode and device no
+                                string DeviceNo = i.ToString();
+                                myDic.Add(failureParameter, DeviceNo);
+                            }
+                        }//end of for failureRateTemp.Length
+
+                    }//end of if (m_FailureArray[i] != null)
+
+                }// end of for failureArray length
+
+                #endregion *** Caculate failure rate ***
+
+            }//end of if Analysis type = failure rate
+
+            #region *** Sorting failure mode ***
+            foreach (string key in myDic.Keys)
+            {
+                deviceNoArray = myDic[key].Split(',');
+
+                FailureMode FMTemp = new FailureMode();
+                FMTemp.Count = deviceNoArray.Length;
+                FMTemp.Parameter = key;
+                FMTemp.Device = deviceNoArray;
+
+                failureModeList.Add(FMTemp);
+            }
+            Comparison<FailureMode> cmp = (x, y) =>
+            {
+                if (x.Count > y.Count)
+                {
+                    return -1;
+                }
+                else if (x.Count < y.Count)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            };
+
+            failureModeList.Sort(cmp);
+
+            #endregion *** Sorting failure mode ***
+
+            return failureModeList;
+        } //end of GetFailureModeList
+
         // Caculate Cpk
         public DataTable CaculateCpk(DataTable datatable , int DataStartColumn)
         {

@@ -2511,9 +2511,23 @@ namespace Vanchip.Data
                 if (row_index == 0)
                 {
                     temp_dr[0] = "Unit";
+
                     for (col_index = 5; col_index < temp_dr.ItemArray.Length; col_index++)
                     {
-                        if (temp_dr[col_index].ToString().ToUpper() == "A")
+                        if (temp_data.Columns[col_index].ToString().ToLower().Contains("status"))
+                        {
+                            dic_multiplier.Add(col_index, 5272); // 5272 is keyValue for pass/fail columns
+                            continue;
+                        }
+
+                        #region new rule
+                        if (temp_dr[col_index].ToString().ToUpper() == "A" && temp_data.Columns[col_index].ToString().ToLower().Contains("_ua"))
+                        {
+                            temp_dr[col_index] = "uA";
+                            dic_multiplier.Add(col_index, 1000 * 1000);
+                            continue;
+                        }
+                        else if (temp_dr[col_index].ToString().ToUpper() == "A") /// && temp_data.Columns[col_index].ToString().ToLower().Contains("_ma"))
                         {
                             if (temp_data.Columns[col_index].ToString().ToLower().Contains("leakage"))
                             {
@@ -2525,16 +2539,49 @@ namespace Vanchip.Data
                                 temp_dr[col_index] = "mA";
                                 dic_multiplier.Add(col_index, 1000);
                             }
+                            continue;
                         }
-                        else if (temp_dr[col_index].ToString().ToUpper() == "S")
+                        else if (temp_dr[col_index].ToString().ToUpper() == "S" && temp_data.Columns[col_index].ToString().ToLower().Contains("_us"))
+                        {
+                            temp_dr[col_index] = "us";
+                            dic_multiplier.Add(col_index, 1000 * 1000);
+                            continue;
+                        }
+                        else if (temp_dr[col_index].ToString().ToUpper() == "S"  && temp_data.Columns[col_index].ToString().ToLower().Contains("_ms"))
                         {
                             temp_dr[col_index] = "ms";
                             dic_multiplier.Add(col_index, 1000);
+                            continue;
                         }
-                        else if (temp_data.Columns[col_index].ToString().ToLower().Contains("status"))
+                        else if (temp_dr[col_index].ToString().ToUpper() == "S") ///&& temp_data.Columns[col_index].ToString().ToLower().Contains("_ms"))
                         {
-                            dic_multiplier.Add(col_index, 5272); // 5272 is keyValue for pass/fail columns
+                            temp_dr[col_index] = "ms";
+                            dic_multiplier.Add(col_index, 1000);
+                            continue;
                         }
+                        #endregion
+
+                        #region old rule_1
+                        //if (temp_dr[col_index].ToString().ToUpper() == "A")
+                        //{
+                        //    if (temp_data.Columns[col_index].ToString().ToLower().Contains("leakage"))
+                        //    {
+                        //        temp_dr[col_index] = "uA";
+                        //        dic_multiplier.Add(col_index, 1000 * 1000);
+                        //    }
+                        //    else
+                        //    {
+                        //        temp_dr[col_index] = "mA";
+                        //        dic_multiplier.Add(col_index, 1000);
+                        //    }
+                        //}
+                        //else if (temp_dr[col_index].ToString().ToUpper() == "S")
+                        //{
+                        //    temp_dr[col_index] = "ms";
+                        //    dic_multiplier.Add(col_index, 1000);
+                        //}
+                        #endregion
+
                     }
                 }
                 else
