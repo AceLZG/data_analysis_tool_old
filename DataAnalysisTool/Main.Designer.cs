@@ -92,6 +92,7 @@
             this.TreeViewUserMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.RemoveDataListNode = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoveAllDataListNode = new System.Windows.Forms.ToolStripMenuItem();
+            this.dPTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msDataAnalysis.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -396,7 +397,8 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buildKGUFileToolStripMenuItem,
-            this.dBTestToolStripMenuItem});
+            this.dBTestToolStripMenuItem,
+            this.dPTestToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -622,6 +624,13 @@
             this.RemoveAllDataListNode.Text = "Remove All";
             this.RemoveAllDataListNode.Click += new System.EventHandler(this.RemoveAllDataListNode_Click);
             // 
+            // dPTestToolStripMenuItem
+            // 
+            this.dPTestToolStripMenuItem.Name = "dPTestToolStripMenuItem";
+            this.dPTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dPTestToolStripMenuItem.Text = "DP_Test";
+            this.dPTestToolStripMenuItem.Click += new System.EventHandler(this.dPTestToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -723,6 +732,7 @@
         private System.Windows.Forms.ToolStripMenuItem closeJMPToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblBar;
+        private System.Windows.Forms.ToolStripMenuItem dPTestToolStripMenuItem;
     }
 }
 

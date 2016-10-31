@@ -8,6 +8,7 @@
 ///     Rev2.1.0.0      upgrade stdf lib                                                            Ace Li      2016-03-31
 
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +25,7 @@ using LumenWorks.Framework.IO.Csv;
 //using System.Windows.Forms.DataVisualization.Charting;
 //using System.Windows.Forms.DataVisualization.Charting.Utilities;
 using Microsoft.VisualBasic;
+using MySql.Data.MySqlClient;
 
 namespace DataAnalysisTool
 {
@@ -93,6 +95,17 @@ namespace DataAnalysisTool
             //Initialize tblHeader
             tblHeader.Columns.Add("Name", typeof(string));
             tblHeader.Columns.Add("Value", typeof(string));
+
+
+            if (!EventLog.SourceExists(sSource)) EventLog.CreateEventSource(sSource, sLog);
+
+            sEvent = "Job start; " + DateTime.Now.Millisecond + "ms; ";
+            EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+
+            parsedataservice();
+
+            sEvent = "Jon finish; " + DateTime.Now.Millisecond + "ms; ";
+            EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
 
 
         }
@@ -434,11 +447,12 @@ namespace DataAnalysisTool
         }
 
         // *** Update Header information ***
-        private void UpdateSessionInfomation()
+
+        private void refreshheader()
         {
             //Clear tabHeader
             tblHeader.Clear();
-            
+
             //int strNameLength = 20;
             bool isHeadNull = false;
             var type = typeof(DataHeader);
@@ -479,7 +493,7 @@ namespace DataAnalysisTool
                         dr["Value"] = Math.Round(pass / total * 100, 3) + "%";
                     }
                 }
-                    //if header not null, use header info
+                //if header not null, use header info
                 else
                 {
                     if (name == "Yield")
@@ -493,6 +507,11 @@ namespace DataAnalysisTool
                 }
                 tblHeader.Rows.Add(dr);
             }
+        }
+        private void UpdateSessionInfomation()
+        {
+            refreshheader();
+
             DataGridView dgvHeader = new DataGridView();
             dgvHeader.Name = "dgvHeader";
             groupBox1.Controls.Add(dgvHeader);
@@ -2315,7 +2334,7 @@ namespace DataAnalysisTool
             JMP.TextImport ti;
             JMP.Distribution dist;
 
-            object[] objParameter = new object[400];
+            object[] objParameter = new object[800];
 
             //TabPage tabDistribution = (TabPage)this.FindControl(tabcontrol, strDistributionTabName);
             //ListBox lbxSelected = (ListBox)this.FindControl(tabDistribution, "lbxSelected");
@@ -3281,8 +3300,357 @@ namespace DataAnalysisTool
 
 
 
+        string sSource = "DataParseService";
+        string sLog = "Vanchip.Data";
+        string sEvent;
+
+        private void parsedataservice()
+        {
+
+            //string stPathdata = @"c:\temp";
+            string stPathdata = @"\\192.168.21.251\TestData\DataParsingService";
+
+            string stPathdup = stPathdata + @"\duplicate";
+            string strPatharchive = stPathdata + @"\archive";
+            string strPathfailure = stPathdata + @"\failure";
+            FileInfo[] FI = _Util.GetFileInfoArray(stPathdata, "std");
+
+            //DataTable tblData = new DataTable();
+            DataTable tblPass = new DataTable();
+            DataTable tblSession = new DataTable();
+            //DataTable tblCpk = new DataTable();
+
+            DataParse _dp = new DataParse();
+
+            try
+            {
+
+                if (!EventLog.SourceExists(sSource)) EventLog.CreateEventSource(sSource, sLog);
+
+                foreach (FileInfo tmpFI in FI)
+                {
+                    sEvent = "Parsing start; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+
+                    File.SetAttributes(tmpFI.FullName, FileAttributes.Normal);
+
+                    tblData = _dp.GetDataFromStdfviewer(tmpFI.FullName);
 
 
+                    tblPass = delFailureData(tblData);
 
+                    if (tblPass.Rows.Count < 5)
+                    {
+                        if (!Directory.Exists(strPathfailure)) Directory.CreateDirectory(strPathfailure);
+                        File.Move(tmpFI.FullName, strPathfailure + "\\" + tmpFI.Name);
+                        sEvent = "No enough pass device data, skip parsing " + tmpFI.Name;
+                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Warning);
+                        continue;
+                    }
+
+                    tblSession = getSessionInfo(_dp);
+                    tblCpk = _Analysis.CaculateCpk(tblPass, _dp.FreezeColumn);
+
+                    sEvent = "Parsing finish; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+
+                    insert2database(tblSession, tblCpk);
+
+                    sEvent = "Data added to database; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+
+                    if (!File.Exists(strPatharchive + "\\" + tmpFI.Name))
+                    {
+                        if (!Directory.Exists(strPatharchive)) Directory.CreateDirectory(strPatharchive);
+                        File.Move(tmpFI.FullName, strPatharchive + "\\" + tmpFI.Name);
+                        //File.Delete(tmpFI.FullName);
+                    }
+                    else
+                    {
+                        if (!Directory.Exists(stPathdup)) Directory.CreateDirectory(stPathdup);
+                        File.Move(tmpFI.FullName, stPathdup + "\\" + tmpFI.Name);
+
+
+                        sEvent = "Duplicate file exist in archive folder, move to duplicate folder instead; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Warning);
+                    }
+                
+                }
+            }
+            catch (Exception ex)
+            {
+                sEvent = ex.Message + ";" + ex.HelpLink + ";" + ex.Source;
+                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error);
+                throw new Exception(ex.Message.ToString());
+            }
+
+        }
+        private void dPTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            parsedataservice();
+        }
+        private DataTable delFailureData(DataTable _dt)
+        {
+
+            int DeviceCount = 0;
+            DataTable _dtPass = new DataTable();
+
+            _dtPass = _dt.Copy();
+
+            _dtPass.PrimaryKey = null;
+
+            for (int i = 4; i < _dtPass.Rows.Count; i++)
+            {
+                // delete pass data
+                if (_dtPass.Rows[i][_dtPass.Columns.Count - 1].ToString().ToLower() == "fail")
+                {
+                    _dtPass.Rows.RemoveAt(i);
+                    i--;
+                }
+                else
+                {
+                    _dtPass.Rows[i][0] = DeviceCount + 1;
+                    DeviceCount++;
+                }
+            }
+
+            _dtPass.PrimaryKey = new DataColumn[] { _dtPass.Columns[0] };
+
+            return _dtPass;
+        }
+        private DataTable getSessionInfo(DataParse _dp)
+        {
+            DataTable tblSession = new DataTable();
+
+            //Initialize tblSession
+            tblSession.Columns.Add("Name", typeof(string));
+            tblSession.Columns.Add("Value", typeof(string));
+
+            //int strNameLength = 20;
+            bool isHeadNull = false;
+            var type = typeof(DataHeader);
+            var fields = type.GetFields();
+            //Array.ForEach(fields, f =>
+            foreach (_FieldInfo fi in fields)
+            {
+                string name = fi.Name;
+                DataRow dr = tblSession.NewRow();
+                dr["Name"] = fi.Name;
+                //check if header null
+                if (name == "Product")
+                {
+                    if (fi.GetValue(_dp.Header) == null)
+                    {
+                        isHeadNull = true;
+                    }
+                }
+                //if header null, use Test quantity to caculate yield
+                if (isHeadNull)
+                {
+                    if (name == "TestQuantity")
+                    {
+                        dr["Value"] = _dp.TestedDevice;
+                    }
+                    else if (name == "PassQuantity")
+                    {
+                        dr["Value"] = _dp.PassedDevice;
+                    }
+                    else if (name == "FailQuantity")
+                    {
+                        dr["Value"] = _dp.FailedDevice;
+                    }
+                    else if (name == "Yield")
+                    {
+                        double pass = Convert.ToDouble(_dp.PassedDevice);
+                        double total = Convert.ToDouble(_dp.TestedDevice);
+                        dr["Value"] = Math.Round(pass / total * 100, 3) + "%";
+                    }
+                }
+                //if header not null, use header info
+                else
+                {
+                    if (name == "Yield")
+                    {
+                        dr["Value"] = fi.GetValue(_dp.Header) + "%";
+                    }
+                    else
+                    {
+                        dr["Value"] = fi.GetValue(_dp.Header);
+                    }
+                }
+                tblSession.Rows.Add(dr);
+            }
+
+            return tblSession;
+        }
+        private void insert2database(DataTable tblsessioninfo, DataTable tblcpk)
+        {
+            ///// SessionID = Product + LotID + StartTime
+            string strsessionid = tblsessioninfo.Rows[0][1].ToString() + "_"
+                + tblsessioninfo.Rows[3][1].ToString() + "_"
+                + tblsessioninfo.Rows[5][1].ToString() + "_"
+                + tblsessioninfo.Rows[9][1].ToString();
+            strsessionid = strsessionid.Replace(" ", "");
+            strsessionid = strsessionid.Replace("/", "");
+            strsessionid = strsessionid.Replace(":", "");
+
+            string strconn = @"server=192.168.21.52;userid=webuser;password=Vanchip301;database=testdata";
+            //string strconn = @"server=45.76.104.155;userid=webuser;password=Vanchip301;database=testdata";
+
+            MySqlConnection sqlconn = null;
+            MySqlCommand sqlcmdsession = null;
+            MySqlCommand sqlcmdcpk = null;
+            MySqlTransaction sqltran = null;
+
+
+            sqlconn = new MySqlConnection(strconn);
+            sqlconn.Open();
+
+            try
+            {
+                // Insert Session information
+                if (!SessionExist(strsessionid, "sessioninfo", sqlconn))
+                {
+                    sqlcmdsession = new MySqlCommand();
+                    sqlcmdsession.Connection = sqlconn;
+                    sqlcmdsession.CommandText = "INSERT INTO sessioninfo (SessionID, Product, ProgramRev, DeviceName, LotID, SubLotID, TestSession, Tester, "
+                        + "TesterType, LotStartDateTime, LotFinishDateTime, LotQuantity, TestQuantity, PassQuantity, FailQuantity, Yield, TestBoard, Handler, "
+                        + "OperatorID, LotDesctiption)   "
+                        + "VALUES(@SessionID, @Product, @ProgramRev, @DeviceName, @LotID, @SubLotID, @TestSession, @Tester, "
+                        + "@TesterType, @LotStartDateTime, @LotFinishDateTime, @LotQuantity, @TestQuantity, @PassQuantity, @FailQuantity, @Yield, @TestBoard, "
+                        + "@Handler, @OperatorID, @LotDesctiption)";
+
+                    sqlcmdsession.Prepare();
+
+                    sqlcmdsession.Parameters.AddWithValue("@SessionID", strsessionid);
+                    sqlcmdsession.Parameters.AddWithValue("@Product", tblsessioninfo.Rows[0][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@ProgramRev", tblsessioninfo.Rows[1][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@DeviceName", tblsessioninfo.Rows[2][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@LotID", tblsessioninfo.Rows[3][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@SubLotID", tblsessioninfo.Rows[4][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@TestSession", tblsessioninfo.Rows[5][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@Tester", tblsessioninfo.Rows[6][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@TesterType", tblsessioninfo.Rows[7][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@LotStartDateTime", Convert.ToDateTime(tblsessioninfo.Rows[9][1]));
+                    sqlcmdsession.Parameters.AddWithValue("@LotFinishDateTime", Convert.ToDateTime(tblsessioninfo.Rows[10][1]));
+                    sqlcmdsession.Parameters.AddWithValue("@LotQuantity", Convert.ToInt32(tblsessioninfo.Rows[12][1]));
+                    sqlcmdsession.Parameters.AddWithValue("@TestQuantity", Convert.ToInt32(tblsessioninfo.Rows[13][1]));
+                    sqlcmdsession.Parameters.AddWithValue("@PassQuantity", Convert.ToInt32(tblsessioninfo.Rows[14][1]));
+                    sqlcmdsession.Parameters.AddWithValue("@FailQuantity", Convert.ToInt32(tblsessioninfo.Rows[15][1]));
+                    sqlcmdsession.Parameters.AddWithValue("@Yield", Convert.ToDouble(tblsessioninfo.Rows[16][1].ToString().Replace("%", "")) / 100);
+                    sqlcmdsession.Parameters.AddWithValue("@TestBoard", tblsessioninfo.Rows[17][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@Handler", tblsessioninfo.Rows[18][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@OperatorID", tblsessioninfo.Rows[19][1].ToString());
+                    sqlcmdsession.Parameters.AddWithValue("@LotDesctiption", tblsessioninfo.Rows[20][1].ToString());
+
+                    sqlcmdsession.ExecuteNonQuery();
+
+                    sEvent = "Session added to sessioninfo; " + DateTime.Now.Millisecond + "ms; SessionID: " + strsessionid;
+                    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+
+                }
+
+                // Insert TestCpk information
+                if (!SessionExist(strsessionid, "testcpk", sqlconn))
+                {
+                    sqltran = sqlconn.BeginTransaction();
+
+                    for (int i = 0; i < tblcpk.Rows.Count; i++)
+                    {
+                        sqlcmdcpk = new MySqlCommand();
+                        sqlcmdcpk.Connection = sqlconn;
+                        sqlcmdcpk.CommandText = "INSERT INTO testcpk (SessionID, TestNum, Parameter, Unit, LowLimit, HighLimit, Cpk, "
+                            + "Average, Min, Max, Stdevp, CpkU, CpkL, Cp, Ca)  "
+                            + "VALUES (@SessionID, @TestNum, @Parameter, @Unit, @LowLimit, @HighLimit, @Cpk, "
+                            + "@Average, @Min, @Max, @Stdevp, @CpkU, @CpkL, @Cp, @Ca) ";
+
+                        sqlcmdcpk.Prepare();
+
+                        sqlcmdcpk.Parameters.AddWithValue("@SessionID", strsessionid);
+                        sqlcmdcpk.Parameters.AddWithValue("@TestNum", Convert.ToInt16(tblcpk.Rows[i][0].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@Parameter", tblcpk.Rows[i][1].ToString());
+                        sqlcmdcpk.Parameters.AddWithValue("@Unit", tblcpk.Rows[i][2].ToString());
+                        sqlcmdcpk.Parameters.AddWithValue("@LowLimit", c2sqlf(tblcpk.Rows[i][3].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@HighLimit", c2sqlf(tblcpk.Rows[i][4].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@Cpk", c2sqlf(tblcpk.Rows[i][5].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@Average", c2sqlf(tblcpk.Rows[i][6].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@Min", c2sqlf(tblcpk.Rows[i][7].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@Max", c2sqlf(tblcpk.Rows[i][8].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@Stdevp", c2sqlf(tblcpk.Rows[i][9].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@CpkU", c2sqlf(tblcpk.Rows[i][10].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@CpkL", c2sqlf(tblcpk.Rows[i][11].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@Cp", c2sqlf(tblcpk.Rows[i][12].ToString()));
+                        sqlcmdcpk.Parameters.AddWithValue("@Ca", c2sqlf(tblcpk.Rows[i][13].ToString()));
+      
+                        sqlcmdcpk.ExecuteNonQuery();
+                    }
+
+                    sqltran.Commit();
+
+                    sEvent = "Session added to testcpk; " + DateTime.Now.Millisecond + "ms; SessionID: " + strsessionid;
+                    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message.ToString());
+            }
+
+            string tmp = sqlconn.ServerVersion;
+
+            sqlconn.Close();
+
+        }
+        private double c2sqlf(object objValue)
+        {
+            
+            try
+            {
+                if (double.IsNegativeInfinity(Convert.ToDouble(objValue)))
+                    return -1e12;
+                else if (double.IsPositiveInfinity(Convert.ToDouble(objValue)))
+                    return 1e12;
+                else if (double.IsNaN(Convert.ToDouble(objValue)))
+                    return 2.02e12;
+                else
+                    return Convert.ToDouble(objValue);
+            }
+            catch (Exception ex)
+            {
+                return 2.02e12;
+            }
+        }
+        private Boolean SessionExist(string strSessionID, string strSqltable, MySqlConnection sqlconn)
+        {
+            MySqlCommand sqlcmd = new MySqlCommand();
+            MySqlDataReader sqldr = null;
+
+            bool exist = false;
+            bool sqlconOpen = false;
+            if (sqlconn != null && sqlconn.State == ConnectionState.Open) sqlconOpen = true;
+
+            sqlcmd.Connection = sqlconn;
+            sqlcmd.CommandText = "SELECT SessionID From " + strSqltable + " WHERE SessionID LIKE '" + strSessionID + "' LIMIT 1";
+
+            if (!sqlconOpen ) sqlconn.Open();
+            sqldr = sqlcmd.ExecuteReader();
+
+            if (sqldr.HasRows)
+            {
+                exist = true;
+
+                sEvent = "Session exist in " + strSqltable + "; " + DateTime.Now.Millisecond + "ms; SessionID: " + strSessionID;
+                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+            }
+            else
+            {
+                exist = false;
+            }
+
+            sqldr.Close();
+            if (!sqlconOpen) sqlconn.Close();
+
+            return exist;
+        }
     }
 }

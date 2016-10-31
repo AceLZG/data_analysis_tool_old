@@ -72,6 +72,8 @@ namespace DataAnalysisTool
         {
             int i = 1;
             DirectoryInfo dir = new DirectoryInfo(@".\Script\");
+            if (!dir.Exists) dir.Create();
+
             Dictionary<string, int> items = new Dictionary<string, int>();
             foreach (FileInfo fChild in dir.GetFiles("*.jsl"))
             {
