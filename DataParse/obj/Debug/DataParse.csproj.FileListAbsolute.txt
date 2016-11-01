@@ -10,4 +10,3 @@ c:\users\ace\Documents\Visual Studio 2013\Projects\DataParse\DataParse\bin\Debug
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataParse\bin\Debug\DataParse.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataParse\obj\Debug\DataParse.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataParse\obj\Debug\DataParse.pdb
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataParse\obj\Debug\DataParse.csprojResolveAssemblyReference.cache

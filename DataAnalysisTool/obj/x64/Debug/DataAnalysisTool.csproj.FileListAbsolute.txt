@@ -49,8 +49,6 @@ C:\Users\AceLi\Documents\Vanchip\Project\DataAnalysisTool\DataAnalysisTool\obj\x
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.csproj.ResolveComReference.cache
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.pdb
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\DataAnalysisTool.exe.manifest
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\DataAnalysisTool.application
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\DataAnalysisTool.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\DataAnalysisTool.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\LumenWorks.Framework.IO.dll
@@ -65,6 +63,4 @@ C:\Users\AceLi\Documents\Vanchip\Project\DataAnalysisTool\DataAnalysisTool\obj\x
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.Main.resources
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.Test.resources
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.csproj.GenerateResource.Cache
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.exe.manifest
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.application
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.csprojResolveAssemblyReference.cache

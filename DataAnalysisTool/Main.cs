@@ -5,7 +5,8 @@
 ///     Rev1.3          Add JMP script build function
 ///                     support test time and index time caculation based on the unit               Ace Li      2012-07-04
 ///     Rev1.3.1        Add support to Advantest test data                                          Ace Li      2014-06-19
-///     Rev2.1.0.0      upgrade stdf lib                                                            Ace Li      2016-03-31
+///     Rev2.1.0.0      upgrade stdf lib                                                            Ace Li      2016-03-31  
+///     Rev2.4.0.0      add data parsing service                                                    Ace Li      2016-11-01
 
 using System;
 using System.Diagnostics;
@@ -32,6 +33,7 @@ namespace DataAnalysisTool
     public partial class Main : Form
     {
         #region *** Variable declare ***
+        string[] args;
         OpenFileDialog OpenFile;
 
         Util _Util = new Util();
@@ -82,7 +84,7 @@ namespace DataAnalysisTool
 
 
         #region  *** Initialize ***
-        public Main()
+        public Main(string[] args)
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Normal;
@@ -96,17 +98,20 @@ namespace DataAnalysisTool
             tblHeader.Columns.Add("Name", typeof(string));
             tblHeader.Columns.Add("Value", typeof(string));
 
+            if (args[0].ToLower() == "--daemon")
+            {
+                if (!EventLog.SourceExists(sSource)) EventLog.CreateEventSource(sSource, sLog);
 
-            if (!EventLog.SourceExists(sSource)) EventLog.CreateEventSource(sSource, sLog);
+                sEvent = "Job start; " + DateTime.Now.Millisecond + "ms; ";
+                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
 
-            sEvent = "Job start; " + DateTime.Now.Millisecond + "ms; ";
-            EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+                parsedataservice();
 
-            parsedataservice();
+                sEvent = "Jon finish; " + DateTime.Now.Millisecond + "ms; ";
+                EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
 
-            sEvent = "Jon finish; " + DateTime.Now.Millisecond + "ms; ";
-            EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
-
+                this.Dispose();
+            }
 
         }
         
@@ -3299,7 +3304,7 @@ namespace DataAnalysisTool
         }
 
 
-
+        #region --- Data Parsing Service ---
         string sSource = "DataParseService";
         string sLog = "Vanchip.Data";
         string sEvent;
@@ -3486,13 +3491,15 @@ namespace DataAnalysisTool
         private void insert2database(DataTable tblsessioninfo, DataTable tblcpk)
         {
             ///// SessionID = Product + LotID + StartTime
-            string strsessionid = tblsessioninfo.Rows[0][1].ToString() + "_"
+            string strsessionid;
+            string tmpid = tblsessioninfo.Rows[0][1].ToString() + "_"
                 + tblsessioninfo.Rows[3][1].ToString() + "_"
                 + tblsessioninfo.Rows[5][1].ToString() + "_"
                 + tblsessioninfo.Rows[9][1].ToString();
-            strsessionid = strsessionid.Replace(" ", "");
-            strsessionid = strsessionid.Replace("/", "");
-            strsessionid = strsessionid.Replace(":", "");
+            tmpid = tmpid.Replace(" ", "");
+            tmpid = tmpid.Replace("/", "");
+            tmpid = tmpid.Replace(":", "");
+            strsessionid = tmpid.Substring(0, Math.Min(99, tmpid.Length));
 
             string strconn = @"server=192.168.21.52;userid=webuser;password=Vanchip301;database=testdata";
             //string strconn = @"server=45.76.104.155;userid=webuser;password=Vanchip301;database=testdata";
@@ -3522,15 +3529,33 @@ namespace DataAnalysisTool
 
                     sqlcmdsession.Prepare();
 
+                    string _tmp;
                     sqlcmdsession.Parameters.AddWithValue("@SessionID", strsessionid);
-                    sqlcmdsession.Parameters.AddWithValue("@Product", tblsessioninfo.Rows[0][1].ToString());
-                    sqlcmdsession.Parameters.AddWithValue("@ProgramRev", tblsessioninfo.Rows[1][1].ToString());
-                    sqlcmdsession.Parameters.AddWithValue("@DeviceName", tblsessioninfo.Rows[2][1].ToString());
-                    sqlcmdsession.Parameters.AddWithValue("@LotID", tblsessioninfo.Rows[3][1].ToString());
-                    sqlcmdsession.Parameters.AddWithValue("@SubLotID", tblsessioninfo.Rows[4][1].ToString());
-                    sqlcmdsession.Parameters.AddWithValue("@TestSession", tblsessioninfo.Rows[5][1].ToString());
-                    sqlcmdsession.Parameters.AddWithValue("@Tester", tblsessioninfo.Rows[6][1].ToString());
-                    sqlcmdsession.Parameters.AddWithValue("@TesterType", tblsessioninfo.Rows[7][1].ToString());
+
+                    _tmp = tblsessioninfo.Rows[0][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@Product", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
+                    _tmp = tblsessioninfo.Rows[1][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@ProgramRev", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
+                    _tmp = tblsessioninfo.Rows[2][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@DeviceName", _tmp.Substring(0, Math.Min(99, _tmp.Length)));
+
+                    _tmp = tblsessioninfo.Rows[3][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@LotID", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
+                    _tmp = tblsessioninfo.Rows[4][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@SubLotID", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
+                    _tmp = tblsessioninfo.Rows[5][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@TestSession", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
+                    _tmp = tblsessioninfo.Rows[6][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@Tester", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
+                    _tmp = tblsessioninfo.Rows[7][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@TesterType", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
                     sqlcmdsession.Parameters.AddWithValue("@LotStartDateTime", Convert.ToDateTime(tblsessioninfo.Rows[9][1]));
                     sqlcmdsession.Parameters.AddWithValue("@LotFinishDateTime", Convert.ToDateTime(tblsessioninfo.Rows[10][1]));
                     sqlcmdsession.Parameters.AddWithValue("@LotQuantity", Convert.ToInt32(tblsessioninfo.Rows[12][1]));
@@ -3538,10 +3563,18 @@ namespace DataAnalysisTool
                     sqlcmdsession.Parameters.AddWithValue("@PassQuantity", Convert.ToInt32(tblsessioninfo.Rows[14][1]));
                     sqlcmdsession.Parameters.AddWithValue("@FailQuantity", Convert.ToInt32(tblsessioninfo.Rows[15][1]));
                     sqlcmdsession.Parameters.AddWithValue("@Yield", Convert.ToDouble(tblsessioninfo.Rows[16][1].ToString().Replace("%", "")) / 100);
-                    sqlcmdsession.Parameters.AddWithValue("@TestBoard", tblsessioninfo.Rows[17][1].ToString());
-                    sqlcmdsession.Parameters.AddWithValue("@Handler", tblsessioninfo.Rows[18][1].ToString());
-                    sqlcmdsession.Parameters.AddWithValue("@OperatorID", tblsessioninfo.Rows[19][1].ToString());
-                    sqlcmdsession.Parameters.AddWithValue("@LotDesctiption", tblsessioninfo.Rows[20][1].ToString());
+                    
+                    _tmp = tblsessioninfo.Rows[17][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@TestBoard", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
+                    _tmp = tblsessioninfo.Rows[18][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@Handler", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
+                    _tmp = tblsessioninfo.Rows[19][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@OperatorID", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
+                    _tmp = tblsessioninfo.Rows[20][1].ToString();
+                    sqlcmdsession.Parameters.AddWithValue("@LotDesctiption", _tmp.Substring(0, Math.Min(99, _tmp.Length)));
 
                     sqlcmdsession.ExecuteNonQuery();
 
@@ -3566,10 +3599,16 @@ namespace DataAnalysisTool
 
                         sqlcmdcpk.Prepare();
 
+                        string _tmp;
                         sqlcmdcpk.Parameters.AddWithValue("@SessionID", strsessionid);
                         sqlcmdcpk.Parameters.AddWithValue("@TestNum", Convert.ToInt16(tblcpk.Rows[i][0].ToString()));
-                        sqlcmdcpk.Parameters.AddWithValue("@Parameter", tblcpk.Rows[i][1].ToString());
-                        sqlcmdcpk.Parameters.AddWithValue("@Unit", tblcpk.Rows[i][2].ToString());
+
+                        _tmp = tblcpk.Rows[i][1].ToString();
+                        sqlcmdcpk.Parameters.AddWithValue("@Parameter", _tmp.Substring(0, Math.Min(99, _tmp.Length)));
+
+                        _tmp = tblcpk.Rows[i][2].ToString();
+                        sqlcmdcpk.Parameters.AddWithValue("@Unit", _tmp.Substring(0, Math.Min(49, _tmp.Length)));
+
                         sqlcmdcpk.Parameters.AddWithValue("@LowLimit", c2sqlf(tblcpk.Rows[i][3].ToString()));
                         sqlcmdcpk.Parameters.AddWithValue("@HighLimit", c2sqlf(tblcpk.Rows[i][4].ToString()));
                         sqlcmdcpk.Parameters.AddWithValue("@Cpk", c2sqlf(tblcpk.Rows[i][5].ToString()));
@@ -3652,5 +3691,7 @@ namespace DataAnalysisTool
 
             return exist;
         }
+
+        #endregion --- Data Parsing Service ---
     }
 }
