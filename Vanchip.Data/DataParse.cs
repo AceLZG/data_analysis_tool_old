@@ -3031,7 +3031,7 @@ namespace Vanchip.Data
                     #region *** Variable declare ***
 
                     int rowsIndex = 0;
-                    int fieldcount = csv.FieldCount - 4;
+                    int fieldcount = csv.FieldCount - 4 - 1;
                     //string[] columnName = csv.GetFieldHeaders();
                     bool isFreezeColumnSet = false;
                     bool isStatusExist = false;
@@ -3248,8 +3248,10 @@ namespace Vanchip.Data
                                 }
                             }
                             //KGU Number
-                            a_Header.KGU_Number = csv[2].ToString();                           
-                            //a_Header.KGU_Number = a_Header.KGU_Number + "," + csv[2].ToString();
+                            if (!a_Header.KGU)
+                                a_Header.KGU_Number = csv[2].ToString();
+                            else
+                                a_Header.KGU_Number = a_Header.KGU_Number + "," + csv[2].ToString();
 
                             tblParseResult[0].Rows.Add(dr);
                             a_Header.KGU = true;

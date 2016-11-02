@@ -7,6 +7,7 @@
 ///     Rev1.3.1        Add support to Advantest test data                                          Ace Li      2014-06-19
 ///     Rev2.1.0.0      upgrade stdf lib                                                            Ace Li      2016-03-31  
 ///     Rev2.4.0.0      add data parsing service                                                    Ace Li      2016-11-01
+///     Rev2.4.1.0      fix acetech parsing & kgu issue and add last save function                  Ace Li      2016-11-02
 
 using System;
 using System.Diagnostics;
@@ -33,10 +34,10 @@ namespace DataAnalysisTool
     public partial class Main : Form
     {
         #region *** Variable declare ***
-        string[] args;
         OpenFileDialog OpenFile;
 
         Util _Util = new Util();
+        LastSaved _lastsaved = new LastSaved();
         DataParse _DataParse = new DataParse();
         Export _Export = new Export();
         Analysis _Analysis = new Analysis();
@@ -77,8 +78,17 @@ namespace DataAnalysisTool
         static string strCpkTabName = "Cpk_Limit";
 
         string workingfolder = "";
-        
-        static int TestDeviceColumnIndex = 13;      // !!!important .  used for data add and delete and analysis
+
+        private bool kgucompare = true;
+
+
+
+
+        /// <summary>
+        /// !!!important .  used for data add and delete and analysis
+        /// Do not change it if you do not what it is
+        /// </summary>
+        static int TestDeviceColumnIndex = 13;      
 
         #endregion *** Variable declare ***
 
@@ -98,8 +108,11 @@ namespace DataAnalysisTool
             tblHeader.Columns.Add("Name", typeof(string));
             tblHeader.Columns.Add("Value", typeof(string));
 
-            if (args[0].ToLower() == "--daemon")
+            if (args[0] != null && args[0].ToLower() == "--daemon")
             {
+                // daemon mode do not analysis kgu
+                kgucompare = false;
+
                 if (!EventLog.SourceExists(sSource)) EventLog.CreateEventSource(sSource, sLog);
 
                 sEvent = "Job start; " + DateTime.Now.Millisecond + "ms; ";
@@ -113,6 +126,13 @@ namespace DataAnalysisTool
                 this.Dispose();
             }
 
+
+            //Default last saved value
+            _lastsaved.filetype = 1; // Support files
+            _lastsaved.filepathopen = _lastsaved.filepathsave = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            ////_lastsaved.filepathopen = (Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX)
+            ////                ? Environment.GetEnvironmentVariable("HOME") : Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+            
         }
         
         #endregion  *** Initialize ***
@@ -879,6 +899,9 @@ namespace DataAnalysisTool
         // *** Open file ***
         private void openToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.SelectedPath = _lastsaved.filepathopen;
+
             DateTime dtStart = DateTime.Now;
             TimeSpan ts;
 
@@ -890,12 +913,15 @@ namespace DataAnalysisTool
 
             #region *** Selected file ***
             OpenFile = new OpenFileDialog();
-            OpenFile.RestoreDirectory = true;
+            OpenFile.RestoreDirectory = false;
             OpenFile.Multiselect = true;
-            OpenFile.Filter = "STDF Files(*.std/*.stdf)|*.std;*.stdf|TXT data file(*.txt)|*.txt|Acetech data file(*.csv)|*.csv|All Files|*.*";
+            OpenFile.Filter = "Supported files(*.txt/*.std/*.csv)|*.txt;*.std;*.stdf;*.csv|STDF Files(*.std/*.stdf)|*.std;*.stdf|TXT data file(*.txt)|*.txt|Acetech data file(*.csv)|*.csv|All Files|*.*";
             //OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt";
-            OpenFile.ReadOnlyChecked = true;
 
+            OpenFile.FilterIndex = _lastsaved.filetype;
+            OpenFile.InitialDirectory = _lastsaved.filepathopen;
+
+            OpenFile.ReadOnlyChecked = true;           
             OpenFile.FileOk += new CancelEventHandler(OpenFile_FileOk);
             //OpenFile.ShowDialog();
             //return;
@@ -975,6 +1001,9 @@ namespace DataAnalysisTool
         }
         private void OpenFile_FileOk(object sender, CancelEventArgs e)
         {
+            _lastsaved.filetype = ((OpenFileDialog)sender).FilterIndex;
+            _lastsaved.filepathopen = Path.GetDirectoryName(((OpenFileDialog)sender).FileName);
+            
             lblBar.Text = "File OK!";
             this.Refresh();
         }//end of openToolStripMenuItem_Click
@@ -1213,8 +1242,8 @@ namespace DataAnalysisTool
             if (_DataParse.a_Header.KGU)
             {
                 m_Header.TestSession = "KGU";
-                m_Header.TestQuantity = _DataParse.TestedDevice = 1;
-                m_Header.PassQuantity = _DataParse.PassedDevice = 1;
+                m_Header.TestQuantity = _DataParse.TestedDevice = ArrayKGU.Length;
+                m_Header.PassQuantity = _DataParse.PassedDevice = ArrayKGU.Length;
                 m_Header.FailQuantity = _DataParse.FailedDevice = 0;
                 m_Header.Yield = 100;
 
@@ -1470,7 +1499,7 @@ namespace DataAnalysisTool
             if (_DataParse.a_Header.KGU)
             {
                 m_Header = _DataParse.Header;
-                AceTechKGUVerify(tblTestData[0], ArrayKGU, 1);
+                AceTechKGUVerify(tblTestData[0], ArrayKGU);
                 _DataParse.Header = m_Header;
             }
             #endregion --- KGU Analysis ---
@@ -1855,13 +1884,10 @@ namespace DataAnalysisTool
         {
             try
             {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "CSV File|*.csv";
-                if (!saveFileDialog1.CheckFileExists)
-                {
-                    saveFileDialog1.InitialDirectory = workingfolder;
-                    //saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                }
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "CSV File|*.csv";
+                sfd.InitialDirectory = _lastsaved.filepathsave;
+
                 //Save Test data
                 if (tabcontrol.SelectedTab.Text == strTestDataTabName)
                 {
@@ -1870,10 +1896,10 @@ namespace DataAnalysisTool
                         MessageBox.Show("No Test data need to be saved", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    saveFileDialog1.Title = "Save Test Data as";
-                    saveFileDialog1.FileName = "Data.csv";
-                    if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
-                    _Export.DataTableToCsv(saveFileDialog1.FileName, tblData, _DataParse.Header);
+                    sfd.Title = "Save Test Data as";
+                    sfd.FileName = "Data.csv";
+                    if (sfd.ShowDialog() != DialogResult.OK) return;
+                    _Export.DataTableToCsv(sfd.FileName, tblData, _DataParse.Header);
                 }
                 //Save Failure Mode
                 else if (tabcontrol.SelectedTab.Text == strFailureModeTabName)
@@ -1883,10 +1909,10 @@ namespace DataAnalysisTool
                         MessageBox.Show("No Failure Mode data need to be saved", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    saveFileDialog1.Title = "Save Failure Mode as";
-                    saveFileDialog1.FileName = "FM.csv";
-                    if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
-                    _Export.StringToCsv(saveFileDialog1.FileName, strFailureMode, string.Empty, false);
+                    sfd.Title = "Save Failure Mode as";
+                    sfd.FileName = "FM.csv";
+                    if (sfd.ShowDialog() != DialogResult.OK) return;
+                    _Export.StringToCsv(sfd.FileName, strFailureMode, string.Empty, false);
                 }
                 //Save Failure rate
                 else if (tabcontrol.SelectedTab.Text == strFailureRateTabName)
@@ -1896,10 +1922,10 @@ namespace DataAnalysisTool
                         MessageBox.Show("No Failure Rate data need to be saved", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    saveFileDialog1.Title = "Save Failure Rate as";
-                    saveFileDialog1.FileName = "FR.csv";
-                    if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
-                    _Export.StringToCsv(saveFileDialog1.FileName, strFailureRate, string.Empty, false);
+                    sfd.Title = "Save Failure Rate as";
+                    sfd.FileName = "FR.csv";
+                    if (sfd.ShowDialog() != DialogResult.OK) return;
+                    _Export.StringToCsv(sfd.FileName, strFailureRate, string.Empty, false);
                 }
                 //Save KGU verifyData
                 else if (tabcontrol.SelectedTab.Text == strKGUTabName)
@@ -1909,14 +1935,16 @@ namespace DataAnalysisTool
                         MessageBox.Show("No data need to be saved", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    saveFileDialog1.Title = "Save KGU Verify Data as";
-                    saveFileDialog1.FileName = "KGU.csv";
-                    if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
-                    _Export.DataTableToCsv(saveFileDialog1.FileName, tblKGU);
+                    sfd.Title = "Save KGU Verify Data as";
+                    sfd.FileName = "KGU.csv";
+                    if (sfd.ShowDialog() != DialogResult.OK) return;
+                    _Export.DataTableToCsv(sfd.FileName, tblKGU);
                 }
                 //MessageBox.Show("File has been saved to " + saveFileDialog1.FileName, "File Saved",
                                                                     //MessageBoxButtons.OK, MessageBoxIcon.Information);
-                lblBar.Text = "File has been saved to " + saveFileDialog1.FileName;
+                lblBar.Text = "File has been saved to " + sfd.FileName;
+
+                _lastsaved.filepathsave = Path.GetDirectoryName(sfd.FileName);
             }
             catch (Exception ex)
             {
@@ -2887,19 +2915,22 @@ namespace DataAnalysisTool
 
         } // end of kGUToolStripMenuItem_Click
 
-        // *** AceTech AceTech Verify
-        private void AceTechKGUVerify(DataTable tblKGURaw, string[] arrayKGU, int intTotalKGU)
+        // *** AceTech KGU Verify
+        private void AceTechKGUVerify(DataTable tblKGURaw, string[] arrayKGU)
         {
             #region *** Variable Define ***
             DataTable tblGolden = new DataTable();
 
             DataRow drTemp;
 
-            string strGoldenPath = "";            
+            string strGoldenPath = "";
+
+            int intTotalKGU = arrayKGU.Length;
 
             #endregion *** Variable Define ***
 
-            strGoldenPath = Application.StartupPath + @".\GoldenSample\" + _DataParse.Header.Product.ToString() + "_AceTech";
+            ///strGoldenPath = Application.StartupPath + @".\GoldenSample\" + _DataParse.Header.Product.ToString() + "_AceTech";
+            strGoldenPath = Application.StartupPath + @".\GoldenSample\" + _DataParse.Header.ProgramRev.ToString() + "_AceTech";
             lblBar.Text = "KGU analysising";
             this.Refresh();
             Application.DoEvents();
@@ -3104,6 +3135,7 @@ namespace DataAnalysisTool
             lblBar.Text = "Done";
             this.Refresh();
         }
+       
         // *** Cpk & Limit
         private void cpkToolStripMenuItem_Click(object sender, EventArgs e)
         {

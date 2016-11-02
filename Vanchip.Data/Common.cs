@@ -11,6 +11,14 @@ namespace Vanchip.Common
 {
 
     #region *** Struct Define ***
+    //Last Saved
+    public struct LastSaved
+    {
+        public int filetype;
+        public string filepathopen;
+        public string filepathsave;
+    }
+
     //RF test cable loss
     public struct LossComp
     {

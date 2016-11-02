@@ -15,6 +15,7 @@ namespace DataAnalysisTool
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            args = new string[2];
             Application.Run(new Main(args));
         }
     }
