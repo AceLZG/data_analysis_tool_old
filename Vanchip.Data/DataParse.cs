@@ -2470,6 +2470,7 @@ namespace Vanchip.Data
             temp_data = stdf_viewer.GetData();
             #endregion
 
+            ts = DateTime.Now - dtStart;
             #region // Build datatable
             int col_index = 0;
             foreach (DataColumn temp_dc in temp_data.Columns)

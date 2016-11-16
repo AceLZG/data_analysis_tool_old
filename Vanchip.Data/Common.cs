@@ -235,6 +235,11 @@ namespace Vanchip.Common
         public const string SlaveDB = @".\GoldenSample\data.mdb";
         public const string Pin = ";User ID='admin';Password='';Jet OleDb:DataBase Password='vc7810Eu_A6_01'";
 
+
+        public const string PathDataParsingService = @"\\192.168.21.251\TestData\DataParsingService";
+        public const string MysqlVanchip = @"server=192.168.21.52;userid=webuser;password=Vanchip301;database=testdata";
+        public const string MysqlAce = @"server=45.76.104.155;userid=webuser;password=Vanchip301;database=testdata";
+
         #region *** Misc. Functions ***
         /// <summary>
         /// Use to hold program for a while
@@ -298,6 +303,7 @@ namespace Vanchip.Common
             string searchPattern = "*." + Extension;
             DirectoryInfo DI = new DirectoryInfo(DirectoryPath);
             FileInfo[] FI = DI.GetFiles(searchPattern);
+    
 
             return FI;
         }

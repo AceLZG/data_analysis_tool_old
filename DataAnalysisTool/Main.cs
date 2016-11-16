@@ -21,6 +21,7 @@ using System.Windows.Forms;
 using Vanchip.Data;
 using Vanchip.Common;
 using System.IO;
+using System.IO.Compression;
 using System.Threading;
 using System.Runtime.InteropServices;
 using LumenWorks.Framework.IO.Csv;
@@ -944,6 +945,13 @@ namespace DataAnalysisTool
             }
 
             #endregion *** Selected file ***
+
+            
+            #region *** Processing archive files ***
+            if (strExtension == ".zip")
+            {
+            }
+            #endregion *** Processing archive files ***
 
             lblBar.Text = "Parsing data from data file";
             this.Refresh();
@@ -3343,19 +3351,22 @@ namespace DataAnalysisTool
 
         private void parsedataservice()
         {
+            string strPathdata = Util.PathDataParsingService;
+            strPathdata = @"c:\temp";
 
-            //string stPathdata = @"c:\temp";
-            string stPathdata = @"\\192.168.21.251\TestData\DataParsingService";
+            string strPathdup = strPathdata + @"\duplicate";
+            string strPatharchive = strPathdata + @"\archive";
+            string strPathfailure = strPathdata + @"\failure";
 
-            string stPathdup = stPathdata + @"\duplicate";
-            string strPatharchive = stPathdata + @"\archive";
-            string strPathfailure = stPathdata + @"\failure";
-            FileInfo[] FI = _Util.GetFileInfoArray(stPathdata, "std");
+
+            //FileInfo[] FI = _Util.GetFileInfoArray(stPathdata, "std");
+            FileInfo[] FI = getFileInfo(strPathdata);
 
             //DataTable tblData = new DataTable();
+            DataTable[] tblPasingService = new DataTable[6];
             DataTable tblPass = new DataTable();
             DataTable tblSession = new DataTable();
-            //DataTable tblCpk = new DataTable();
+            DataTable tblCpk1 = new DataTable();
 
             DataParse _dp = new DataParse();
 
@@ -3371,30 +3382,60 @@ namespace DataAnalysisTool
 
                     File.SetAttributes(tmpFI.FullName, FileAttributes.Normal);
 
-                    tblData = _dp.GetDataFromStdfviewer(tmpFI.FullName);
-
-
-                    tblPass = delFailureData(tblData);
-
-                    if (tblPass.Rows.Count < 5)
+                    if (tmpFI.Extension == "std" || tmpFI.Extension == "stdf")
                     {
-                        if (!Directory.Exists(strPathfailure)) Directory.CreateDirectory(strPathfailure);
-                        File.Move(tmpFI.FullName, strPathfailure + "\\" + tmpFI.Name);
-                        sEvent = "No enough pass device data, skip parsing " + tmpFI.Name;
-                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Warning);
-                        continue;
+                        #region parsing std file
+                        tblPasingService[0] = _dp.GetDataFromStdfviewer(tmpFI.FullName);
+                        
+                        tblPass = delFailureData(tblPasingService[0]);
+
+                        if (tblPass.Rows.Count < 5)
+                        {
+                            if (!Directory.Exists(strPathfailure)) Directory.CreateDirectory(strPathfailure);
+                            File.Move(tmpFI.FullName, strPathfailure + "\\" + tmpFI.Name);
+                            sEvent = "No enough pass device data, skip parsing " + tmpFI.Name;
+                            EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Warning);
+                            continue;
+                        }
+
+                        tblSession = getSessionInfo(_dp);
+                        tblCpk1 = _Analysis.CaculateCpk(tblPass, _dp.FreezeColumn);
+
+                        sEvent = "Parsing finish; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+
+                        insert2database(tblSession, tblCpk1);
+
+                        sEvent = "Data added to database; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+                        
+                        #endregion parsing std file
+                    }
+                    else if (tmpFI.Extension == "csv")
+                    {
+                        #region parsing csv file
+                        tblPasingService = _dp.GetDataFromAceTechCsv(tmpFI.FullName);
+
+                        sEvent = "Parsing finish; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+
+                        for (int i = 0; i < 6; i++)
+                        {
+                            if (tblPasingService[i].Rows.Count < 5) continue;
+
+                            tblPass = delFailureData(tblPasingService[i]);
+
+                            tblSession = getSessionInfo(_dp);
+                            tblCpk1 = _Analysis.CaculateCpk(tblPass, _dp.FreezeColumn);
+
+                            insert2database(tblSession, tblCpk1);
+                        }
+                        sEvent = "Data added to database; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+
+                        #endregion parsing csv file
                     }
 
-                    tblSession = getSessionInfo(_dp);
-                    tblCpk = _Analysis.CaculateCpk(tblPass, _dp.FreezeColumn);
-
-                    sEvent = "Parsing finish; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
-                    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
-
-                    insert2database(tblSession, tblCpk);
-
-                    sEvent = "Data added to database; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
-                    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
 
                     if (!File.Exists(strPatharchive + "\\" + tmpFI.Name))
                     {
@@ -3404,8 +3445,8 @@ namespace DataAnalysisTool
                     }
                     else
                     {
-                        if (!Directory.Exists(stPathdup)) Directory.CreateDirectory(stPathdup);
-                        File.Move(tmpFI.FullName, stPathdup + "\\" + tmpFI.Name);
+                        if (!Directory.Exists(strPathdup)) Directory.CreateDirectory(strPathdup);
+                        File.Move(tmpFI.FullName, strPathdup + "\\" + tmpFI.Name);
 
 
                         sEvent = "Duplicate file exist in archive folder, move to duplicate folder instead; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
@@ -3520,6 +3561,17 @@ namespace DataAnalysisTool
 
             return tblSession;
         }
+        private FileInfo[] getFileInfo(string DirectoryPath)
+        {
+            DirectoryInfo DI = new DirectoryInfo(DirectoryPath);
+            FileInfo[] fstd = DI.GetFiles(".std");
+            FileInfo[] fcsv = DI.GetFiles(".csv");
+            
+            var FI = fstd.Concat(fcsv);
+
+            return (FileInfo[])FI;
+
+        }
         private void insert2database(DataTable tblsessioninfo, DataTable tblcpk)
         {
             ///// SessionID = Product + LotID + StartTime
@@ -3533,8 +3585,7 @@ namespace DataAnalysisTool
             tmpid = tmpid.Replace(":", "");
             strsessionid = tmpid.Substring(0, Math.Min(99, tmpid.Length));
 
-            string strconn = @"server=192.168.21.52;userid=webuser;password=Vanchip301;database=testdata";
-            //string strconn = @"server=45.76.104.155;userid=webuser;password=Vanchip301;database=testdata";
+            string strconn = Util.MysqlAce;
 
             MySqlConnection sqlconn = null;
             MySqlCommand sqlcmdsession = null;
@@ -3725,5 +3776,7 @@ namespace DataAnalysisTool
         }
 
         #endregion --- Data Parsing Service ---
+
+
     }
 }
