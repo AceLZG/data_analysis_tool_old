@@ -223,6 +223,13 @@ namespace Vanchip.Common
         FailureMode = 0,
         FailureRate = 1
     }
+    public enum FileType
+    {
+        txt = 0,
+        std = 1,
+        csv = 2,
+        gz = 3
+    }
     #endregion *** Enum Define ***
 
 

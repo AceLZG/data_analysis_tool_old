@@ -8,6 +8,8 @@
 ///     Rev2.1.0.0      upgrade stdf lib                                                            Ace Li      2016-03-31  
 ///     Rev2.4.0.0      add data parsing service                                                    Ace Li      2016-11-01
 ///     Rev2.4.1.0      fix acetech parsing & kgu issue and add last save function                  Ace Li      2016-11-02
+///     Rev2.4.1.0      Add compressed(gzip) file type support and optimize std parsing
+///                         other small bug fix                                                     Ace Li      2016-11-21
 
 using System;
 using System.Diagnostics;
@@ -23,6 +25,7 @@ using Vanchip.Common;
 using System.IO;
 using System.IO.Compression;
 using System.Threading;
+using System.Threading.Tasks;  
 using System.Runtime.InteropServices;
 using LumenWorks.Framework.IO.Csv;
 //using System.Windows.Forms.DataVisualization.Charting;
@@ -32,16 +35,9 @@ using MySql.Data.MySqlClient;
 
 namespace DataAnalysisTool
 {
-    public partial class Main : Form
+    public partial class frmMain : Form
     {
-        #region *** Variable declare ***
-        OpenFileDialog OpenFile;
-
-        Util _Util = new Util();
-        LastSaved _lastsaved = new LastSaved();
-        DataParse _DataParse = new DataParse();
-        Export _Export = new Export();
-        Analysis _Analysis = new Analysis();
+        #region *** Global Variable ***
 
         DataTable tblData = new DataTable();
         DataTable tblCachedData = new DataTable();
@@ -50,6 +46,19 @@ namespace DataAnalysisTool
         DataTable tblKGU = new DataTable();
         DataTable tblHeader = new DataTable();
         DataTable tblCpk = new DataTable();
+
+        int intFrozenColumn;
+
+        #endregion *** Global Variable ***
+
+        #region *** Variable declare ***
+        OpenFileDialog OpenFile;
+
+        Util _Util = new Util();
+        LastSaved _lastsaved = new LastSaved();
+        Export _Export = new Export();
+        Analysis _Analysis = new Analysis();
+
 
         //private System.Windows.Forms.TabControl JMPStarterTabControl;
         private JMP.Application myJMP;
@@ -93,9 +102,10 @@ namespace DataAnalysisTool
 
         #endregion *** Variable declare ***
 
+        DataParse _DataParse = new DataParse();
 
         #region  *** Initialize ***
-        public Main(string[] args)
+        public frmMain(string[] args)
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Normal;
@@ -104,10 +114,31 @@ namespace DataAnalysisTool
             //HScrollBar hs = new HScrollBar();
             //tvDataList.Controls.Remove(hs);
             lblBar.Text = "";
+            this.Text = "Data Tools";
+            
             this.Refresh();
             //Initialize tblHeader
             tblHeader.Columns.Add("Name", typeof(string));
             tblHeader.Columns.Add("Value", typeof(string));
+
+            // Complete the initialization of the DataGridView.
+            dgvData.Dock = DockStyle.Fill;
+            //dgvData.VirtualMode = true;
+            dgvData.ReadOnly = true;
+            dgvData.RowHeadersVisible = false;
+            dgvData.AllowUserToResizeRows = false;
+            dgvData.AllowUserToAddRows = false;
+            dgvData.AllowUserToOrderColumns = false;
+            //dgvData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+            dgvData.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dgvData.EnableHeadersVisualStyles = true;
+            dgvData.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised;
+            DataGridViewCellStyle style = dgvData.ColumnHeadersDefaultCellStyle;
+            style.Font = new Font(dgvData.Font, FontStyle.Bold);
+            style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
 
             if (args[0] != null && args[0].ToLower() == "--daemon")
             {
@@ -228,33 +259,48 @@ namespace DataAnalysisTool
             float currentSize = dgvData.Font.SizeInPoints - 1;
             try
             {
-                // Complete the initialization of the DataGridView.
-                dgvData.Dock = DockStyle.Fill;
-                dgvData.VirtualMode = true;
-                dgvData.ReadOnly = true;
-                dgvData.RowHeadersVisible = false;
-                dgvData.AllowUserToResizeRows = false;
-                dgvData.AllowUserToAddRows = false;
-                dgvData.AllowUserToOrderColumns = false;
-                //dgvData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgvData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
-                dgvData.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                //// Complete the initialization of the DataGridView.
+                //dgvData.Dock = DockStyle.Fill;
+                ////dgvData.VirtualMode = true;
+                //dgvData.ReadOnly = true;
+                //dgvData.RowHeadersVisible = false;
+                //dgvData.AllowUserToResizeRows = false;
+                //dgvData.AllowUserToAddRows = false;
+                //dgvData.AllowUserToOrderColumns = false;
+                ////dgvData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                //dgvData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
+                //dgvData.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-                dgvData.EnableHeadersVisualStyles = true;
-                dgvData.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised;
-                DataGridViewCellStyle style = dgvData.ColumnHeadersDefaultCellStyle;
-                style.Font = new Font(dgvData.Font, FontStyle.Bold);
-                style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                //dgvData.EnableHeadersVisualStyles = true;
+                //dgvData.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised;
+                //DataGridViewCellStyle style = dgvData.ColumnHeadersDefaultCellStyle;
+                //style.Font = new Font(dgvData.Font, FontStyle.Bold);
+                //style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                if (intFrozenColumn == 5)
+                {
+                    dgvData.Columns[0].Width = 80;
+                    dgvData.Columns[1].Width = 50;
+                    dgvData.Columns[2].Width = 50;
+                    dgvData.Columns[3].Width = 50;
+                    dgvData.Columns[4].Width = 60;
+                }
+                else
+                {
+                    dgvData.Columns[0].Width = 80;
+                    dgvData.Columns[1].Width = 50;
+                    dgvData.Columns[2].Width = 50;
+                }
 
                 TimeSpan ts1 = DateTime.Now - dtStart;
 
-                //for (int i = 0; i < dgvData.Columns.Count; i++)
+                //for (int i = 0; i < _DataParse.FreezeColumn; i++)
                 //{
-                //    //dgvData.Columns[i].Width = 70;
-                //    dgvData.Columns[i].ReadOnly = true;
+                //    dgvData.Columns[i].Width = 70;
+                //    //dgvData.Columns[i].ReadOnly = true;
                 //    //dgvData.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
                 //    //dgvData.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                    
+
                 //}
 
                 TimeSpan ts2 = DateTime.Now - dtStart;
@@ -265,7 +311,7 @@ namespace DataAnalysisTool
                     dgvData.Rows[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
                     dgvData.Rows[i].Frozen = true;
                 }
-                for (int i = 0; i < _DataParse.FreezeColumn; i++)
+                for (int i = 0; i < intFrozenColumn; i++)
                 {
                     dgvData.Columns[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
                     dgvData.Columns[i].DefaultCellStyle.BackColor = Color.LightGray;
@@ -282,10 +328,20 @@ namespace DataAnalysisTool
             }
         }
 
+        //// *** dgvData Virtualmode 
+        //void dgvData_CellValueNeeded(object sender, System.Windows.Forms.DataGridViewCellValueEventArgs e)
+        //{
+        //    //if (e.RowIndex == dgvData.RowCount) return;
+
+        //    ////  Read data from datatable   
+        //    ////string colName = dgvData.Columns[e.ColumnIndex].DataPropertyName;
+        //    //e.Value = tblData.Rows[e.RowIndex][e.ColumnIndex].ToString();
+        //}
+
         // *** dgvData Cell formatting & get failure detail ***
         private void dgvData_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex > 3 && e.ColumnIndex >= _DataParse.FreezeColumn && e.ColumnIndex != dgvData.Columns.Count - 1)
+            if (e.RowIndex > 3 && e.ColumnIndex >= intFrozenColumn && e.ColumnIndex != dgvData.Columns.Count - 1)
             {
                 if (e.Value == DBNull.Value)    //if DBNull
                     e.CellStyle.BackColor = Color.WhiteSmoke;
@@ -294,10 +350,6 @@ namespace DataAnalysisTool
                     try
                     {
                         double dblCellValue = Convert.ToDouble(e.Value);
-                        // format as #.000
-                        dblCellValue = Convert.ToInt32(dblCellValue * 1000);
-                        dblCellValue = dblCellValue / 1000;
-                        e.Value = dblCellValue;
 
                         double dblLowLimit = Convert.ToDouble(dgvData.Rows[2].Cells[e.ColumnIndex].Value);
                         double dblHighLimit = Convert.ToDouble(dgvData.Rows[3].Cells[e.ColumnIndex].Value);
@@ -366,7 +418,7 @@ namespace DataAnalysisTool
             if (e.ColumnIndex == 3 || e.ColumnIndex == 4)
             {
                 // Compare limit change
-                if (Convert.ToDouble(e.Value) != Convert.ToDouble(tblData.Rows[e.ColumnIndex - 1][e.RowIndex + _DataParse.FreezeColumn]))
+                if (Convert.ToDouble(e.Value) != Convert.ToDouble(tblData.Rows[e.ColumnIndex - 1][e.RowIndex + intFrozenColumn]))
                 {
                     e.CellStyle.BackColor = Color.Yellow;
                 }
@@ -443,7 +495,7 @@ namespace DataAnalysisTool
                 throw new Exception(ex.Message);
             }
             this.UpdateSessionInfomation();
-            this.updateGrid(tblData);
+            this.updateGrid();
             //Cache data to tblCacheData
             tblCachedData = tblData.Clone();
             foreach (DataRow dr in tblData.Rows)
@@ -455,17 +507,14 @@ namespace DataAnalysisTool
         }
 
         // *** Update DataGridView ***
-        private void updateGrid(DataTable dataTable)
+        private void updateGrid()
         {
             DateTime dtStart = DateTime.Now;
 
-            dgvData.VirtualMode = true;
-          
-
             dgvData.DataSource = null;
-            TimeSpan ts1 = DateTime.Now - dtStart;
+            //TimeSpan ts1 = DateTime.Now - dtStart;
 
-            dgvData.DataSource = dataTable;
+            dgvData.DataSource = tblData;
             TimeSpan ts2 = DateTime.Now - dtStart;
 
             this.dgvDataGridViewFormat();
@@ -536,11 +585,18 @@ namespace DataAnalysisTool
         }
         private void UpdateSessionInfomation()
         {
-            refreshheader();
+            //refreshheader();
 
             DataGridView dgvHeader = new DataGridView();
             dgvHeader.Name = "dgvHeader";
+
+            foreach (Control ct in groupBox1.Controls)
+            {
+                if (ct.Name == "dgvHeader") groupBox1.Controls.Remove(ct);
+            }
+
             groupBox1.Controls.Add(dgvHeader);
+
             dgvHeader.Dock = DockStyle.Fill;
 
             dgvHeader.DataSource = tblHeader;
@@ -561,19 +617,18 @@ namespace DataAnalysisTool
             dgvHeader.Columns[1].DefaultCellStyle.BackColor = Color.LightGray;
 
 
-            //Dispaly Parse time
-            lblBar.Text = Math.Round(Convert.ToDouble(_DataParse.ParseTime), 2) + "ms";
-                                               //+ Math.Round(Convert.ToDouble(_DataParse.InsertTime), 2) + "ms";
+            ////Dispaly Parse time
+            //lblBar.Text = Math.Round(Convert.ToDouble(_DataParse.ParseTime), 2) + "ms";
+            //                                   //+ Math.Round(Convert.ToDouble(_DataParse.InsertTime), 2) + "ms";
             this.Refresh();
         }
 
         // *** Cache Data ***
-        private void CacheData(string suffix)
+        private string[] CacheDataTask(string suffix)
         {
-            #region *** Cache data ***
-            if (tvDataList.Nodes.Count == 0)
-                tvDataList.Nodes.Add(strTreeViewTitle);
+            string[] result = new string[2];
 
+            #region *** Cache data ***
             //Save datatable to Temp folder
             bool isHeadNull = false;
             if (_DataParse.Header.Product == null)
@@ -613,7 +668,8 @@ namespace DataAnalysisTool
             if (Directory.Exists(TempFolderPath) == false)
                 Directory.CreateDirectory(TempFolderPath);
 
-            _Export.DataTableToCsv(tempFileName, tblData, _DataParse.Header);
+            result[0] = tempFileName;
+            //_Export.DataTableToCsv(tempFileName, tblData, _DataParse.Header);
 
             //Cache data to tblCacheData
             tblCachedData = tblData.Clone();
@@ -624,16 +680,32 @@ namespace DataAnalysisTool
 
             if (isHeadNull)
             {
-                tvDataList.Nodes.Add("{Unknow} " + cachedSafeFileName);
-                //tvDataList.Nodes.Insert(1, "{Unknow} " + cachedSafeFileName);
+                result[1] = "{Unknow} " + cachedSafeFileName;
+                //tvDataList.Nodes.Add("{Unknow} " + cachedSafeFileName);
+                ////tvDataList.Nodes.Insert(1, "{Unknow} " + cachedSafeFileName);
             }
             else
             {
-                tvDataList.Nodes.Add("{" + _DataParse.Header.Product + "} " + cachedSafeFileName);
-                //tvDataList.Nodes.Insert(1, "{" + _DataParse.Header.Product + "} " + cachedSafeFileName);
+                result[1] = "{" + _DataParse.Header.Product + "} " + cachedSafeFileName;
+                //tvDataList.Nodes.Add("{" + _DataParse.Header.Product + "} " + cachedSafeFileName);
+                ////tvDataList.Nodes.Insert(1, "{" + _DataParse.Header.Product + "} " + cachedSafeFileName);
             }
+
             #endregion *** Cache data ***
+
+            return result;
         }
+        private void CacheDataAsync(string[] result)
+        {
+            _Export.DataTableToCsv(result[0], tblData, _DataParse.Header);
+
+            tvDataList.Invoke(new Action(() =>
+            {
+                if (tvDataList.Nodes.Count == 0) tvDataList.Nodes.Add(strTreeViewTitle);
+
+                tvDataList.Nodes.Add(result[1]);
+            }));
+        }  
 
         // *** Clear cached data ***
         private void DelCachedData()
@@ -898,7 +970,7 @@ namespace DataAnalysisTool
 
         #region *** Import Data ***
         // *** Open file ***
-        private void openToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private async void openToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.SelectedPath = _lastsaved.filepathopen;
@@ -913,211 +985,281 @@ namespace DataAnalysisTool
             #endregion *** Variable define ***
 
             #region *** Selected file ***
-            OpenFile = new OpenFileDialog();
-            OpenFile.RestoreDirectory = false;
-            OpenFile.Multiselect = true;
-            OpenFile.Filter = "Supported files(*.txt/*.std/*.csv)|*.txt;*.std;*.stdf;*.csv|STDF Files(*.std/*.stdf)|*.std;*.stdf|TXT data file(*.txt)|*.txt|Acetech data file(*.csv)|*.csv|All Files|*.*";
-            //OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt";
-
-            OpenFile.FilterIndex = _lastsaved.filetype;
-            OpenFile.InitialDirectory = _lastsaved.filepathopen;
-
-            OpenFile.ReadOnlyChecked = true;           
-            OpenFile.FileOk += new CancelEventHandler(OpenFile_FileOk);
-            //OpenFile.ShowDialog();
-            //return;
-            if (OpenFile.ShowDialog() != DialogResult.OK) return;
-
-            dtStart = DateTime.Now;
-            strFileName = OpenFile.FileNames;
-            foreach (string name in strFileName)
+            try
             {
-                string extTemp = "";
-                if (extTemp == "")
-                {
-                    strExtension = Path.GetExtension(name);
-                    workingfolder = Path.GetDirectoryName(name);
-                }
-                extTemp = Path.GetExtension(name);
+                OpenFile = new OpenFileDialog();
+                OpenFile.RestoreDirectory = false;
+                OpenFile.Multiselect = true;
+                OpenFile.Filter = "Supported files(*.txt/*.std/*.csv/*.gz)|*.txt;*.std;*.stdf;*.csv;*.gz|GZ Files(*.gz)|*.gz|STDF Files(*.std/*.stdf)|*.std;*.stdf|TXT data file(*.txt)|*.txt|Acetech data file(*.csv)|*.csv|All Files|*.*";
+                //OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt";
 
-                if (extTemp.ToLower() != strExtension.ToLower())
-                    throw new Exception("Selected file has differenct extension");
+                OpenFile.FilterIndex = _lastsaved.filetype;
+                OpenFile.InitialDirectory = _lastsaved.filepathopen;
+
+                OpenFile.ReadOnlyChecked = true;
+                OpenFile.FileOk += new CancelEventHandler(OpenFile_FileOk);
+                //OpenFile.ShowDialog();
+                //return;
+                if (OpenFile.ShowDialog() != DialogResult.OK) return;
+
+                dtStart = DateTime.Now;
+                strFileName = OpenFile.FileNames;
+                foreach (string name in strFileName)
+                {
+                    string extTemp = "";
+                    if (extTemp == "")
+                    {
+                        strExtension = Path.GetExtension(name);
+                        workingfolder = Path.GetDirectoryName(name);
+                    }
+                    extTemp = Path.GetExtension(name);
+
+                    if (extTemp.ToLower() != strExtension.ToLower())
+                        throw new Exception("Selected file has differenct extension");
+                    else
+                    {
+                        checkFileType(name);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblBar.Text = "";
+                this.Text = "";
+                this.Cursor = Cursors.Default;
+                return;
             }
 
             #endregion *** Selected file ***
 
-            
-            #region *** Processing archive files ***
-            if (strExtension == ".zip")
-            {
-            }
-            #endregion *** Processing archive files ***
+            //dtStart = DateTime.Now;
+            //byte[] sample = File.ReadAllBytes(strFileName[0]);
+            //ts = DateTime.Now - dtStart;
 
-            lblBar.Text = "Parsing data from data file";
-            this.Refresh();
-
-            #region *** Parsing data ***
-            Application.DoEvents();
-            //progressBar.Value = 30;
             try
             {
+                lblBar.Text = "Parsing data from data file";
+                this.Refresh();
+
+                // Parsing Data
                 tblData.Clear();
 
-                if (strExtension.ToLower() == ".txt")
-                {
-                    if (strFileName.Length == 1)
-                        tblData = _DataParse.GetDataFromTxt(strFileName[0]);
-                    else if (strFileName.Length > 1)
-                        tblData = _DataParse.GetDataFromTxt(strFileName);
-                }
-                else if (strExtension.ToLower() == ".std" || strExtension.ToLower() == ".stdf")
-                {
-                    if (strFileName.Length == 1)
-                        //tblData = _DataParse.GetDataFromStd(strFileName[0]);
-                        tblData = _DataParse.GetDataFromStdfviewer(strFileName[0]);
-                    else if (strFileName.Length > 1)
-                        tblData = _DataParse.GetDataFromStdfviewer(strFileName);
-                }
-                else if (strExtension.ToLower() == ".csv")
+                if (strExtension.ToLower() == ".csv")
                 {
                     // Clear Data List Node
                     tvDataList.Nodes.Clear();
-
                     tblData = FetchAceTechCsvData(strFileName[0]);
+                    intFrozenColumn = _DataParse.FreezeColumn;
                 }
+                else
+                {
+                    var Result = await Task.Run(() => FetchDataTask(strFileName));
+                    tblHeader = Result[0];
+                    tblData = Result[1];
+                }
+                //ts = DateTime.Now - dtStart;
+                //lblBar.Text = " " + Math.Round(ts.TotalMilliseconds, 2).ToString() + "ms";
+
+                // Cache Data, Save tbldata to  tablCacheData
+                var result = Task.Run(() => CacheDataTask("")); 
+                //ts = DateTime.Now - dtStart;
+                //lblBar.Text += " / " + Math.Round(ts.TotalMilliseconds, 2).ToString() + "ms";
+
+                // Update Display
+                this.UpdateSessionInfomation();
+                this.updateGrid();
+                //ts = DateTime.Now - dtStart;
+                //lblBar.Text += " / " + Math.Round(ts.TotalMilliseconds, 2).ToString() + "ms";
+
+                // Remove all other tab except data
+                this.RemoveAllTab();
+
+                // wait cache data to be finished
+                this.CacheDataAsync(await result);
+                ts = DateTime.Now - dtStart;
+                lblBar.Text = Math.Round(ts.TotalMilliseconds, 2).ToString() + "ms";
+                this.Cursor = Cursors.Default;
+                this.Refresh();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblBar.Text = "";
+                this.Text = "";
+                this.Cursor = Cursors.Default;
             }
-            //progressBar.Value = 70;
+        }//end of openToolStripMenuItem_Click
+        private void checkFileType(string filename)
+        {
+            using (FileStream stream = new FileStream(filename, FileMode.Open))
+            {
+                int size = 2;
+                var buf = new byte[size];
+                var count = stream.Read(buf, 0, size);
 
-            #endregion *** Parsing data ***
+                switch (Path.GetExtension(filename))
+                {
+                    case ".gz":
+                        {
+                            if (buf[0] == 31 && buf[1] == 139)
+                            {
+                                stream.Position = stream.Position - size;
+                                using (GZipStream gzs = new GZipStream(stream, CompressionMode.Decompress))
+                                {
+                                    var buf1 = new byte[size];
+                                    count = gzs.Read(buf1, 0, size);
+                                    if (buf1[0] != 2 || buf1[1] != 0) throw new Exception("This gzip file does not cotain an valid std file!");
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("This is not an valid gzip file!");
+                            }
+                            break;
+                        }
+                    case ".std":
+                    case ".stdf":
+                        {
+                            if (buf[0] != 2 || buf[1] != 0) throw new Exception("This is not an valid std file!");
+                            stream.Position = stream.Position - size;
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            }
 
-            this.UpdateSessionInfomation();
-
-            ts = DateTime.Now - dtStart;
-            lblBar.Text += " / " + Math.Round(ts.TotalMilliseconds, 2).ToString() + "ms";
-
-            this.updateGrid(tblData);
-
-            this.CacheData("");
-            this.RemoveAllTab();
-
-            ts = DateTime.Now - dtStart;
-            lblBar.Text += " / " + Math.Round(ts.TotalMilliseconds, 2).ToString() + "ms";
         }
         private void OpenFile_FileOk(object sender, CancelEventArgs e)
         {
             _lastsaved.filetype = ((OpenFileDialog)sender).FilterIndex;
-            _lastsaved.filepathopen = Path.GetDirectoryName(((OpenFileDialog)sender).FileName);
+            _lastsaved.filepathopen = _lastsaved.filepathsave = Path.GetDirectoryName(((OpenFileDialog)sender).FileName);
             
             lblBar.Text = "File OK!";
+            this.Text = ((OpenFileDialog)sender).FileName;
+            this.dgvData.DataSource = null;
+            this.Cursor = Cursors.WaitCursor;
             this.Refresh();
-        }//end of openToolStripMenuItem_Click
+        }
 
         // *** Append Data from file
-        private void appendDataToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void appendDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            #region *** Variable define ***
-            string strExtension = "";
-            string[] strFileName;
-
-            #endregion *** Variable define ***
-
-            #region *** Selected file ***
-            OpenFileDialog OpenFile = new OpenFileDialog();
-            OpenFile.RestoreDirectory = true;
-            OpenFile.Multiselect = true;
-            OpenFile.Filter = "STDF Files(*.std/*.stdf)|*.std;*.stdf|TXT data file(*.txt)|*.txt|All Files|*.*";
-            //OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt";
-            if (OpenFile.ShowDialog() != DialogResult.OK) return;
-            strFileName = OpenFile.FileNames;
-            foreach (string name in strFileName)
-            {
-                string extTemp = "";
-                if (extTemp == "")
-                {
-                    strExtension = Path.GetExtension(name);
-                }
-                extTemp = Path.GetExtension(name);
-
-                if (extTemp.ToLower() != strExtension.ToLower())
-                    throw new Exception("Selected file has differenct extension");
-            }
-
-            #endregion *** Selected file ***
-
-            #region *** Parsing data ***
-            lblBar.Text = "Parsing data from txt file";
-            this.Refresh();
-            Application.DoEvents();
-            // Disconnect datagrid will spped up data processing a lot
-            dgvData.DataSource = null;
             try
             {
-                tblCachedData.Clear();
-                if (strExtension.ToLower() == ".txt")
+                #region *** Variable define ***
+                string strExtension = "";
+                string[] strFileName;
+
+                #endregion *** Variable define ***
+
+                #region *** Selected file ***
+                OpenFileDialog OpenFile = new OpenFileDialog();
+                OpenFile.RestoreDirectory = true;
+                OpenFile.Multiselect = true;
+                OpenFile.Filter = "Supported files(*.txt/*.std/*.csv/*.gz)|*.txt;*.std;*.stdf;*.csv;*.gz|GZ Files(*.gz)|*.gz|STDF Files(*.std/*.stdf)|*.std;*.stdf|TXT data file(*.txt)|*.txt|Acetech data file(*.csv)|*.csv|All Files|*.*";
+
+                //OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt";
+
+                OpenFile.FilterIndex = _lastsaved.filetype;
+                OpenFile.InitialDirectory = _lastsaved.filepathopen;
+
+                OpenFile.ReadOnlyChecked = true;
+                OpenFile.FileOk += new CancelEventHandler(OpenFile_FileOk);
+
+                if (OpenFile.ShowDialog() != DialogResult.OK) return;
+                strFileName = OpenFile.FileNames;
+                foreach (string name in strFileName)
                 {
-                    if (strFileName.Length == 1)
-                        tblCachedData = _DataParse.GetDataFromTxt(strFileName[0]);
-                    else if (strFileName.Length > 1)
-                        tblCachedData = _DataParse.GetDataFromTxt(strFileName);
+                    string extTemp = "";
+                    if (extTemp == "")
+                    {
+                        strExtension = Path.GetExtension(name);
+                    }
+                    extTemp = Path.GetExtension(name);
+
+                    if (extTemp.ToLower() != strExtension.ToLower())
+                        throw new Exception("Selected file has differenct extension");
+                    else
+                    {
+                        checkFileType(name);
+                    }
                 }
-                else if (strExtension.ToLower() == ".std")
+
+                #endregion *** Selected file ***
+                
+                #region *** Parsing data ***
+                lblBar.Text = "Parsing data from data file";
+                this.Refresh();
+
+                // Save Original header info
+                int OriginalTestedDevice = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex][1]);
+                int OriginalPassedDevice = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex + 1][1]);
+                int OriginalFailedDevice = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex + 2][1]);
+
+                // Disconnect datagrid will spped up data processing a lot
+                dgvData.DataSource = null;
+                var Result = await Task.Run(() => FetchDataTask(strFileName));
+                tblHeader = Result[0];
+                tblCachedData = Result[1];
+                #endregion *** Parsing data ***
+
+                int DeviceAdded = 1;
+                await Task.Run(() =>
                 {
-                    if (strFileName.Length == 1)
-                        tblCachedData = _DataParse.GetDataFromStdfviewer(strFileName[0]);
-                    else if (strFileName.Length > 1)
-                        tblCachedData = _DataParse.GetDataFromStdfviewer(strFileName);
-                }
+                    #region *** Appending Data ***
+                    tblCachedData.PrimaryKey = null;
+                    foreach (DataRow dr in tblCachedData.Rows)
+                    {
+                        if (tblCachedData.Rows.IndexOf(dr) > 3)
+                        {
+                            dr[0] = tblData.Rows.Count - 3;
+                            tblData.ImportRow(dr);
+                            DeviceAdded++;
+                        }
+                    }
+
+                    #endregion *** Appending Data ***
+                });
+
+                #region *** Update session information ***
+                tblHeader.Rows[TestDeviceColumnIndex][1] = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex][1]) + OriginalTestedDevice;
+                tblHeader.Rows[TestDeviceColumnIndex + 1][1] = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex + 1][1]) + OriginalPassedDevice;
+                tblHeader.Rows[TestDeviceColumnIndex + 2][1] = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex + 2][1]) + OriginalFailedDevice;
+                tblHeader.Rows[TestDeviceColumnIndex + 3][1] = Math.Round(100 * Convert.ToDouble(tblHeader.Rows[TestDeviceColumnIndex + 1][1]) /
+                                                             Convert.ToDouble(tblHeader.Rows[TestDeviceColumnIndex][1]), 2).ToString() + "%";
+
+                this.UpdateSessionInfomation();
+                
+                #endregion *** Update session information ***
+                
+                // Cache Data, Save tbldata to  tablCacheData
+                var result = Task.Run(() => CacheDataTask(""));
+
+
+                this.updateGrid();
+
+                this.RemoveAllTab();
+
+                // wait cache data to be finished
+                this.CacheDataAsync(await result);
+
+                lblBar.Text = "Total " + DeviceAdded.ToString() + " has been added";
+                this.Cursor = Cursors.Default;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            //progressBar.Value = 70;
-
-            #endregion *** Parsing data ***
-
-            #region *** Appending Data ***
-            int DeviceAdded = 1;
-            tblCachedData.PrimaryKey = null;
-            foreach (DataRow dr in tblCachedData.Rows)
-            {
-                if (tblCachedData.Rows.IndexOf(dr) > 3)
-                {
-                    dr[0] = tblData.Rows.Count - 3;
-                    tblData.ImportRow(dr);
-                    DeviceAdded++;
-                }
+                lblBar.Text = "";
+                this.Text = "";
+                this.Cursor = Cursors.Default;
             }
 
-            #endregion *** Appending Data ***
-
-            #region *** Update session information ***
-            int OriginalTestedDevice = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex][1]);
-            int OriginalPassedDevice = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex + 1][1]);
-            int OriginalFailedDevice = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex + 2][1]);
-            this.UpdateSessionInfomation();
-            tblHeader.Rows[TestDeviceColumnIndex][1] = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex][1]) + OriginalTestedDevice;
-            tblHeader.Rows[TestDeviceColumnIndex + 1][1] = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex + 1][1]) + OriginalPassedDevice;
-            tblHeader.Rows[TestDeviceColumnIndex + 2][1] = Convert.ToInt32(tblHeader.Rows[TestDeviceColumnIndex + 2][1]) + OriginalFailedDevice;
-            tblHeader.Rows[TestDeviceColumnIndex + 3][1] = Math.Round(100 * Convert.ToDouble(tblHeader.Rows[TestDeviceColumnIndex + 1][1]) /
-                                                         Convert.ToDouble(tblHeader.Rows[TestDeviceColumnIndex][1]), 2).ToString() + "%";
-
-            #endregion *** Update session information ***
-
-            this.updateGrid(tblData);
-
-            this.CacheData("");
-            this.RemoveAllTab();
-
-            lblBar.Text = "Total " + DeviceAdded.ToString() + " has been added";
         }
 
         // *** Import test data from formatted csv file ***
-        private void ImportfromCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void ImportfromCSVToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
             #region *** Selected file ***
@@ -1145,10 +1287,16 @@ namespace DataAnalysisTool
             #endregion *** Parsing data ***
 
             this.UpdateSessionInfomation();
-            this.updateGrid(tblData);
 
-            this.CacheData("");
+            // Cache Data, Save tbldata to  tablCacheData
+            var result = Task.Run(() => CacheDataTask(""));
+
+            this.updateGrid();
+
             this.RemoveAllTab();
+
+            // wait cache data to be finished
+            this.CacheDataAsync(await result);
 
         } //end of ImportfromCSVToolStripMenuItem_Click
 
@@ -1181,7 +1329,7 @@ namespace DataAnalysisTool
                 i++;
             }
 
-            this.updateGrid(tblData);
+            this.updateGrid();
             tabcontrol.SelectedTab = tabTestData;
             lblBar.Text = "Done";
 
@@ -1206,8 +1354,7 @@ namespace DataAnalysisTool
             lblBar.Text = "Done";
 
         } //end of tvDataList_Click
-
-
+        
         // *** Open and Cache Test Data from AceTech
         private DataTable FetchAceTechCsvData(string strFileName)
         {
@@ -1258,7 +1405,10 @@ namespace DataAnalysisTool
                 _DataParse.Header = m_Header;
 
                 tblData = tblTestData[0];
-                this.CacheData("KGU");
+
+                // Cache Data, Save tbldata to  tablCacheDat
+                // wait cache data to be finished
+                this.CacheDataAsync(CacheDataTask("KGU"));
             }
             #endregion --- KGU ---
 
@@ -1274,7 +1424,11 @@ namespace DataAnalysisTool
                 _DataParse.Header = m_Header;
 
                 tblData = tblTestData[1];
-                this.CacheData("FT");
+
+
+                // Cache Data, Save tbldata to  tablCacheDat
+                // wait cache data to be finished
+                this.CacheDataAsync(CacheDataTask("FT"));
             }
             #endregion --- FT ---
 
@@ -1290,7 +1444,11 @@ namespace DataAnalysisTool
                 _DataParse.Header = m_Header;
 
                 tblData = tblTestData[2];
-                this.CacheData("RT1");
+
+
+                // Cache Data, Save tbldata to  tablCacheDat
+                // wait cache data to be finished
+                this.CacheDataAsync(CacheDataTask("RT1"));
             }
             #endregion --- RT1 ---
 
@@ -1306,7 +1464,11 @@ namespace DataAnalysisTool
                 _DataParse.Header = m_Header;
 
                 tblData = tblTestData[3];
-                this.CacheData("RT2");
+
+
+                // Cache Data, Save tbldata to  tablCacheDat
+                // wait cache data to be finished
+                this.CacheDataAsync(CacheDataTask("RT2"));
             }
             #endregion --- RT1 ---
 
@@ -1322,7 +1484,10 @@ namespace DataAnalysisTool
                 _DataParse.Header = m_Header;
 
                 tblData = tblTestData[4];
-                this.CacheData("EQC");
+
+                // Cache Data, Save tbldata to  tablCacheDat
+                // wait cache data to be finished
+                this.CacheDataAsync(CacheDataTask("EQC"));
             }
             #endregion --- EQC ---
 
@@ -1338,7 +1503,10 @@ namespace DataAnalysisTool
                 _DataParse.Header = m_Header;
 
                 tblData = tblTestData[5];
-                this.CacheData("EQCV");
+
+                // Cache Data, Save tbldata to  tablCacheDat
+                // wait cache data to be finished
+                this.CacheDataAsync(CacheDataTask("EQCV"));
             }
             #endregion --- EQCV ---
 
@@ -1507,6 +1675,7 @@ namespace DataAnalysisTool
             if (_DataParse.a_Header.KGU)
             {
                 m_Header = _DataParse.Header;
+
                 AceTechKGUVerify(tblTestData[0], ArrayKGU);
                 _DataParse.Header = m_Header;
             }
@@ -1514,6 +1683,131 @@ namespace DataAnalysisTool
 
             //tblData.Clear();
             return tblFinal;
+        }
+
+        
+        /// <summary>
+        /// // Paring data based on different file extension 
+        /// </summary>
+        /// <param name="strFileName"></param>
+        /// <returns>Datatable[0] --> Header, Datatable[1] --> Data</returns>
+        private async Task<DataTable[]> FetchDataTask(string[] strFileName)
+        {
+            #region *** Parsing data ***
+            DataParse _DP = new DataParse();
+            DataTable[] tblResult = new DataTable[2];
+            DataTable tblHeadResult = new DataTable();
+            DataTable tblDataResult = new DataTable();
+            string strExtension = Path.GetExtension(strFileName[0]);
+if (strExtension.ToLower() == ".txt")
+            {
+                if (strFileName.Length == 1)
+                    tblDataResult = _DP.GetDataFromTxt(strFileName[0]);
+                else if (strFileName.Length > 1)
+                    tblDataResult = _DP.GetDataFromTxt(strFileName);
+            }
+            else if (strExtension.ToLower() == ".std" || strExtension.ToLower() == ".stdf")
+            {
+                if (strFileName.Length == 1)
+                {
+                    using (FileStream fs = new FileStream(strFileName[0], FileMode.Open))
+                    {
+                        tblDataResult = await Task.Run(() => _DP.GetDataFromStdfviewer(fs));
+                    }
+                }
+                else if (strFileName.Length > 1)
+                {
+                    tblDataResult = await Task.Run(() => _DP.GetDataFromStdfviewerTask(strFileName));
+                }
+            }
+            else if (strExtension.ToLower() == ".gz")
+            {
+                if (strFileName.Length == 1)
+                {
+                    using (FileStream fs = new FileStream(strFileName[0], FileMode.Open))
+                    {
+                        using (GZipStream gzs = new GZipStream(fs, CompressionMode.Decompress))
+                        {
+                            tblDataResult = await Task.Run(() => _DP.GetDataFromStdfviewer(gzs));
+                        }
+                    }
+                }
+                else
+                {
+                    tblDataResult = await Task.Run(() => _DP.GetDataFromStdfviewerTask(strFileName));
+                }
+            }
+
+            #endregion *** Parsing data ***
+
+            intFrozenColumn = _DP.FreezeColumn;
+            _DataParse.Header = _DP.Header;
+
+            #region *** Caculate Header ***
+
+            //int strNameLength = 20;
+            bool isHeadNull = false;
+            var type = typeof(DataHeader);
+            var fields = type.GetFields();
+
+            tblHeadResult.Columns.Add("Name", typeof(string));
+            tblHeadResult.Columns.Add("Value", typeof(string));
+
+            //Array.ForEach(fields, f =>
+            foreach (_FieldInfo fi in fields)
+            {
+                string name = fi.Name;
+                DataRow dr = tblHeadResult.NewRow();
+                dr["Name"] = fi.Name;
+                //check if header null
+                if (name == "Product")
+                {
+                    if (fi.GetValue(_DP.Header) == null)
+                    {
+                        isHeadNull = true;
+                    }
+                }
+                //if header null, use Test quantity to caculate yield
+                if (isHeadNull)
+                {
+                    if (name == "TestQuantity")
+                    {
+                        dr["Value"] = _DP.TestedDevice;
+                    }
+                    else if (name == "PassQuantity")
+                    {
+                        dr["Value"] = _DP.PassedDevice;
+                    }
+                    else if (name == "FailQuantity")
+                    {
+                        dr["Value"] = _DP.FailedDevice;
+                    }
+                    else if (name == "Yield")
+                    {
+                        double pass = Convert.ToDouble(_DP.PassedDevice);
+                        double total = Convert.ToDouble(_DP.TestedDevice);
+                        dr["Value"] = Math.Round(pass / total * 100, 3) + "%";
+                    }
+                }
+                //if header not null, use header info
+                else
+                {
+                    if (name == "Yield")
+                    {
+                        dr["Value"] = fi.GetValue(_DP.Header) + "%";
+                    }
+                    else
+                    {
+                        dr["Value"] = fi.GetValue(_DP.Header);
+                    }
+                }
+                tblHeadResult.Rows.Add(dr);
+            }
+            #endregion *** Caculate Header ***
+
+            tblResult[0] = tblHeadResult;
+            tblResult[1] = tblDataResult;
+            return tblResult;
         }
 
 

@@ -53,7 +53,6 @@ C:\Users\AceLi\Documents\Vanchip\Project\DataAnalysisTool\DataAnalysisTool\obj\x
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\DataAnalysisTool.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\LumenWorks.Framework.IO.dll
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\Vanchip.Data.dll
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\STDF Viewer.dll
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\Vanchip.Data.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\STDF Viewer.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.frmAbout.resources
@@ -64,3 +63,4 @@ C:\Users\AceLi\Documents\Vanchip\Project\DataAnalysisTool\DataAnalysisTool\obj\x
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.Test.resources
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.csproj.GenerateResource.Cache
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\x64\Debug\DataAnalysisTool.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\x64\Debug\STDF Viewer.dll

@@ -1,6 +1,6 @@
 ﻿namespace DataAnalysisTool
 {
-    partial class Main
+    partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.msDataAnalysis = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +69,7 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildKGUFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dBTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dPTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,7 +93,6 @@
             this.TreeViewUserMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.RemoveDataListNode = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoveAllDataListNode = new System.Windows.Forms.ToolStripMenuItem();
-            this.dPTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msDataAnalysis.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -406,16 +406,23 @@
             // buildKGUFileToolStripMenuItem
             // 
             this.buildKGUFileToolStripMenuItem.Name = "buildKGUFileToolStripMenuItem";
-            this.buildKGUFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.buildKGUFileToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.buildKGUFileToolStripMenuItem.Text = "Build KGU file";
             this.buildKGUFileToolStripMenuItem.Click += new System.EventHandler(this.buildKGUFileToolStripMenuItem_Click);
             // 
             // dBTestToolStripMenuItem
             // 
             this.dBTestToolStripMenuItem.Name = "dBTestToolStripMenuItem";
-            this.dBTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dBTestToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.dBTestToolStripMenuItem.Text = "DB_Test";
             this.dBTestToolStripMenuItem.Click += new System.EventHandler(this.dBTestToolStripMenuItem_Click);
+            // 
+            // dPTestToolStripMenuItem
+            // 
+            this.dPTestToolStripMenuItem.Name = "dPTestToolStripMenuItem";
+            this.dPTestToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.dPTestToolStripMenuItem.Text = "DP_Test";
+            this.dPTestToolStripMenuItem.Click += new System.EventHandler(this.dPTestToolStripMenuItem_Click);
             // 
             // userToolStripMenuItem
             // 
@@ -578,6 +585,7 @@
             this.dgvData.Name = "dgvData";
             this.dgvData.Size = new System.Drawing.Size(680, 417);
             this.dgvData.TabIndex = 0;
+            this.dgvData.VirtualMode = true;
             this.dgvData.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvData_CellFormatting);
             // 
             // TabUserMenu
@@ -624,14 +632,7 @@
             this.RemoveAllDataListNode.Text = "Remove All";
             this.RemoveAllDataListNode.Click += new System.EventHandler(this.RemoveAllDataListNode_Click);
             // 
-            // dPTestToolStripMenuItem
-            // 
-            this.dPTestToolStripMenuItem.Name = "dPTestToolStripMenuItem";
-            this.dPTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.dPTestToolStripMenuItem.Text = "DP_Test";
-            this.dPTestToolStripMenuItem.Click += new System.EventHandler(this.dPTestToolStripMenuItem_Click);
-            // 
-            // Main
+            // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -641,7 +642,7 @@
             this.Controls.Add(this.msDataAnalysis);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.msDataAnalysis;
-            this.Name = "Main";
+            this.Name = "frmMain";
             this.Text = "Vanchip Test Tool";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
