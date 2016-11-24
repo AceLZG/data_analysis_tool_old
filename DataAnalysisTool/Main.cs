@@ -1049,8 +1049,9 @@ namespace DataAnalysisTool
                 {
                     // Clear Data List Node
                     tvDataList.Nodes.Clear();
-                    tblData = FetchAceTechCsvData(strFileName[0]);
-                    intFrozenColumn = _DataParse.FreezeColumn;
+                    var Result = FetchAceTechCsvData(strFileName[0]);
+                    tblHeader = Result[0];
+                    tblData = Result[1];
                 }
                 else
                 {
@@ -1356,333 +1357,412 @@ namespace DataAnalysisTool
         } //end of tvDataList_Click
         
         // *** Open and Cache Test Data from AceTech
-        private DataTable FetchAceTechCsvData(string strFileName)
+        private DataTable[] FetchAceTechCsvData(string strFileName)
         {
+            DataParse _DP = new DataParse();
+            DataTable[] tblResult = new DataTable[2];
+
             DataHeader m_Header = new DataHeader();
-            DataTable tblFinal = new DataTable();
+            DataTable tblHeadResult = new DataTable();
+            DataTable tblDataResult = new DataTable();
             DataTable[] tblTestData = new DataTable[6];
             string[] ArrayKGU = null;
 
-            tblTestData = _DataParse.GetDataFromAceTechCsv(strFileName);
-
-            if (_DataParse.a_Header.KGU)
-                ArrayKGU = _DataParse.a_Header.KGU_Number.Split(',');
-
-            #region --- Cache Data ---
-
-            #region --- Common Header ---
-            m_Header.Handler = _DataParse.a_Header.Handler;
-            m_Header.LotFinishDateTime = _DataParse.a_Header.LotEndDateTime;
-            m_Header.LotID = _DataParse.a_Header.LotNumber;
-            m_Header.LotStartDateTime = _DataParse.a_Header.LotStartDateTime;
-            m_Header.OperatorID = _DataParse.a_Header.OperatorID;
-            m_Header.Product = _DataParse.a_Header.Product;
-            m_Header.ProgramRev = _DataParse.a_Header.ProgramRev;
-            m_Header.SubLotID = _DataParse.a_Header.SubLotNumber;
-            m_Header.TestBoard = _DataParse.a_Header.TestBoard;
-            m_Header.Tester = _DataParse.a_Header.Tester;
-            m_Header.LotQuantity = _DataParse.a_Header.LotQty;
-
-            m_Header.TestSession = _DataParse.a_Header.TestSession;
-            m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_FT;
-            m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_FT;
-            m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_FT - _DataParse.a_Header.PassedQty_FT;
-            m_Header.Yield = _DataParse.a_Header.Yield_FT;
-
-            _DataParse.Header = m_Header;
-
-            #endregion --- Common Header ---
-
-            #region --- KGU ---
-            if (_DataParse.a_Header.KGU)
+            try
             {
-                m_Header.TestSession = "KGU";
-                m_Header.TestQuantity = _DataParse.TestedDevice = ArrayKGU.Length;
-                m_Header.PassQuantity = _DataParse.PassedDevice = ArrayKGU.Length;
-                m_Header.FailQuantity = _DataParse.FailedDevice = 0;
-                m_Header.Yield = 100;
+                tblTestData = _DP.GetDataFromAceTechCsv(strFileName);
 
-                _DataParse.Header = m_Header;
+                intFrozenColumn = _DP.FreezeColumn;
+                _DataParse = _DP;
 
-                tblData = tblTestData[0];
+                if (_DP.a_Header.KGU)
+                    ArrayKGU = _DP.a_Header.KGU_Number.Split(',');
 
-                // Cache Data, Save tbldata to  tablCacheDat
-                // wait cache data to be finished
-                this.CacheDataAsync(CacheDataTask("KGU"));
-            }
-            #endregion --- KGU ---
+                #region --- Cache Data ---
 
-            #region --- FT ---
-            if (_DataParse.a_Header.FT)
-            {
-                m_Header.TestSession = "FT";
-                m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_FT;
-                m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_FT;
-                m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_FT - _DataParse.a_Header.PassedQty_FT;
-                m_Header.Yield = _DataParse.a_Header.Yield_FT;
+                #region --- Common Header ---
+                m_Header.Handler = _DP.a_Header.Handler;
+                m_Header.LotFinishDateTime = _DP.a_Header.LotEndDateTime;
+                m_Header.LotID = _DP.a_Header.LotNumber;
+                m_Header.LotStartDateTime = _DP.a_Header.LotStartDateTime;
+                m_Header.OperatorID = _DP.a_Header.OperatorID;
+                m_Header.Product = _DP.a_Header.Product;
+                m_Header.ProgramRev = _DP.a_Header.ProgramRev;
+                m_Header.SubLotID = _DP.a_Header.SubLotNumber;
+                m_Header.TestBoard = _DP.a_Header.TestBoard;
+                m_Header.Tester = _DP.a_Header.Tester;
+                m_Header.LotQuantity = _DP.a_Header.LotQty;
 
-                _DataParse.Header = m_Header;
+                m_Header.TestSession = _DP.a_Header.TestSession;
+                m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_FT;
+                m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_FT;
+                m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_FT - _DP.a_Header.PassedQty_FT;
+                m_Header.Yield = _DP.a_Header.Yield_FT;
 
-                tblData = tblTestData[1];
+                _DP.Header = m_Header;
 
+                #endregion --- Common Header ---
 
-                // Cache Data, Save tbldata to  tablCacheDat
-                // wait cache data to be finished
-                this.CacheDataAsync(CacheDataTask("FT"));
-            }
-            #endregion --- FT ---
-
-            #region --- RT1 ---
-            if (_DataParse.a_Header.RT1)
-            {
-                m_Header.TestSession = "RT1";
-                m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_RT1;
-                m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_RT1;
-                m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_RT1 - _DataParse.a_Header.PassedQty_RT1;
-                m_Header.Yield = _DataParse.a_Header.Yield_RT1;
-
-                _DataParse.Header = m_Header;
-
-                tblData = tblTestData[2];
-
-
-                // Cache Data, Save tbldata to  tablCacheDat
-                // wait cache data to be finished
-                this.CacheDataAsync(CacheDataTask("RT1"));
-            }
-            #endregion --- RT1 ---
-
-            #region --- RT2 ---
-            if (_DataParse.a_Header.RT2)
-            {
-                m_Header.TestSession = "RT2";
-                m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_RT2;
-                m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_RT2;
-                m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_RT2 - _DataParse.a_Header.PassedQty_RT2;
-                m_Header.Yield = _DataParse.a_Header.Yield_RT2;
-
-                _DataParse.Header = m_Header;
-
-                tblData = tblTestData[3];
-
-
-                // Cache Data, Save tbldata to  tablCacheDat
-                // wait cache data to be finished
-                this.CacheDataAsync(CacheDataTask("RT2"));
-            }
-            #endregion --- RT1 ---
-
-            #region --- EQC ---
-            if (_DataParse.a_Header.EQC)
-            {
-                m_Header.TestSession = "EQC";
-                m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_EQC;
-                m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_EQC;
-                m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_EQC - _DataParse.a_Header.PassedQty_EQC;
-                m_Header.Yield = _DataParse.a_Header.Yield_EQC;
-
-                _DataParse.Header = m_Header;
-
-                tblData = tblTestData[4];
-
-                // Cache Data, Save tbldata to  tablCacheDat
-                // wait cache data to be finished
-                this.CacheDataAsync(CacheDataTask("EQC"));
-            }
-            #endregion --- EQC ---
-
-            #region --- EQCV ---
-            if (_DataParse.a_Header.EQCV)
-            {
-                m_Header.TestSession = "EQCV";
-                m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_EQCV;
-                m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_EQCV;
-                m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_EQCV - _DataParse.a_Header.PassedQty_EQCV;
-                m_Header.Yield = _DataParse.a_Header.Yield_EQCV;
-
-                _DataParse.Header = m_Header;
-
-                tblData = tblTestData[5];
-
-                // Cache Data, Save tbldata to  tablCacheDat
-                // wait cache data to be finished
-                this.CacheDataAsync(CacheDataTask("EQCV"));
-            }
-            #endregion --- EQCV ---
-
-            #endregion --- Cache Data ---
-
-            #region --- Merge Data ---
-
-            m_Header.TestSession = _DataParse.a_Header.TestSession;
-            m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_FT;
-            m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_FT + _DataParse.a_Header.PassedQty_RT1 + _DataParse.a_Header.PassedQty_RT2;
-            m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.TestedDevice - _DataParse.PassedDevice;
-            m_Header.Yield = Math.Round((Convert.ToDouble(_DataParse.PassedDevice) / Convert.ToDouble(_DataParse.TestedDevice)) * 100, 2);
-
-            _DataParse.Header = m_Header;
-
-            int RowIndex = 1;
-
-            if (_DataParse.a_Header.FT && _DataParse.a_Header.RT1 && _DataParse.a_Header.RT2)
-            {
-                #region --- Merge Data FT & RT1 & RT2 ---
-                tblFinal = tblTestData[1].Clone();
-                // FT Data
-                tblTestData[1].PrimaryKey = null;
-                foreach (DataRow dr in tblTestData[1].Rows)
+                #region --- KGU ---
+                if (_DP.a_Header.KGU)
                 {
-                    // Header Limit
-                    if (tblTestData[1].Rows.IndexOf(dr) <= 3) tblFinal.ImportRow(dr);
+                    m_Header.TestSession = "KGU";
+                    m_Header.TestQuantity = _DP.TestedDevice = ArrayKGU.Length;
+                    m_Header.PassQuantity = _DP.PassedDevice = ArrayKGU.Length;
+                    m_Header.FailQuantity = _DP.FailedDevice = 0;
+                    m_Header.Yield = 100;
 
-                    int intCount = tblTestData[1].Columns.Count;
-                    if (dr[intCount - 1].ToString().ToLower() == "pass")
-                    {
-                        dr[0] = RowIndex;
-                        tblFinal.ImportRow(dr);
-                        RowIndex++;
-                    }
-                }
+                    _DP.Header = m_Header;
 
-                // RT1 Data
-                tblTestData[2].PrimaryKey = null;
-                foreach (DataRow dr in tblTestData[2].Rows)
-                {
-                    int intCount = tblTestData[2].Columns.Count;
-                    if (dr[intCount - 1].ToString().ToLower() == "pass")
-                    {
-                        dr[0] = RowIndex;
-                        tblFinal.ImportRow(dr);
-                        RowIndex++;
-                    }
-                }
+                    tblData = tblTestData[0];
 
-                // RT2 Data
-                tblTestData[3].PrimaryKey = null;
-                foreach (DataRow dr in tblTestData[3].Rows)
-                {
-                    if (tblTestData[3].Rows.IndexOf(dr) > 3)
-                    {
-                        dr[0] = RowIndex;
-                        tblFinal.ImportRow(dr);
-                        RowIndex++;
-                    }
+                    // Cache Data, Save tbldata to  tablCacheDat
+                    // wait cache data to be finished
+                    this.CacheDataAsync(CacheDataTask("KGU"));
                 }
-                #endregion --- Merge Data FT & RT1 & RT2 ---
-            }
-            else if (_DataParse.a_Header.FT && _DataParse.a_Header.RT1)
-            {
-                #region --- Merge Data FT & RT1 ---
-                // FT Data
-                tblFinal = tblTestData[1].Clone();
-                tblTestData[1].PrimaryKey = null;
-                foreach (DataRow dr in tblTestData[1].Rows)
-                {
-                    // Header Limit
-                    if (tblTestData[1].Rows.IndexOf(dr) <= 3) tblFinal.ImportRow(dr);
+                #endregion --- KGU ---
 
-                    int intCount = tblTestData[1].Columns.Count;
-                    if (dr[intCount - 1].ToString().ToLower() == "pass")
-                    {
-                        dr[0] = RowIndex;
-                        tblFinal.ImportRow(dr);
-                        RowIndex++;
-                    }
-                }
-
-                // RT1 Data
-                tblTestData[3].PrimaryKey = null;
-                foreach (DataRow dr in tblTestData[2].Rows)
-                {
-                    if (tblTestData[2].Rows.IndexOf(dr) > 3)
-                    {
-                        dr[0] = RowIndex;
-                        tblFinal.ImportRow(dr);
-                        RowIndex++;
-                    }
-                }
-                #endregion --- Merge Data FT & RT1 ---
-            }
-            else
-            {
-                #region --- No Merge ---
-                if (_DataParse.a_Header.FT)
+                #region --- FT ---
+                if (_DP.a_Header.FT)
                 {
                     m_Header.TestSession = "FT";
-                    m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_FT;
-                    m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_FT;
-                    m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_FT - _DataParse.a_Header.PassedQty_FT;
-                    m_Header.Yield = _DataParse.a_Header.Yield_FT;
+                    m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_FT;
+                    m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_FT;
+                    m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_FT - _DP.a_Header.PassedQty_FT;
+                    m_Header.Yield = _DP.a_Header.Yield_FT;
 
-                    _DataParse.Header = m_Header;
+                    _DP.Header = m_Header;
 
-                    tblFinal = tblTestData[1];
+                    tblData = tblTestData[1];
+
+
+                    // Cache Data, Save tbldata to  tablCacheDat
+                    // wait cache data to be finished
+                    this.CacheDataAsync(CacheDataTask("FT"));
                 }
-                else if (_DataParse.a_Header.RT1)
+                #endregion --- FT ---
+
+                #region --- RT1 ---
+                if (_DP.a_Header.RT1)
                 {
                     m_Header.TestSession = "RT1";
-                    m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_RT1;
-                    m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_RT1;
-                    m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_RT1 - _DataParse.a_Header.PassedQty_RT1;
-                    m_Header.Yield = _DataParse.a_Header.Yield_RT1;
+                    m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_RT1;
+                    m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_RT1;
+                    m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_RT1 - _DP.a_Header.PassedQty_RT1;
+                    m_Header.Yield = _DP.a_Header.Yield_RT1;
 
-                    _DataParse.Header = m_Header;
+                    _DP.Header = m_Header;
 
-                    tblFinal = tblTestData[2];
+                    tblData = tblTestData[2];
+
+
+                    // Cache Data, Save tbldata to  tablCacheDat
+                    // wait cache data to be finished
+                    this.CacheDataAsync(CacheDataTask("RT1"));
                 }
-                else if (_DataParse.a_Header.RT2)
+                #endregion --- RT1 ---
+
+                #region --- RT2 ---
+                if (_DP.a_Header.RT2)
                 {
                     m_Header.TestSession = "RT2";
-                    m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_RT2;
-                    m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_RT2;
-                    m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_RT2 - _DataParse.a_Header.PassedQty_RT2;
-                    m_Header.Yield = _DataParse.a_Header.Yield_RT2;
+                    m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_RT2;
+                    m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_RT2;
+                    m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_RT2 - _DP.a_Header.PassedQty_RT2;
+                    m_Header.Yield = _DP.a_Header.Yield_RT2;
 
-                    _DataParse.Header = m_Header;
+                    _DP.Header = m_Header;
 
-                    tblFinal = tblTestData[3];
+                    tblData = tblTestData[3];
+
+
+                    // Cache Data, Save tbldata to  tablCacheDat
+                    // wait cache data to be finished
+                    this.CacheDataAsync(CacheDataTask("RT2"));
                 }
-                else if (_DataParse.a_Header.EQC)
+                #endregion --- RT1 ---
+
+                #region --- EQC ---
+                if (_DP.a_Header.EQC)
                 {
                     m_Header.TestSession = "EQC";
-                    m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_EQC;
-                    m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_EQC;
-                    m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_EQC - _DataParse.a_Header.PassedQty_EQC;
-                    m_Header.Yield = _DataParse.a_Header.Yield_EQC;
+                    m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_EQC;
+                    m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_EQC;
+                    m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_EQC - _DP.a_Header.PassedQty_EQC;
+                    m_Header.Yield = _DP.a_Header.Yield_EQC;
 
-                    _DataParse.Header = m_Header;
+                    _DP.Header = m_Header;
 
-                    tblFinal = tblTestData[4];
+                    tblData = tblTestData[4];
+
+                    // Cache Data, Save tbldata to  tablCacheDat
+                    // wait cache data to be finished
+                    this.CacheDataAsync(CacheDataTask("EQC"));
                 }
-                else if (_DataParse.a_Header.EQCV)
+                #endregion --- EQC ---
+
+                #region --- EQCV ---
+                if (_DP.a_Header.EQCV)
                 {
                     m_Header.TestSession = "EQCV";
-                    m_Header.TestQuantity = _DataParse.TestedDevice = _DataParse.a_Header.TestedQty_EQCV;
-                    m_Header.PassQuantity = _DataParse.PassedDevice = _DataParse.a_Header.PassedQty_EQCV;
-                    m_Header.FailQuantity = _DataParse.FailedDevice = _DataParse.a_Header.TestedQty_EQCV - _DataParse.a_Header.PassedQty_EQCV;
-                    m_Header.Yield = _DataParse.a_Header.Yield_EQCV;
+                    m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_EQCV;
+                    m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_EQCV;
+                    m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_EQCV - _DP.a_Header.PassedQty_EQCV;
+                    m_Header.Yield = _DP.a_Header.Yield_EQCV;
 
-                    _DataParse.Header = m_Header;
+                    _DP.Header = m_Header;
 
-                    tblFinal = tblTestData[5];
+                    tblData = tblTestData[5];
+
+                    // Cache Data, Save tbldata to  tablCacheDat
+                    // wait cache data to be finished
+                    this.CacheDataAsync(CacheDataTask("EQCV"));
                 }
-                #endregion --- No Merge ---
+                #endregion --- EQCV ---
+
+                #endregion --- Cache Data ---
+
+                #region --- Merge Data ---
+
+                m_Header.TestSession = _DP.a_Header.TestSession;
+                m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_FT;
+                m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_FT + _DP.a_Header.PassedQty_RT1 + _DP.a_Header.PassedQty_RT2;
+                m_Header.FailQuantity = _DP.FailedDevice = _DP.TestedDevice - _DP.PassedDevice;
+                m_Header.Yield = Math.Round((Convert.ToDouble(_DP.PassedDevice) / Convert.ToDouble(_DP.TestedDevice)) * 100, 2);
+
+                _DP.Header = m_Header;
+
+                int RowIndex = 1;
+
+                if (_DP.a_Header.FT && _DP.a_Header.RT1 && _DP.a_Header.RT2)
+                {
+                    #region --- Merge Data FT & RT1 & RT2 ---
+                    tblDataResult = tblTestData[1].Clone();
+                    // FT Data
+                    tblTestData[1].PrimaryKey = null;
+                    foreach (DataRow dr in tblTestData[1].Rows)
+                    {
+                        // Header Limit
+                        if (tblTestData[1].Rows.IndexOf(dr) <= 3) tblDataResult.ImportRow(dr);
+
+                        int intCount = tblTestData[1].Columns.Count;
+                        if (dr[intCount - 1].ToString().ToLower() == "pass")
+                        {
+                            dr[0] = RowIndex;
+                            tblDataResult.ImportRow(dr);
+                            RowIndex++;
+                        }
+                    }
+
+                    // RT1 Data
+                    tblTestData[2].PrimaryKey = null;
+                    foreach (DataRow dr in tblTestData[2].Rows)
+                    {
+                        int intCount = tblTestData[2].Columns.Count;
+                        if (dr[intCount - 1].ToString().ToLower() == "pass")
+                        {
+                            dr[0] = RowIndex;
+                            tblDataResult.ImportRow(dr);
+                            RowIndex++;
+                        }
+                    }
+
+                    // RT2 Data
+                    tblTestData[3].PrimaryKey = null;
+                    foreach (DataRow dr in tblTestData[3].Rows)
+                    {
+                        if (tblTestData[3].Rows.IndexOf(dr) > 3)
+                        {
+                            dr[0] = RowIndex;
+                            tblDataResult.ImportRow(dr);
+                            RowIndex++;
+                        }
+                    }
+                    #endregion --- Merge Data FT & RT1 & RT2 ---
+                }
+                else if (_DP.a_Header.FT && _DP.a_Header.RT1)
+                {
+                    #region --- Merge Data FT & RT1 ---
+                    // FT Data
+                    tblDataResult = tblTestData[1].Clone();
+                    tblTestData[1].PrimaryKey = null;
+                    foreach (DataRow dr in tblTestData[1].Rows)
+                    {
+                        // Header Limit
+                        if (tblTestData[1].Rows.IndexOf(dr) <= 3) tblDataResult.ImportRow(dr);
+
+                        int intCount = tblTestData[1].Columns.Count;
+                        if (dr[intCount - 1].ToString().ToLower() == "pass")
+                        {
+                            dr[0] = RowIndex;
+                            tblDataResult.ImportRow(dr);
+                            RowIndex++;
+                        }
+                    }
+
+                    // RT1 Data
+                    tblTestData[3].PrimaryKey = null;
+                    foreach (DataRow dr in tblTestData[2].Rows)
+                    {
+                        if (tblTestData[2].Rows.IndexOf(dr) > 3)
+                        {
+                            dr[0] = RowIndex;
+                            tblDataResult.ImportRow(dr);
+                            RowIndex++;
+                        }
+                    }
+                    #endregion --- Merge Data FT & RT1 ---
+                }
+                else
+                {
+                    #region --- No Merge ---
+                    if (_DP.a_Header.FT)
+                    {
+                        m_Header.TestSession = "FT";
+                        m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_FT;
+                        m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_FT;
+                        m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_FT - _DP.a_Header.PassedQty_FT;
+                        m_Header.Yield = _DP.a_Header.Yield_FT;
+
+                        _DP.Header = m_Header;
+
+                        tblDataResult = tblTestData[1];
+                    }
+                    else if (_DP.a_Header.RT1)
+                    {
+                        m_Header.TestSession = "RT1";
+                        m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_RT1;
+                        m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_RT1;
+                        m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_RT1 - _DP.a_Header.PassedQty_RT1;
+                        m_Header.Yield = _DP.a_Header.Yield_RT1;
+
+                        _DP.Header = m_Header;
+
+                        tblDataResult = tblTestData[2];
+                    }
+                    else if (_DP.a_Header.RT2)
+                    {
+                        m_Header.TestSession = "RT2";
+                        m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_RT2;
+                        m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_RT2;
+                        m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_RT2 - _DP.a_Header.PassedQty_RT2;
+                        m_Header.Yield = _DP.a_Header.Yield_RT2;
+
+                        _DP.Header = m_Header;
+
+                        tblDataResult = tblTestData[3];
+                    }
+                    else if (_DP.a_Header.EQC)
+                    {
+                        m_Header.TestSession = "EQC";
+                        m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_EQC;
+                        m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_EQC;
+                        m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_EQC - _DP.a_Header.PassedQty_EQC;
+                        m_Header.Yield = _DP.a_Header.Yield_EQC;
+
+                        _DP.Header = m_Header;
+
+                        tblDataResult = tblTestData[4];
+                    }
+                    else if (_DP.a_Header.EQCV)
+                    {
+                        m_Header.TestSession = "EQCV";
+                        m_Header.TestQuantity = _DP.TestedDevice = _DP.a_Header.TestedQty_EQCV;
+                        m_Header.PassQuantity = _DP.PassedDevice = _DP.a_Header.PassedQty_EQCV;
+                        m_Header.FailQuantity = _DP.FailedDevice = _DP.a_Header.TestedQty_EQCV - _DP.a_Header.PassedQty_EQCV;
+                        m_Header.Yield = _DP.a_Header.Yield_EQCV;
+
+                        _DP.Header = m_Header;
+
+                        tblDataResult = tblTestData[5];
+                    }
+                    #endregion --- No Merge ---
+                }
+
+                #endregion --- Merge Data ---
+
+                #region --- KGU Analysis ---
+                if (_DP.a_Header.KGU)
+                {
+                    m_Header = _DP.Header;
+
+                    AceTechKGUVerify(tblTestData[0], ArrayKGU);
+                    _DP.Header = m_Header;
+                }
+                #endregion --- KGU Analysis ---
+
+                #region *** Caculate Header ***
+
+                //int strNameLength = 20;
+                bool isHeadNull = false;
+                var type = typeof(DataHeader);
+                var fields = type.GetFields();
+
+                tblHeadResult.Columns.Add("Name", typeof(string));
+                tblHeadResult.Columns.Add("Value", typeof(string));
+
+                //Array.ForEach(fields, f =>
+                foreach (_FieldInfo fi in fields)
+                {
+                    string name = fi.Name;
+                    DataRow dr = tblHeadResult.NewRow();
+                    dr["Name"] = fi.Name;
+                    //check if header null
+                    if (name == "Product")
+                    {
+                        if (fi.GetValue(_DP.Header) == null)
+                        {
+                            isHeadNull = true;
+                        }
+                    }
+                    //if header null, use Test quantity to caculate yield
+                    if (isHeadNull)
+                    {
+                        if (name == "TestQuantity")
+                        {
+                            dr["Value"] = _DP.TestedDevice;
+                        }
+                        else if (name == "PassQuantity")
+                        {
+                            dr["Value"] = _DP.PassedDevice;
+                        }
+                        else if (name == "FailQuantity")
+                        {
+                            dr["Value"] = _DP.FailedDevice;
+                        }
+                        else if (name == "Yield")
+                        {
+                            double pass = Convert.ToDouble(_DP.PassedDevice);
+                            double total = Convert.ToDouble(_DP.TestedDevice);
+                            dr["Value"] = Math.Round(pass / total * 100, 3) + "%";
+                        }
+                    }
+                    //if header not null, use header info
+                    else
+                    {
+                        if (name == "Yield")
+                        {
+                            dr["Value"] = fi.GetValue(_DP.Header) + "%";
+                        }
+                        else
+                        {
+                            dr["Value"] = fi.GetValue(_DP.Header);
+                        }
+                    }
+                    tblHeadResult.Rows.Add(dr);
+                }
+                #endregion *** Caculate Header ***
+
+                //tblData.Clear();
+                tblResult[0] = tblHeadResult;
+                tblResult[1] = tblDataResult;
+
+                return tblResult;
             }
-
-            #endregion --- Merge Data ---
-
-            #region --- KGU Analysis ---
-            if (_DataParse.a_Header.KGU)
+            catch (Exception ex)
             {
-                m_Header = _DataParse.Header;
-
-                AceTechKGUVerify(tblTestData[0], ArrayKGU);
-                _DataParse.Header = m_Header;
+                throw new Exception(ex.Message);
             }
-            #endregion --- KGU Analysis ---
-
-            //tblData.Clear();
-            return tblFinal;
         }
 
         
@@ -1699,7 +1779,8 @@ namespace DataAnalysisTool
             DataTable tblHeadResult = new DataTable();
             DataTable tblDataResult = new DataTable();
             string strExtension = Path.GetExtension(strFileName[0]);
-if (strExtension.ToLower() == ".txt")
+
+            if (strExtension.ToLower() == ".txt")
             {
                 if (strFileName.Length == 1)
                     tblDataResult = _DP.GetDataFromTxt(strFileName[0]);
@@ -1741,7 +1822,7 @@ if (strExtension.ToLower() == ".txt")
             #endregion *** Parsing data ***
 
             intFrozenColumn = _DP.FreezeColumn;
-            _DataParse.Header = _DP.Header;
+            _DataParse = _DP;
 
             #region *** Caculate Header ***
 
