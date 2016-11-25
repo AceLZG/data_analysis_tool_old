@@ -11,7 +11,7 @@ using System.Security.Permissions;
 
 class Program
 {
-	static string remoteVersionURL = "http://localhost:8090/program-version.txt";
+	static string remoteVersionURL = "http://localhost:8090/version.txt";
 
 	static void Main(string[] args)
 	{
@@ -107,6 +107,7 @@ class Program
 		// Since the download doesn't appear to be bad at first sight, let's extract it
 		Console.Write("Extracting archive - ");
 		string extractTarget = @"./downloadedFiles";
+                
 		ZipFile.ExtractToDirectory(downloadDestination, extractTarget);
 		// Copy the extracted files and replace everything in the current directory to finish the update
 		// C# doesn't easily let us extract & replace at the same time

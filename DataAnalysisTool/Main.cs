@@ -104,9 +104,10 @@ namespace DataAnalysisTool
 
         DataParse _DataParse = new DataParse();
 
-        #region  *** Initialize ***
+       
         public frmMain(string[] args)
         {
+            #region  *** Initialize ***
             InitializeComponent();
             this.WindowState = FormWindowState.Normal;
             SplitContainer.FixedPanel = FixedPanel.Panel1;
@@ -140,7 +141,22 @@ namespace DataAnalysisTool
             style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
 
-            if (args[0] != null && args[0].ToLower() == "--daemon")
+        #endregion  *** Initialize ***
+
+            // Write out our current version
+            File.WriteAllText("version.txt", this.ProductVersion);
+
+            // Exit now if we were just asked for our version
+            if (args.Length > 0 && args[0] != null && args[0].Trim().ToLower() == "--version")
+            {
+                Process[] procdat = Process.GetProcessesByName("DataAnalysisTool");
+
+                foreach (Process proc in procdat)
+                {
+                    proc.Kill();
+                }
+            }
+            else if (args.Length > 0 && args[0] != null && args[0].ToLower() == "--daemon")
             {
                 // daemon mode do not analysis kgu
                 kgucompare = false;
@@ -167,10 +183,6 @@ namespace DataAnalysisTool
             
         }
         
-        #endregion  *** Initialize ***
-
-
-
 
         #region *** Sub Functions ***
         // *** Re-Caculate Cpk Limit Impact

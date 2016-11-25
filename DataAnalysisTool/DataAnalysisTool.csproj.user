@@ -16,7 +16,7 @@
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>--daemonb</StartArguments>
+    <StartArguments>--version</StartArguments>
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
     <EnableSQLServerDebugging>true</EnableSQLServerDebugging>
   </PropertyGroup>

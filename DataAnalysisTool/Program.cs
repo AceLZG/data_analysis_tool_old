@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace DataAnalysisTool
 {
@@ -13,10 +15,16 @@ namespace DataAnalysisTool
         [STAThread]
         static void Main(string[] args)
         {
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            args = new string[2];
+            //args = new string[2];
             Application.Run(new frmMain(args));
+
+            if (args.Length > 0 && args[0] != null && args[0].Trim().ToLower() == "--version")
+            {
+                
+            }
         }
     }
 }
