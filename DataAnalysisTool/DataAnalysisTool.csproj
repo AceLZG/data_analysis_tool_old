@@ -243,6 +243,14 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\STDF Viewer\STDF Viewer\STDF Viewer.csproj">
+      <Project>{fda8985a-16ff-41ae-84f9-bedea60770fe}</Project>
+      <Name>STDF Viewer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Update\AutoUpdateHelper.csproj">
+      <Project>{1361b64a-16ae-4403-9fd8-ceee61735284}</Project>
+      <Name>AutoUpdateHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vanchip.Data\Vanchip.Data.csproj">
       <Project>{1295cbb6-fc48-410a-a327-119a7694b920}</Project>
       <Name>Vanchip.Data</Name>

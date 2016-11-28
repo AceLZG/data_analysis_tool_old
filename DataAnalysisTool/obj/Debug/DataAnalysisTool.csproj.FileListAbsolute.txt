@@ -18,3 +18,5 @@
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmMain.resources
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Update.exe
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Update.pdb

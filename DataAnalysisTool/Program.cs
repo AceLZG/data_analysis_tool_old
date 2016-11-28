@@ -15,6 +15,14 @@ namespace DataAnalysisTool
         [STAThread]
         static void Main(string[] args)
         {
+            // Check for update
+            ProcessStartInfo psi = new ProcessStartInfo("Update.exe");
+            psi.Arguments = "--update";
+            Process p_update = new Process();
+            p_update.StartInfo = psi;
+            p_update.Start();
+            p_update.WaitForExit();
+
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

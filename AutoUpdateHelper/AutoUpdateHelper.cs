@@ -11,7 +11,7 @@ using System.Security.Permissions;
 
 class Program
 {
-	static string remoteVersionURL = "http://localhost:8090/version.txt";
+    static string remoteVersionURL = "https://raw.githubusercontent.com/AceLZG/data_analysis_tool/master/version.txt";
 
 	static void Main(string[] args)
 	{
@@ -31,7 +31,7 @@ class Program
 				// Format:
 				//	<version> <url> <hash>
 				string remoteVersionText = webClient.DownloadString(remoteVersionURL).Trim();
-				string[] remoteVersionParts = (new Regex(@"\s+")).Split(remoteVersionText);
+				string[] remoteVersionParts = (new Regex(@"\s+")).Split(remoteVersionText); // split by space
 				string remoteUrl = remoteVersionParts[1];
 				string remoteHash = remoteVersionParts[2];
 				
