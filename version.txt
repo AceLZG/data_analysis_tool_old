@@ -1,1 +1,1 @@
-data_analysis_tools 2.5.1.4 https://github.com/AceLZG/data_analysis_tool/releases/download/2.5/dat_2.5.1.4.tar.gz
+2.5.1.4 https://github.com/AceLZG/data_analysis_tool/releases/download/2.5/dat_2.5.1.4.tar.gz    48ef2af152c15d3a0ec6b9c6961125ce1ea1fadb
