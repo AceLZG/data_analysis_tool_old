@@ -21,10 +21,6 @@ namespace DataAnalysisTool
             //args = new string[2];
             Application.Run(new frmMain(args));
 
-            if (args.Length > 0 && args[0] != null && args[0].Trim().ToLower() == "--version")
-            {
-                
-            }
         }
     }
 }

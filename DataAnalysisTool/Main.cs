@@ -10,6 +10,7 @@
 ///     Rev2.4.1.0      fix acetech parsing & kgu issue and add last save function                  Ace Li      2016-11-02
 ///     Rev2.4.1.0      Add compressed(gzip) file type support and optimize std parsing
 ///                         other small bug fix                                                     Ace Li      2016-11-21
+///     Rev2.5.1.4      Rewrite data parsing structure and bug fix                                  Ace Li      2016-11-28
 
 using System;
 using System.Diagnostics;
@@ -501,6 +502,7 @@ namespace DataAnalysisTool
                 fileName = TempFolderPath + arrayName[1].Trim() + ".csv";
 
                 tblData = _DataParse.GetDataFromCsv(fileName);
+                tblHeader = GetHeader(_DataParse);
             }
             catch (Exception ex)
             {
@@ -535,25 +537,29 @@ namespace DataAnalysisTool
 
         // *** Update Header information ***
 
-        private void refreshheader()
+        private DataTable GetHeader(DataParse _ParaDP)
         {
-            //Clear tabHeader
-            tblHeader.Clear();
+            DataTable tblHeadResult = new DataTable();
 
+            #region *** Caculate Header ***
             //int strNameLength = 20;
             bool isHeadNull = false;
             var type = typeof(DataHeader);
             var fields = type.GetFields();
+
+            tblHeadResult.Columns.Add("Name", typeof(string));
+            tblHeadResult.Columns.Add("Value", typeof(string));
+
             //Array.ForEach(fields, f =>
             foreach (_FieldInfo fi in fields)
             {
                 string name = fi.Name;
-                DataRow dr = tblHeader.NewRow();
+                DataRow dr = tblHeadResult.NewRow();
                 dr["Name"] = fi.Name;
                 //check if header null
                 if (name == "Product")
                 {
-                    if (fi.GetValue(_DataParse.Header) == null)
+                    if (fi.GetValue(_ParaDP.Header) == null)
                     {
                         isHeadNull = true;
                     }
@@ -563,20 +569,20 @@ namespace DataAnalysisTool
                 {
                     if (name == "TestQuantity")
                     {
-                        dr["Value"] = _DataParse.TestedDevice;
+                        dr["Value"] = _ParaDP.TestedDevice;
                     }
                     else if (name == "PassQuantity")
                     {
-                        dr["Value"] = _DataParse.PassedDevice;
+                        dr["Value"] = _ParaDP.PassedDevice;
                     }
                     else if (name == "FailQuantity")
                     {
-                        dr["Value"] = _DataParse.FailedDevice;
+                        dr["Value"] = _ParaDP.FailedDevice;
                     }
                     else if (name == "Yield")
                     {
-                        double pass = Convert.ToDouble(_DataParse.PassedDevice);
-                        double total = Convert.ToDouble(_DataParse.TestedDevice);
+                        double pass = Convert.ToDouble(_ParaDP.PassedDevice);
+                        double total = Convert.ToDouble(_ParaDP.TestedDevice);
                         dr["Value"] = Math.Round(pass / total * 100, 3) + "%";
                     }
                 }
@@ -585,15 +591,18 @@ namespace DataAnalysisTool
                 {
                     if (name == "Yield")
                     {
-                        dr["Value"] = fi.GetValue(_DataParse.Header) + "%";
+                        dr["Value"] = fi.GetValue(_ParaDP.Header) + "%";
                     }
                     else
                     {
-                        dr["Value"] = fi.GetValue(_DataParse.Header);
+                        dr["Value"] = fi.GetValue(_ParaDP.Header);
                     }
                 }
-                tblHeader.Rows.Add(dr);
+                tblHeadResult.Rows.Add(dr);
             }
+            #endregion *** Caculate Header ***
+
+            return tblHeadResult;
         }
         private void UpdateSessionInfomation()
         {
@@ -964,7 +973,8 @@ namespace DataAnalysisTool
         {
             tvDataList.Nodes.Clear();
             tblData.Clear();
-            dgvData.Columns.Clear();
+            //dgvData.Columns.Clear();
+            tblHeader.Clear();
         }
 
         #endregion *** Remove Data List Node ***
@@ -1291,6 +1301,8 @@ namespace DataAnalysisTool
             try
             {
                 tblData = _DataParse.GetDataFromCsv(strfilename);
+                intFrozenColumn = _DataParse.FreezeColumn;
+                tblHeader = GetHeader(_DataParse);
             }
             catch (Exception ex)
             {
@@ -1703,67 +1715,68 @@ namespace DataAnalysisTool
                 }
                 #endregion --- KGU Analysis ---
 
-                #region *** Caculate Header ***
+                tblHeadResult = GetHeader(_DP);
+                //#region *** Caculate Header ***
 
-                //int strNameLength = 20;
-                bool isHeadNull = false;
-                var type = typeof(DataHeader);
-                var fields = type.GetFields();
+                ////int strNameLength = 20;
+                //bool isHeadNull = false;
+                //var type = typeof(DataHeader);
+                //var fields = type.GetFields();
 
-                tblHeadResult.Columns.Add("Name", typeof(string));
-                tblHeadResult.Columns.Add("Value", typeof(string));
+                //tblHeadResult.Columns.Add("Name", typeof(string));
+                //tblHeadResult.Columns.Add("Value", typeof(string));
 
-                //Array.ForEach(fields, f =>
-                foreach (_FieldInfo fi in fields)
-                {
-                    string name = fi.Name;
-                    DataRow dr = tblHeadResult.NewRow();
-                    dr["Name"] = fi.Name;
-                    //check if header null
-                    if (name == "Product")
-                    {
-                        if (fi.GetValue(_DP.Header) == null)
-                        {
-                            isHeadNull = true;
-                        }
-                    }
-                    //if header null, use Test quantity to caculate yield
-                    if (isHeadNull)
-                    {
-                        if (name == "TestQuantity")
-                        {
-                            dr["Value"] = _DP.TestedDevice;
-                        }
-                        else if (name == "PassQuantity")
-                        {
-                            dr["Value"] = _DP.PassedDevice;
-                        }
-                        else if (name == "FailQuantity")
-                        {
-                            dr["Value"] = _DP.FailedDevice;
-                        }
-                        else if (name == "Yield")
-                        {
-                            double pass = Convert.ToDouble(_DP.PassedDevice);
-                            double total = Convert.ToDouble(_DP.TestedDevice);
-                            dr["Value"] = Math.Round(pass / total * 100, 3) + "%";
-                        }
-                    }
-                    //if header not null, use header info
-                    else
-                    {
-                        if (name == "Yield")
-                        {
-                            dr["Value"] = fi.GetValue(_DP.Header) + "%";
-                        }
-                        else
-                        {
-                            dr["Value"] = fi.GetValue(_DP.Header);
-                        }
-                    }
-                    tblHeadResult.Rows.Add(dr);
-                }
-                #endregion *** Caculate Header ***
+                ////Array.ForEach(fields, f =>
+                //foreach (_FieldInfo fi in fields)
+                //{
+                //    string name = fi.Name;
+                //    DataRow dr = tblHeadResult.NewRow();
+                //    dr["Name"] = fi.Name;
+                //    //check if header null
+                //    if (name == "Product")
+                //    {
+                //        if (fi.GetValue(_DP.Header) == null)
+                //        {
+                //            isHeadNull = true;
+                //        }
+                //    }
+                //    //if header null, use Test quantity to caculate yield
+                //    if (isHeadNull)
+                //    {
+                //        if (name == "TestQuantity")
+                //        {
+                //            dr["Value"] = _DP.TestedDevice;
+                //        }
+                //        else if (name == "PassQuantity")
+                //        {
+                //            dr["Value"] = _DP.PassedDevice;
+                //        }
+                //        else if (name == "FailQuantity")
+                //        {
+                //            dr["Value"] = _DP.FailedDevice;
+                //        }
+                //        else if (name == "Yield")
+                //        {
+                //            double pass = Convert.ToDouble(_DP.PassedDevice);
+                //            double total = Convert.ToDouble(_DP.TestedDevice);
+                //            dr["Value"] = Math.Round(pass / total * 100, 3) + "%";
+                //        }
+                //    }
+                //    //if header not null, use header info
+                //    else
+                //    {
+                //        if (name == "Yield")
+                //        {
+                //            dr["Value"] = fi.GetValue(_DP.Header) + "%";
+                //        }
+                //        else
+                //        {
+                //            dr["Value"] = fi.GetValue(_DP.Header);
+                //        }
+                //    }
+                //    tblHeadResult.Rows.Add(dr);
+                //}
+                //#endregion *** Caculate Header ***
 
                 //tblData.Clear();
                 tblResult[0] = tblHeadResult;

@@ -4268,8 +4268,14 @@ namespace Vanchip.Data
 
             #endregion *** Parsing csv file data into datatable ***
 
-            tblParseResult.PrimaryKey = new DataColumn[] { tblParseResult.Columns[0] };
+            try
+            {
+                tblParseResult.PrimaryKey = new DataColumn[] { tblParseResult.Columns[0] };
+            }
+            catch
+            { }
             return tblParseResult;
+
         }//end of GetDataFromCsv
 
 
