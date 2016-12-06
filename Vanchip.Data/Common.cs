@@ -6,6 +6,9 @@ using System.Threading;
 using System.Data;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Security.Permissions;
+using System.Drawing;
 
 namespace Vanchip.Common
 {
@@ -359,7 +362,6 @@ namespace Vanchip.Common
             }
             return isnumeral;
         }
-
 
 
         #endregion *** Misc. Functions ***

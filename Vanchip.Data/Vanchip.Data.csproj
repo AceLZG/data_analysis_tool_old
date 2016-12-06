@@ -133,7 +133,7 @@
     <Compile Include="STDF\WRRRecord.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\STDF Viewer\STDF Viewer\STDF Viewer.csproj">
+    <ProjectReference Include="..\STDF Viewer\STDF Viewer.csproj">
       <Project>{fda8985a-16ff-41ae-84f9-bedea60770fe}</Project>
       <Name>STDF Viewer</Name>
     </ProjectReference>

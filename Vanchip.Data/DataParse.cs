@@ -42,6 +42,8 @@ namespace Vanchip.Data
         private int m_TestedDevice = 0;
         private int m_PassedDevice = 0;
         private int m_FailedDevice = 0;
+        private List<string> m_Message = new List<string>();
+        //private string m_Message = " ";
 
         #endregion *** Variable declare ***
 
@@ -140,6 +142,19 @@ namespace Vanchip.Data
             {
                 m_FailedDevice = value;
             }
+        }
+
+        public List<string> Message
+        {
+            get
+            {
+                return m_Message;
+            }
+            set
+            {
+                m_Message = value;
+            }
+
         }
 
         #endregion *** Properties ***
@@ -3019,6 +3034,7 @@ namespace Vanchip.Data
             ts = DateTime.Now - dtStart;
             temp_header = stdf_viewer.GetHeaderStr();
             DataParseResult = stdf_viewer.GetData();
+            m_Message = stdf_viewer.GetMessage();
             #endregion
             
             #region // header info

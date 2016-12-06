@@ -1,0 +1,16 @@
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\bin\Debug\BindingDemo.exe
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\bin\Debug\BindingDemo.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\bin\Debug\OxyPlot.Wpf.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\bin\Debug\OxyPlot.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\bin\Debug\OxyPlot.Wpf.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\bin\Debug\OxyPlot.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\obj\x86\Debug\MainWindow.baml
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\obj\x86\Debug\MainWindow.g.cs
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\obj\x86\Debug\App.g.cs
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\obj\x86\Debug\BindingDemo_MarkupCompile.cache
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\obj\x86\Debug\BindingDemo.g.resources
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\obj\x86\Debug\BindingDemo.Properties.Resources.resources
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\obj\x86\Debug\BindingDemo.csproj.GenerateResource.Cache
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\obj\x86\Debug\BindingDemo.exe
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\obj\x86\Debug\BindingDemo.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\BindingDemo\obj\x86\Debug\BindingDemo.csprojResolveAssemblyReference.cache

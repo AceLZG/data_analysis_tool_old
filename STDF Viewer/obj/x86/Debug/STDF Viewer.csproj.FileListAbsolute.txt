@@ -1,0 +1,9 @@
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\x86\Debug\STDF Viewer.dll.config
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\x86\Debug\STDF Viewer.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\x86\Debug\STDF Viewer.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\x86\Debug\STDF Viewer.csproj.ResolveComReference.cache
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\x86\Debug\STDF_Viewer.Form1.resources
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\x86\Debug\STDF_Viewer.Properties.Resources.resources
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\x86\Debug\STDF Viewer.csproj.GenerateResource.Cache
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\x86\Debug\STDF Viewer.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\x86\Debug\STDF Viewer.pdb

@@ -1,0 +1,16 @@
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\bin\Debug\RealtimeDemo.exe
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\bin\Debug\RealtimeDemo.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\bin\Debug\OxyPlot.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\bin\Debug\OxyPlot.Wpf.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\bin\Debug\OxyPlot.Wpf.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\bin\Debug\OxyPlot.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\obj\x86\Debug\RealtimeDemo.csprojResolveAssemblyReference.cache
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\obj\x86\Debug\MainWindow.baml
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\obj\x86\Debug\MainWindow.g.cs
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\obj\x86\Debug\App.g.cs
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\obj\x86\Debug\RealtimeDemo_MarkupCompile.cache
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\obj\x86\Debug\RealtimeDemo.g.resources
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\obj\x86\Debug\RealtimeDemo.Properties.Resources.resources
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\obj\x86\Debug\RealtimeDemo.csproj.GenerateResource.Cache
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\obj\x86\Debug\RealtimeDemo.exe
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\Examples\RealtimeDemo\obj\x86\Debug\RealtimeDemo.pdb

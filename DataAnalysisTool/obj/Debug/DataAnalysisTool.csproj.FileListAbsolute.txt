@@ -2,8 +2,10 @@
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\LumenWorks.Framework.IO.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Update.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Vanchip.Data.dll
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\STDF Viewer.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Update.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Vanchip.Data.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\STDF Viewer.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.csprojResolveAssemblyReference.cache
@@ -13,10 +15,17 @@
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.GoldenSample.resources
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.ImportGold.resources
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmJMPScriptSelect.resources
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmMain.resources
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.Test.resources
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.csproj.GenerateResource.Cache
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.pdb
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmMain.resources
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Update.exe
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Update.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.WindowsForms.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.Wpf.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.xml
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.WindowsForms.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.WindowsForms.xml
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.Wpf.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.Wpf.xml

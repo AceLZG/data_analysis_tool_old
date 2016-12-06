@@ -93,6 +93,7 @@
             this.TreeViewUserMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.RemoveDataListNode = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoveAllDataListNode = new System.Windows.Forms.ToolStripMenuItem();
+            this.rowModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msDataAnalysis.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -265,7 +266,8 @@
             this.toolStripSeparator5,
             this.customViewToolStripMenuItem,
             this.toolStripSeparator1,
-            this.deleteCacheDataToolStripMenuItem});
+            this.deleteCacheDataToolStripMenuItem,
+            this.rowModeToolStripMenuItem});
             this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
             this.dataToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.dataToolStripMenuItem.Text = "View";
@@ -632,6 +634,13 @@
             this.RemoveAllDataListNode.Text = "Remove All";
             this.RemoveAllDataListNode.Click += new System.EventHandler(this.RemoveAllDataListNode_Click);
             // 
+            // rowModeToolStripMenuItem
+            // 
+            this.rowModeToolStripMenuItem.Name = "rowModeToolStripMenuItem";
+            this.rowModeToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.rowModeToolStripMenuItem.Text = "Cell Mode";
+            this.rowModeToolStripMenuItem.Click += new System.EventHandler(this.rowModeToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -734,6 +743,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblBar;
         private System.Windows.Forms.ToolStripMenuItem dPTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rowModeToolStripMenuItem;
     }
 }
 

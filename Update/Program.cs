@@ -1,3 +1,7 @@
+/// Revesion History
+///
+/// Rev 1.0.0.0         Initial release                             Ace     2016-11-30
+
 using System;
 using System.Net;
 using System.IO;
@@ -14,84 +18,60 @@ namespace Update
 {
     class Program
     {
-        static string remoteVersionURL = "https://raw.githubusercontent.com/AceLZG/data_analysis_tool/master/version.txt";
+        //static string remoteVersionURL = "https://raw.githubusercontent.com/AceLZG/data_analysis_tool/master/version.txt";
+        //static string remoteVersionURL = "https://acelzg.tk/dat/version-remote.txt";
 
         static void Main(string[] args)
         {
-            if (args.Length == 0)
+            // Perform update
+            if (args.Length > 0 && args[0] != null && args[0].ToLower() == "update")
             {
-                Console.WriteLine("This helper program updates the main program. Call it like this:");
-                Console.WriteLine("\thelper.exe update");
-                return;
+                PerformUpdate(args[1], args[2]);
+                Process.Start("DataAnalysisTool.exe");
             }
+
+        }
+
+        public static object[] GetRemoteVersion(string remoteVersionURL)
+        {
+            object[] result = new object[3];
 
             WebClient webClient = new WebClient();
+            // Format:
+            //	<version> <url> <hash>
+            string remoteVersionText = webClient.DownloadString(remoteVersionURL).Trim();
+            string[] remoteVersionParts = (new Regex(@"\s+")).Split(remoteVersionText); // split by space
 
-            switch (args[0].Trim().ToLower())
-            {
-                case "update":
-                    Console.WriteLine("Checking for updates...");
-                    // Format:
-                    //	<version> <url> <hash>
-                    string remoteVersionText = webClient.DownloadString(remoteVersionURL).Trim();
-                    string[] remoteVersionParts = (new Regex(@"\s+")).Split(remoteVersionText); // split by space
-                    string remoteUrl = remoteVersionParts[1];
-                    string remoteHash = remoteVersionParts[2];
+            Version remoteVersion = new Version(remoteVersionParts[0]);
+            string remoteUrl = remoteVersionParts[1];
+            string remoteHash = remoteVersionParts[2];
 
-                    if (!File.Exists("version.txt"))
-                    {
-                        Console.Write("No version file detected. Calling program to obtain version - ");
-                        ProcessStartInfo startInfo = new ProcessStartInfo("DataAnalysisTool.exe");
-                        startInfo.Arguments = "--version";
-                        Process versionWriter = new Process();
-                        versionWriter.StartInfo = startInfo;
-                        versionWriter.Start();
-                        versionWriter.WaitForExit();
-                        Console.WriteLine("done.");
-                    }
 
-                    Version localVersion = new Version(File.ReadAllText("version.txt").Trim());
-                    Version remoteVersion = new Version(remoteVersionParts[0]);
+            //if (remoteVersion > localVersion) newVersion = true;
 
-                    if (remoteVersion > localVersion)
-                    {
-                        // There is a new version on the server!
-                        Console.WriteLine("There is a new version available on the server.");
-                        Console.WriteLine("Current Version: {0}, New version: {1}", localVersion, remoteVersion);
-                        while (true)
-                        {
-                            Console.Write("Perform update? ");
-                            string response = Console.ReadLine().Trim().ToLower();
-                            if (response.StartsWith("y"))
-                            {
-                                PerformUpdate(remoteUrl, remoteHash);
-                                break;
-                            }
-                            else if (response.StartsWith("n"))
-                            {
-                                Console.WriteLine("Abort.");
-                                break;
-                            }
-                        }
-                    }
-                    break;
-                default:
-                    Console.WriteLine("Unknown command.");
-                    break;
-            }
+
+            result[0] = remoteVersion;
+            result[1] = remoteUrl;
+            result[2] = remoteHash;
+
+            return result;
+
         }
 
         static bool PerformUpdate(string remoteUrl, string expectedHash)
         {
-            Console.WriteLine("Beginning update.");
+
+            Console.WriteLine(" - Beginning update.");
+
             string downloadDestination = Path.GetTempFileName();
 
-            Console.Write("Downloading {0} to {1} - ", remoteUrl, downloadDestination);
+            Console.WriteLine(" - Downloading " + remoteUrl);
+            Console.WriteLine(" - To " + downloadDestination + " - ");  
             WebClient downloadifier = new WebClient();
             downloadifier.DownloadFile(remoteUrl, downloadDestination);
-            Console.WriteLine("done.");
+            Console.WriteLine("... done.");
 
-            Console.Write("Validating download - ");
+            Console.WriteLine(" - Validating download - ");
             string downloadHash = GetSHA1HashFromFile(downloadDestination);
             if (downloadHash.Trim().ToLower() != expectedHash.Trim().ToLower())
             {
@@ -99,31 +79,54 @@ namespace Update
                 // Destroy it quick before it can do any more damage!
                 File.Delete(downloadDestination);
                 // Tell the user about what has happened
-                Console.WriteLine("Fail!");
-                Console.WriteLine("Expected {0}, but actually got {1}).", expectedHash, downloadHash);
-                Console.WriteLine("The downloaded update may have been modified by an attacker in transit!");
-                Console.WriteLine("Nothing has been changed, and the downloaded file deleted.");
+                Console.WriteLine("... Fail!");
+                Console.WriteLine(" - Expected " + expectedHash + ", but actually got " + downloadHash + ").");
+                Console.WriteLine(" - The downloaded update may have been modified by an attacker in transit!");
+                Console.WriteLine(" - Nothing has been changed, and the downloaded file deleted.");
                 return false;
             }
             else
-                Console.WriteLine("ok.");
+                Console.WriteLine("... Ok.");
 
             // Since the download doesn't appear to be bad at first sight, let's extract it
-            Console.Write("Extracting archive - ");
+            Console.WriteLine(" - Extracting archive - ");  
             string extractTarget = @"./downloadedFiles";
 
+            if (Directory.Exists(extractTarget)) Directory.Delete(extractTarget, true);
             ZipFile.ExtractToDirectory(downloadDestination, extractTarget);
+            Console.WriteLine(" ... done.");  
+
             // Copy the extracted files and replace everything in the current directory to finish the update
             // C# doesn't easily let us extract & replace at the same time
             // From http://stackoverflow.com/a/3822913/1460422
             foreach (string newPath in Directory.GetFiles(extractTarget, "*.*", SearchOption.AllDirectories))
+            {
+                Console.WriteLine(" - Updating : " + newPath.Replace(extractTarget, "."));  
+                string name = Path.GetFileNameWithoutExtension(newPath);
+                Process proc = Process.GetCurrentProcess();
+
+                foreach (Process p_temp in Process.GetProcessesByName(name))
+                {
+                    if (p_temp.Id != proc.Id)
+                    {
+                        p_temp.Kill();
+                    }
+                }
+
                 File.Copy(newPath, newPath.Replace(extractTarget, "."), true);
-            Console.WriteLine("done.");
+
+                Console.WriteLine(" ... done.");  
+            }
 
             // Clean up the temporary files
-            Console.Write("Cleaning up - ");
+            Console.WriteLine(" - Cleaning up - ");  
+            //File.Delete("UpdateTemp.exe");
             Directory.Delete(extractTarget, true);
-            Console.WriteLine("done.");
+            Console.WriteLine("... done.");
+
+
+            Console.WriteLine(" - Update finished, press any to exit ...");
+            string temp = Console.ReadLine();
 
             return true;
         }
@@ -146,5 +149,6 @@ namespace Update
                 hashString.Append(byteHash[i].ToString("x2"));
             return hashString.ToString();
         }
+
     }
 }

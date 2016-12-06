@@ -1,0 +1,4 @@
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot\bin\Debug\OxyPlot.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot\bin\Debug\OxyPlot.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot\obj\Debug\OxyPlot.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot\obj\Debug\OxyPlot.pdb

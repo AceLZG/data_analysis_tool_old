@@ -11,6 +11,7 @@
 ///     Rev2.4.1.0      Add compressed(gzip) file type support and optimize std parsing
 ///                         other small bug fix                                                     Ace Li      2016-11-21
 ///     Rev2.5.1.4      Rewrite data parsing structure and bug fix                                  Ace Li      2016-11-28
+///     Rev2.6.0.0      Add auto update function and fix smoe bugs                                  Ace Li      2016-11-30
 
 using System;
 using System.Diagnostics;
@@ -33,6 +34,11 @@ using LumenWorks.Framework.IO.Csv;
 //using System.Windows.Forms.DataVisualization.Charting.Utilities;
 using Microsoft.VisualBasic;
 using MySql.Data.MySqlClient;
+using System.Net;
+using System.Text.RegularExpressions;
+using OxyPlot;
+using OxyPlot.Series;
+using OxyPlot.Axes;
 
 namespace DataAnalysisTool
 {
@@ -104,10 +110,12 @@ namespace DataAnalysisTool
         #endregion *** Variable declare ***
 
         DataParse _DataParse = new DataParse();
-
+        static string remoteVersionURL = "https://acelzg.tk/dat/version.txt";
        
         public frmMain(string[] args)
         {
+            if (File.Exists("UpdateTemp.exe")) File.Delete("UpdateTemp.exe");
+
             #region  *** Initialize ***
             InitializeComponent();
             this.WindowState = FormWindowState.Normal;
@@ -144,20 +152,36 @@ namespace DataAnalysisTool
 
         #endregion  *** Initialize ***
 
-            // Write out our current version
-            File.WriteAllText("version.txt", this.ProductVersion);
-
-            // Exit now if we were just asked for our version
-            if (args.Length > 0 && args[0] != null && args[0].Trim().ToLower() == "--version")
+            #region // check if new version available
+            if ((args.Length > 0 && args[0] != null && args[0].ToLower() != "update") || args.Length == 0)
             {
-                Process[] procdat = Process.GetProcessesByName("DataAnalysisTool");
+                Version localVersion = new Version(this.ProductVersion);
+                object[] Result = Program.GetRemoteVersion(remoteVersionURL);
 
-                foreach (Process proc in procdat)
+                if ((Version)Result[0] > localVersion)
                 {
-                    proc.Kill();
+                    switch (MessageBox.Show("New Version (" + Result[0].ToString() + ") found, perform upgrade?", "Update?", MessageBoxButtons.OKCancel))
+                    {
+                        case DialogResult.OK:
+                            {
+                                File.Copy("Update.exe", "UpdateTemp.exe", true);
+                                ProcessStartInfo psi = new ProcessStartInfo("UpdateTemp.exe");
+                                psi.Arguments = "update " + Result[1].ToString() + " " + Result[2].ToString();
+                                Process p_update = new Process();
+                                p_update.StartInfo = psi;
+                                p_update.Start();
+                                p_update.WaitForExit();
+                                break;
+                            }
+                        default:
+                            break;
+                    }
                 }
             }
-            else if (args.Length > 0 && args[0] != null && args[0].ToLower() == "--daemon")
+            #endregion // check if new version available
+
+            #region // Daemon mode
+            if (args.Length > 0 && args[0] != null && args[0].ToLower() == "--daemon")
             {
                 // daemon mode do not analysis kgu
                 kgucompare = false;
@@ -174,7 +198,7 @@ namespace DataAnalysisTool
 
                 this.Dispose();
             }
-
+            #endregion // Daemon mode
 
             //Default last saved value
             _lastsaved.filetype = 1; // Support files
@@ -641,6 +665,15 @@ namespace DataAnalysisTool
             ////Dispaly Parse time
             //lblBar.Text = Math.Round(Convert.ToDouble(_DataParse.ParseTime), 2) + "ms";
             //                                   //+ Math.Round(Convert.ToDouble(_DataParse.InsertTime), 2) + "ms";
+
+            // Display warning message    
+            int current = 1;
+            foreach (string strMsg in _DataParse.Message)
+            {
+                DialogResult result = MessageBox.Show(strMsg + ". \r\n Meassge " + current.ToString() + " of Total: " + _DataParse.Message.Count + "\r\n \r\n    Yes - Next. \r\n    No - Skip.", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.ServiceNotification);
+                if (result == System.Windows.Forms.DialogResult.No) break;
+                current++;
+            }
             this.Refresh();
         }
 
@@ -2199,7 +2232,7 @@ namespace DataAnalysisTool
 
             ListBox lbxParameter = new ListBox();
             lbxParameter.Name = "lbxParameter";
-            lbxParameter.SelectionMode = SelectionMode.MultiExtended;
+            lbxParameter.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             lbxParameter.Dock = DockStyle.Fill;
             gbParameter.Controls.Add(lbxParameter);
 
@@ -2211,7 +2244,7 @@ namespace DataAnalysisTool
 
             ListBox lbxSelected = new ListBox();
             lbxSelected.Name = "lbxSelected";
-            lbxSelected.SelectionMode = SelectionMode.MultiExtended;
+            lbxSelected.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             lbxSelected.Dock = DockStyle.Fill;
             gbSelected.Controls.Add(lbxSelected);
 
@@ -2433,7 +2466,7 @@ namespace DataAnalysisTool
             SelectedColumns = new int[lbxSelected.Items.Count];
             for (int i = 0; i < lbxSelected.Items.Count;i++ )
             {
-                SelectedColumns[i] = Array.IndexOf(Parameter, lbxSelected.Items[i].ToString()) + 3;
+                SelectedColumns[i] = Array.IndexOf(Parameter, lbxSelected.Items[i].ToString()) + intFrozenColumn;
             }
             _Export.DataTableToCsvForJMP(fileName, tblData, SelectedColumns);
 
@@ -2651,7 +2684,7 @@ namespace DataAnalysisTool
 
             ListBox lbxParameter = new ListBox();
             lbxParameter.Name = "lbxParameter";
-            lbxParameter.SelectionMode = SelectionMode.MultiExtended;
+            lbxParameter.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             lbxParameter.Dock = DockStyle.Fill;
             gbParameter.Controls.Add(lbxParameter);
 
@@ -2663,8 +2696,9 @@ namespace DataAnalysisTool
 
             ListBox lbxSelected = new ListBox();
             lbxSelected.Name = "lbxSelected";
-            lbxSelected.SelectionMode = SelectionMode.MultiExtended;
+            lbxSelected.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             lbxSelected.Dock = DockStyle.Fill;
+            lbxSelected.SelectedIndexChanged += lbxSelected_SelectedIndexChanged;
             gbSelected.Controls.Add(lbxSelected);
 
             Button btnAdd = new Button();
@@ -2709,6 +2743,7 @@ namespace DataAnalysisTool
             btnQuitJMP.Size = new System.Drawing.Size(75, 23);
             btnQuitJMP.Click += new EventHandler(btnQuitJMP_Click);
 
+
             //tabDistribution.Controls.Add(panelDistribution);
             tabDistribution.Controls.Add(gbParameter);
             tabDistribution.Controls.Add(btnAdd);
@@ -2722,17 +2757,92 @@ namespace DataAnalysisTool
             #endregion *** Initialize controls ***
 
             #region *** Fill Parameter ***
-            int ParameterCount = tblData.Columns.Count - _DataParse.FreezeColumn;
+            int ParameterCount = tblData.Columns.Count - intFrozenColumn;
             Parameter = new string[ParameterCount];
 
             for (int i = 0; i < ParameterCount;i++ )
             {
-                Parameter[i] = tblData.Rows[0][i + _DataParse.FreezeColumn].ToString();
+                Parameter[i] = tblData.Rows[0][i + intFrozenColumn].ToString();
                 lbxParameter.Items.Add(Parameter[i]);
             }
             //lbxParameter.DataSource = strParameter;
             Application.DoEvents();
             #endregion *** Fill Parameter ***
+
+        }
+
+        void lbxSelected_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //var myModel = new PlotModel { Title = "Example 1" };
+            //myModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
+
+            var myModel = new OxyPlot.PlotModel();
+            myModel.Title = ((ListBox)sender).SelectedItem.ToString();
+
+            List<ColumnItem> value = new List<ColumnItem>();
+
+            value.Add(new ColumnItem(16));
+            value.Add(new ColumnItem(27));
+            value.Add(new ColumnItem(35));
+            value.Add(new ColumnItem(42));
+            value.Add(new ColumnItem(71));
+            value.Add(new ColumnItem(47));
+            value.Add(new ColumnItem(35));
+            value.Add(new ColumnItem(21));
+            value.Add(new ColumnItem(9));
+
+
+            var bs = new ColumnSeries();
+            bs.ItemsSource = value;
+            bs.LabelPlacement = LabelPlacement.Inside;
+            bs.LabelFormatString = "{0:0}";
+            bs.Background = OxyColors.Black;
+ 
+            
+            myModel.Series.Add(bs);
+            
+
+            OxyPlot.Axes.CategoryAxis ca = new OxyPlot.Axes.CategoryAxis();
+            //ca.Position = AxisPosition.Left;
+            for (double i = 35.6; i < 36.5; i += 0.1)
+            {
+                ca.Labels.Add(i.ToString());
+            }
+            ca.GapWidth = 0.05;
+            ca.AxislineStyle = LineStyle.Solid;
+            ca.AxislineColor = OxyColors.Red;
+            ca.AxisDistance = 1;
+            ca.AxislineThickness = 5;
+            
+            myModel.Axes.Add(ca);
+            //myModel.LegendOrientation = LegendOrientation.Vertical;
+
+            var valueAxis = new LinearAxis();
+            valueAxis.Position = AxisPosition.Left;
+            valueAxis.Minimum = 0;
+            valueAxis.Maximum = 100;
+            //myModel.Axes.Add(valueAxis);
+
+            OxyPlot.WindowsForms.PlotView plot1 = new OxyPlot.WindowsForms.PlotView();
+            plot1.Dock = System.Windows.Forms.DockStyle.Fill;
+            plot1.Location = new System.Drawing.Point(0,0);
+            plot1.Name = "plot1";
+            plot1.PanCursor = System.Windows.Forms.Cursors.Hand;
+            plot1.Size = new System.Drawing.Size(484, 312);
+            plot1.TabIndex = 0;
+            plot1.Text = "plot1";
+            plot1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            plot1.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            plot1.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            plot1.Model = myModel;
+
+
+            Form frmPlot = new Form();
+            frmPlot.WindowState = FormWindowState.Maximized;
+            //frmPlot.Width = 400;
+            //frmPlot.Height = 200;
+            frmPlot.Controls.Add(plot1);
+            frmPlot.Show();
 
         }// end of distributionToolStripMenuItem_Click
 
@@ -4176,6 +4286,21 @@ namespace DataAnalysisTool
         }
 
         #endregion --- Data Parsing Service ---
+
+        private void rowModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (dgvData.SelectionMode == DataGridViewSelectionMode.FullRowSelect)
+            {
+                dgvData.SelectionMode = DataGridViewSelectionMode.CellSelect;
+                rowModeToolStripMenuItem.Text = "Cell Mode";
+            }
+            else
+            {
+                dgvData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                rowModeToolStripMenuItem.Text = "Row Mode";
+            }
+        }
 
 
     }

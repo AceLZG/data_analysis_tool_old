@@ -1,8 +1,6 @@
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.exe.config
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.pdb
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.exe.CodeAnalysisLog.xml
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.exe.lastcodeanalysissucceeded
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper.csprojResolveAssemblyReference.cache
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\Update.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\Update.pdb
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper.csprojResolveAssemblyReference.cache
