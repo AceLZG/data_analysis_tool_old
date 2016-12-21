@@ -802,15 +802,15 @@ namespace STDF_Viewer
                 {
                     if (scale == 3) new_unit = "mA";
                     else if (scale == 6) new_unit = "uA";
-                    else if (scale == 6) new_unit = "nA";
+                    else if (scale == 9) new_unit = "nA";
                 }
                 else if (unit.ToUpper() == "S")
                 {
                     if (scale == 3) new_unit = "mS";
                     else if (scale == 6) new_unit = "uS";
-                    else if (scale == 6) new_unit = "nS";
+                    else if (scale == 9) new_unit = "nS";
                 }
-                else if (unit.ToUpper() == "OHM")
+                else if (unit.ToUpper() == "OHM" || unit.ToUpper() == "OHMS")
                 {
                     if (scale == -3) new_unit = "kohm";
                 }

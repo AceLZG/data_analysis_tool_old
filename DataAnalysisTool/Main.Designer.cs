@@ -58,6 +58,7 @@
             this.customViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteCacheDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rowModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.distributionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.closeJMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +94,6 @@
             this.TreeViewUserMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.RemoveDataListNode = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoveAllDataListNode = new System.Windows.Forms.ToolStripMenuItem();
-            this.rowModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msDataAnalysis.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -336,6 +336,13 @@
             this.deleteCacheDataToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.deleteCacheDataToolStripMenuItem.Text = "Delete CacheData";
             // 
+            // rowModeToolStripMenuItem
+            // 
+            this.rowModeToolStripMenuItem.Name = "rowModeToolStripMenuItem";
+            this.rowModeToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.rowModeToolStripMenuItem.Text = "Row Mode";
+            this.rowModeToolStripMenuItem.Click += new System.EventHandler(this.rowModeToolStripMenuItem_Click);
+            // 
             // jMPToolStripMenuItem
             // 
             this.jMPToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -408,21 +415,21 @@
             // buildKGUFileToolStripMenuItem
             // 
             this.buildKGUFileToolStripMenuItem.Name = "buildKGUFileToolStripMenuItem";
-            this.buildKGUFileToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.buildKGUFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.buildKGUFileToolStripMenuItem.Text = "Build KGU file";
             this.buildKGUFileToolStripMenuItem.Click += new System.EventHandler(this.buildKGUFileToolStripMenuItem_Click);
             // 
             // dBTestToolStripMenuItem
             // 
             this.dBTestToolStripMenuItem.Name = "dBTestToolStripMenuItem";
-            this.dBTestToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.dBTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dBTestToolStripMenuItem.Text = "DB_Test";
             this.dBTestToolStripMenuItem.Click += new System.EventHandler(this.dBTestToolStripMenuItem_Click);
             // 
             // dPTestToolStripMenuItem
             // 
             this.dPTestToolStripMenuItem.Name = "dPTestToolStripMenuItem";
-            this.dPTestToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.dPTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dPTestToolStripMenuItem.Text = "DP_Test";
             this.dPTestToolStripMenuItem.Click += new System.EventHandler(this.dPTestToolStripMenuItem_Click);
             // 
@@ -633,13 +640,6 @@
             this.RemoveAllDataListNode.Size = new System.Drawing.Size(134, 22);
             this.RemoveAllDataListNode.Text = "Remove All";
             this.RemoveAllDataListNode.Click += new System.EventHandler(this.RemoveAllDataListNode_Click);
-            // 
-            // rowModeToolStripMenuItem
-            // 
-            this.rowModeToolStripMenuItem.Name = "rowModeToolStripMenuItem";
-            this.rowModeToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.rowModeToolStripMenuItem.Text = "Cell Mode";
-            this.rowModeToolStripMenuItem.Click += new System.EventHandler(this.rowModeToolStripMenuItem_Click);
             // 
             // frmMain
             // 

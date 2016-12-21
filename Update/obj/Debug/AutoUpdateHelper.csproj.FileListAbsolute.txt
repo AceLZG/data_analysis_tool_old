@@ -3,4 +3,3 @@
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\Update.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\Update.pdb
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper.csprojResolveAssemblyReference.cache

@@ -14,6 +14,7 @@ using System.Security.Cryptography;
 using System.Security.Permissions;
 
 
+
 namespace Update
 {
     class Program
@@ -83,6 +84,7 @@ namespace Update
                 Console.WriteLine(" - Expected " + expectedHash + ", but actually got " + downloadHash + ").");
                 Console.WriteLine(" - The downloaded update may have been modified by an attacker in transit!");
                 Console.WriteLine(" - Nothing has been changed, and the downloaded file deleted.");
+                string tmp = Console.ReadLine();
                 return false;
             }
             else
@@ -109,11 +111,14 @@ namespace Update
                 {
                     if (p_temp.Id != proc.Id)
                     {
+                        Console.WriteLine(" - Killing : " + p_temp.Id + " & " + p_temp.ProcessName);  
                         p_temp.Kill();
                     }
                 }
 
+                System.Threading.Thread.Sleep(500);
                 File.Copy(newPath, newPath.Replace(extractTarget, "."), true);
+              
 
                 Console.WriteLine(" ... done.");  
             }
