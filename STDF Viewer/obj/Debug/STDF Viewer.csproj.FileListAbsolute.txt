@@ -17,3 +17,4 @@
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csprojResolveAssemblyReference.cache

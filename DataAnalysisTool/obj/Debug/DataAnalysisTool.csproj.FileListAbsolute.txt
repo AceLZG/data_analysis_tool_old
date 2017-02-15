@@ -16,7 +16,6 @@
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.ImportGold.resources
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmJMPScriptSelect.resources
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmMain.resources
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.Test.resources
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.csproj.GenerateResource.Cache
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.exe
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.pdb
@@ -29,3 +28,4 @@
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.WindowsForms.xml
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.Wpf.pdb
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.Wpf.xml
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmTest.resources

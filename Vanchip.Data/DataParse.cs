@@ -4378,7 +4378,14 @@ namespace Vanchip.Data
                 }
                 catch
                 {
-                    m_Header.ProgramRev = tempArray[1].Trim();
+                    try
+                    {
+                        m_Header.ProgramRev = tempArray[1].Trim();
+                    }
+                    catch
+                    {
+                        m_Header.ProgramRev = "N/A";
+                    }
                 }
             }
         }

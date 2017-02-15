@@ -3842,9 +3842,11 @@ namespace DataAnalysisTool
 
         private void dBTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            db mydb = new db();
+            //db mydb = new db();
 
-            dgvData.DataSource = mydb.GetGoldenData("5348","1");
+            //dgvData.DataSource = mydb.GetGoldenData("5348","1");
+            frmTest test = new frmTest();
+            test.Show();
         }
 
         private void kGUToolStripMenuItem1_Click(object sender, EventArgs e)
