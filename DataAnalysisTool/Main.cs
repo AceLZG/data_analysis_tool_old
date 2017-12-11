@@ -39,6 +39,8 @@ using System.Text.RegularExpressions;
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Axes;
+using owa = Microsoft.Exchange.WebServices.Data;
+using System.Net;
 
 namespace DataAnalysisTool
 {
@@ -2992,7 +2994,7 @@ namespace DataAnalysisTool
             //failureModeList = _Analysis.GetFailureModeList(tblData, _DataParse.FreezeColumn, AnalysisType.FailureMode);
 
             Dictionary<int, string> dic_ExceptionList = new Dictionary<int, string>();
-            dic_ExceptionList.Add(36, "test1");
+            //dic_ExceptionList.Add(36, "test1");
 
             failureModeList = _Analysis.GetFailureModeList(tblData, _DataParse.FreezeColumn, AnalysisType.FailureMode, dic_ExceptionList);
 
@@ -3864,15 +3866,20 @@ namespace DataAnalysisTool
         private void parsedataservice()
         {
             string strPathdata = Util.PathDataParsingService;
-            strPathdata = @"c:\temp";
+            //strPathdata = @"c:\Temp";
 
             string strPathdup = strPathdata + @"\duplicate";
             string strPatharchive = strPathdata + @"\archive";
             string strPathfailure = strPathdata + @"\failure";
 
+            FileInfo currentFile = new FileInfo("temp");
 
-            //FileInfo[] FI = _Util.GetFileInfoArray(stPathdata, "std");
-            FileInfo[] FI = getFileInfo(strPathdata);
+            ////FileInfo[] FI = _Util.GetFileInfoArray(stPathdata, "std");
+            //FileInfo[] FI = getFileInfo(strPathdata);
+            ////strPathdup = Application.StartupPath;
+            DirectoryInfo DI = new DirectoryInfo(strPathdata);
+            FileInfo[] FI = DI.GetFiles();
+
 
             //DataTable tblData = new DataTable();
             DataTable[] tblPasingService = new DataTable[6];
@@ -3884,29 +3891,32 @@ namespace DataAnalysisTool
 
             try
             {
-
                 if (!EventLog.SourceExists(sSource)) EventLog.CreateEventSource(sSource, sLog);
 
                 foreach (FileInfo tmpFI in FI)
                 {
+                    currentFile = tmpFI;
+
                     sEvent = "Parsing start; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
                     EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
 
                     File.SetAttributes(tmpFI.FullName, FileAttributes.Normal);
 
-                    if (tmpFI.Extension == "std" || tmpFI.Extension == "stdf")
+                    if (tmpFI.Extension == ".std" || tmpFI.Extension == ".stdf")
                     {
                         #region parsing std file
                         tblPasingService[0] = _dp.GetDataFromStdfviewer(tmpFI.FullName);
-                        
+
                         tblPass = delFailureData(tblPasingService[0]);
 
                         if (tblPass.Rows.Count < 5)
                         {
-                            if (!Directory.Exists(strPathfailure)) Directory.CreateDirectory(strPathfailure);
-                            File.Move(tmpFI.FullName, strPathfailure + "\\" + tmpFI.Name);
+                            //if (!Directory.Exists(strPathfailure)) Directory.CreateDirectory(strPathfailure);
+                            //File.Move(tmpFI.FullName, strPathfailure + "\\" + tmpFI.Name);
                             sEvent = "No enough pass device data, skip parsing " + tmpFI.Name;
                             EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Warning);
+
+                            File.Delete(tmpFI.FullName);
                             continue;
                         }
 
@@ -3916,62 +3926,98 @@ namespace DataAnalysisTool
                         sEvent = "Parsing finish; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
                         EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
 
+                        #region Analysis mean 
+                        List<string> strTo = new List<string>();
+                        List<string> strCc = new List<string>();
+                        string strSubject;
+                        string strBody;
+
+                        //strTo.Add("info@acelzg.net");
+                        //strCc.Add("ace_li@vanchiptech.com");
+                        //strCc.Add("f.a.lucifer@gmail.com");
+                        //strSubject = "HelloWorld";
+                        //strBody = "This is the first email I've sent by using the EWS Managed API";
+
+                        //sendEmail(strTo, strCc, strSubject, strBody);
+                        #endregion
+
                         insert2database(tblSession, tblCpk1);
 
                         sEvent = "Data added to database; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
                         EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
-                        
+
                         #endregion parsing std file
-                    }
-                    else if (tmpFI.Extension == "csv")
-                    {
-                        #region parsing csv file
-                        tblPasingService = _dp.GetDataFromAceTechCsv(tmpFI.FullName);
-
-                        sEvent = "Parsing finish; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
-                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
-
-                        for (int i = 0; i < 6; i++)
-                        {
-                            if (tblPasingService[i].Rows.Count < 5) continue;
-
-                            tblPass = delFailureData(tblPasingService[i]);
-
-                            tblSession = getSessionInfo(_dp);
-                            tblCpk1 = _Analysis.CaculateCpk(tblPass, _dp.FreezeColumn);
-
-                            insert2database(tblSession, tblCpk1);
-                        }
-                        sEvent = "Data added to database; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
-                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
-
-                        #endregion parsing csv file
-                    }
-
-
-                    if (!File.Exists(strPatharchive + "\\" + tmpFI.Name))
-                    {
-                        if (!Directory.Exists(strPatharchive)) Directory.CreateDirectory(strPatharchive);
-                        File.Move(tmpFI.FullName, strPatharchive + "\\" + tmpFI.Name);
-                        //File.Delete(tmpFI.FullName);
                     }
                     else
                     {
-                        if (!Directory.Exists(strPathdup)) Directory.CreateDirectory(strPathdup);
-                        File.Move(tmpFI.FullName, strPathdup + "\\" + tmpFI.Name);
-
-
-                        sEvent = "Duplicate file exist in archive folder, move to duplicate folder instead; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
-                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Warning);
+                        sEvent = "This file type is not support; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                        EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+                        
                     }
-                
+
+                    #region 
+                    //else if (tmpFI.Extension == "csv")
+                    //{
+                    //    #region parsing csv file
+                    //    tblPasingService = _dp.GetDataFromAceTechCsv(tmpFI.FullName);
+
+                    //    sEvent = "Parsing finish; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                    //    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+
+                    //    for (int i = 0; i < 6; i++)
+                    //    {
+                    //        if (tblPasingService[i].Rows.Count < 5) continue;
+
+                    //        tblPass = delFailureData(tblPasingService[i]);
+
+                    //        tblSession = getSessionInfo(_dp);
+                    //        tblCpk1 = _Analysis.CaculateCpk(tblPass, _dp.FreezeColumn);
+
+                    //        insert2database(tblSession, tblCpk1);
+                    //    }
+                    //    sEvent = "Data added to database; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                    //    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Information);
+
+                    //    #endregion parsing csv file
+                    //}
+                    #endregion
+
+                    #region
+                    //if (!File.Exists(strPatharchive + "\\" + tmpFI.Name))
+                    //{
+                    //    if (!Directory.Exists(strPatharchive)) Directory.CreateDirectory(strPatharchive);
+                    //    File.Move(tmpFI.FullName, strPatharchive + "\\" + tmpFI.Name);
+                    //    //File.Delete(tmpFI.FullName);
+                    //}
+                    //else
+                    //{
+                    //    if (!Directory.Exists(strPathdup)) Directory.CreateDirectory(strPathdup);
+                    //    File.Move(tmpFI.FullName, strPathdup + "\\" + DateTime.Now.ToString() +"_" +tmpFI.Name);
+
+
+                    //    sEvent = "Duplicate file exist in archive folder, move to duplicate folder instead; " + DateTime.Now.Millisecond + "ms; " + tmpFI.Name;
+                    //    EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Warning);
+                    //}
+                    #endregion
+
+                    File.Delete(tmpFI.FullName);
                 }
             }
             catch (Exception ex)
             {
-                sEvent = ex.Message + ";" + ex.HelpLink + ";" + ex.Source;
+                sEvent = ex.Message + ";" + ex.HelpLink + ";" + ex.Source + DateTime.Now.Millisecond + "ms; " + currentFile.Name;
                 EventLog.WriteEntry(sSource, sEvent, EventLogEntryType.Error);
-                throw new Exception(ex.Message.ToString());
+
+                if (!File.Exists(strPathfailure + "\\" + currentFile.Name))
+                {
+                    if (!Directory.Exists(strPathfailure)) Directory.CreateDirectory(strPathfailure);
+                    File.Move(currentFile.FullName, strPathfailure + "\\" + currentFile.Name);
+                }
+                else
+                {
+                    File.Delete(currentFile.FullName);
+                }
+                //throw new Exception(ex.Message.ToString());
             }
 
         }
@@ -4097,7 +4143,8 @@ namespace DataAnalysisTool
             tmpid = tmpid.Replace(":", "");
             strsessionid = tmpid.Substring(0, Math.Min(99, tmpid.Length));
 
-            string strconn = Util.MysqlAce;
+            string strconn = Util.MysqlVanchip;
+            //strconn = Util.MysqlAce;
 
             MySqlConnection sqlconn = null;
             MySqlCommand sqlcmdsession = null;
@@ -4236,8 +4283,7 @@ namespace DataAnalysisTool
 
         }
         private double c2sqlf(object objValue)
-        {
-            
+        {            
             try
             {
                 if (double.IsNegativeInfinity(Convert.ToDouble(objValue)))
@@ -4285,6 +4331,56 @@ namespace DataAnalysisTool
             if (!sqlconOpen) sqlconn.Close();
 
             return exist;
+        }
+        
+        public static void sendEmail(List<string> ToRecipients, List<string> CcRecipients, string Subject, string Body)
+        {
+            owa.ExchangeService service = new owa.ExchangeService(owa.ExchangeVersion.Exchange2013_SP1);
+
+            service.Credentials = new owa.WebCredentials("ace_li", "t3103e7.1", "vanchip");
+
+            service.TraceEnabled = true;
+            service.TraceFlags = owa.TraceFlags.All;
+
+            //To over-ride this behavior, we need to use the following line in the code, which validate the x509 certificate:
+            //https://msdn.microsoft.com/en-us/library/bb408523.aspx?f=255&MSPPError=-2147217396
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+
+            // Set the URL.
+            //service.Url = new Uri(@"https://mail.vanchiptech.com/ews/exchange.asmx");
+            service.AutodiscoverUrl("ace_li@vanchiptech.com", RedirectionUrlValidationCallback);
+
+            owa.EmailMessage email = new owa.EmailMessage(service);
+
+            foreach (string strTo in ToRecipients)
+            {
+                email.ToRecipients.Add(strTo);
+            }
+            foreach (string strCc in CcRecipients)
+            {
+                email.CcRecipients.Add(strCc);
+            }
+
+            email.Subject = Subject;
+            email.Body = new owa.MessageBody(Body);
+
+            email.Send();
+        }
+        private static bool RedirectionUrlValidationCallback(string redirectionUrl)
+        {
+            // The default for the validation callback is to reject the URL.
+            bool result = false;
+
+            Uri redirectionUri = new Uri(redirectionUrl);
+
+            // Validate the contents of the redirection URL. In this simple validation
+            // callback, the redirection URL is considered valid if it is using HTTPS
+            // to encrypt the authentication credentials. 
+            if (redirectionUri.Scheme == "https")
+            {
+                result = true;
+            }
+            return result;
         }
 
         #endregion --- Data Parsing Service ---

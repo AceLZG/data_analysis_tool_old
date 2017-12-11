@@ -241,14 +241,14 @@ namespace Vanchip.Common
     /// </summary>
     public class Util
     {
-        public const string MasterDB = @"\\192.168.21.251\TestData\_DataBase\data.mdb";
+        public const string MasterDB = @"\\192.168.28.251\TestData\_DataBase\data.mdb";
         public const string SlaveDB = @".\GoldenSample\data.mdb";
         public const string Pin = ";User ID='admin';Password='';Jet OleDb:DataBase Password='vc7810Eu_A6_01'";
 
 
-        public const string PathDataParsingService = @"\\192.168.21.251\TestData\DataParsingService";
-        public const string MysqlVanchip = @"server=192.168.21.52;userid=webuser;password=Vanchip301;database=testdata";
-        public const string MysqlAce = @"server=45.76.104.155;userid=webuser;password=Vanchip301;database=testdata";
+        public const string PathDataParsingService = @"E:\TestData\DataParsingService";
+        public const string MysqlVanchip = @"server=192.168.28.52;userid=webuser;password=Vanchip301;database=testdata";
+        //public const string MysqlAce = @"server=45.76.104.155;userid=webuser;password=Vanchip301;database=testdata";
 
         #region *** Misc. Functions ***
         /// <summary>

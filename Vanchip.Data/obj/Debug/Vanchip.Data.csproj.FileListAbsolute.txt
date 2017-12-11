@@ -93,3 +93,39 @@ C:\Users\Ace\Documents\Vanchip\Project\Project_DataAnalysisTool\Vanchip Library\
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb
+Z:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.dll
+Z:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.pdb
+Z:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.dll
+Z:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.dll
+Z:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.pdb
+Z:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.xml
+Z:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
+Z:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
+Z:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.dll
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.pdb
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.dll
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.dll
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.pdb
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.xml
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb
+X:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.dll
+X:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.pdb
+X:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.dll
+X:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.dll
+X:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.pdb
+X:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.xml
+X:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
+X:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
+X:\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb
+C:\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.dll
+C:\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.pdb
+C:\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.dll
+C:\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.dll
+C:\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.pdb
+C:\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.xml
+C:\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
+C:\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
+C:\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb

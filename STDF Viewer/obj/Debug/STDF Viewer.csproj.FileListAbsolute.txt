@@ -17,3 +17,42 @@
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
 \\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csprojResolveAssemblyReference.cache
+Z:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
+Z:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
+Z:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.pdb
+Z:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.ResolveComReference.cache
+Z:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Form1.resources
+Z:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Properties.Resources.resources
+Z:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.GenerateResource.Cache
+Z:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+Z:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.pdb
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csprojResolveAssemblyReference.cache
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.ResolveComReference.cache
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Form1.resources
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Properties.Resources.resources
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.GenerateResource.Cache
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.pdb
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csprojResolveAssemblyReference.cache
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.ResolveComReference.cache
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Form1.resources
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Properties.Resources.resources
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.GenerateResource.Cache
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb
+C:\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
+C:\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
+C:\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.pdb
+C:\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.ResolveComReference.cache
+C:\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Form1.resources
+C:\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Properties.Resources.resources
+C:\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.GenerateResource.Cache
+C:\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+C:\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb
