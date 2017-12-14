@@ -18,7 +18,6 @@ W:\Dropbox\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\Update.p
 X:\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.exe.config
 X:\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.exe
 X:\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.pdb
-X:\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper.csprojResolveAssemblyReference.cache
 X:\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\Update.exe
 X:\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\Update.pdb
 C:\data_analysis_tool\Update\bin\Debug\Update.exe.config

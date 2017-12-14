@@ -137,8 +137,6 @@ X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Micros
 X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Microsoft.Exchange.WebServices.xml
 X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Microsoft.Exchange.WebServices.Auth.pdb
 X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\Microsoft.Exchange.WebServices.Auth.xml
-X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\MySql.Data.xml
-X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\MySql.Web.xml
 X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.pdb
 X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.xml
 X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.WindowsForms.pdb

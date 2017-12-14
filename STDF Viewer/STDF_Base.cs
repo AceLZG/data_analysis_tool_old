@@ -12,6 +12,8 @@ namespace STDF_Viewer
         {
             int endIndex;
             resultStr = null;
+
+            if (startIndex >= result.Length) return startIndex; // incase some time the std file is not proper wirte
             int len = (int)result[startIndex];
 
             if (len != 0)

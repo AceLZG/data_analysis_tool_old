@@ -22,37 +22,43 @@ namespace STDF_Viewer
             this.CMOD_COD = (int)result[14];
 
             string charNStr = null; int index = 14;
-
-            index = ReadCharN(out charNStr, result, index + 1); this.LOT_ID = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.PART_TYP = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.NODE_NAM = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.TSTR_TYP = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.JOB_NAM = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.JOB_REV = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.SBLOT_ID = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.OPER_NAM = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.EXEC_TYP = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.EXEC_VER = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.TEST_COD = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.TST_TEMP = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.USER_TXT = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.AUX_FILE = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.PKG_TYP = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.FAMLY_ID = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.DATE_COD = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.FACIL_ID = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.FLOOR_ID = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.PROC_ID = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.OPER_FRQ = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.SPEC_NAM = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.SPEC_VER = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.FLOW_ID = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.SETUP_ID = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.DSGN_REV = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.ENG_ID = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.ROM_COD = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.SERL_NUM = charNStr;
-            index = ReadCharN(out charNStr, result, index + 1); this.SUPR_NAM = charNStr;
+            try
+            {
+                index = ReadCharN(out charNStr, result, index + 1); this.LOT_ID = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.PART_TYP = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.NODE_NAM = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.TSTR_TYP = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.JOB_NAM = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.JOB_REV = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.SBLOT_ID = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.OPER_NAM = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.EXEC_TYP = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.EXEC_VER = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.TEST_COD = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.TST_TEMP = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.USER_TXT = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.AUX_FILE = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.PKG_TYP = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.FAMLY_ID = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.DATE_COD = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.FACIL_ID = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.FLOOR_ID = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.PROC_ID = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.OPER_FRQ = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.SPEC_NAM = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.SPEC_VER = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.FLOW_ID = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.SETUP_ID = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.DSGN_REV = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.ENG_ID = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.ROM_COD = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.SERL_NUM = charNStr;
+                index = ReadCharN(out charNStr, result, index + 1); this.SUPR_NAM = charNStr;
+            }
+            catch
+            { }
+            finally
+            { }
         }
 
         public string SETUP_T { get; private set; }
