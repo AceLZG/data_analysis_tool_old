@@ -129,3 +129,12 @@ C:\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.xml
 C:\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
 C:\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
 C:\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.xml
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb

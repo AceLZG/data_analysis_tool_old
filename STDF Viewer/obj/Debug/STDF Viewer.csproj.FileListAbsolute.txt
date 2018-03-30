@@ -55,3 +55,13 @@ C:\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb
 X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
 X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
 X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csprojResolveAssemblyReference.cache
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.ResolveComReference.cache
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Form1.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Properties.Resources.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.GenerateResource.Cache
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb

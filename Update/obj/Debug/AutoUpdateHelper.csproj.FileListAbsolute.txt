@@ -26,3 +26,8 @@ C:\data_analysis_tool\Update\bin\Debug\Update.pdb
 C:\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper.csprojResolveAssemblyReference.cache
 C:\data_analysis_tool\Update\obj\Debug\Update.exe
 C:\data_analysis_tool\Update\obj\Debug\Update.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Update\bin\Debug\Update.exe.config
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Update\bin\Debug\Update.exe
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Update\bin\Debug\Update.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Update\obj\Debug\Update.exe
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Update\obj\Debug\Update.pdb
