@@ -19,25 +19,33 @@ namespace Update
 {
     class Program
     {
-        //static string remoteVersionURL = "https://raw.githubusercontent.com/AceLZG/data_analysis_tool/master/version.txt";
-        //static string remoteVersionURL = "https://acelzg.tk/dat/version-remote.txt";
+        static string remoteVersionURL = "https://raw.githubusercontent.com/AceLZG/data_analysis_tool/master/Release/version.txt";
+        //static string remoteVersionURL = "https://acelzg.tk/dat/version.txt";
 
         static void Main(string[] args)
         {
+            //关闭原有的应用程序 
+            System.Diagnostics.Process[] proc = System.Diagnostics.Process.GetProcessesByName("DataAnalysisTool");
+            //关闭原有应用程序的所有进程 
+            foreach (System.Diagnostics.Process pro in proc)
+            {
+                pro.Kill();
+            }
+
             // Perform update
             if (args.Length > 0 && args[0] != null && args[0].ToLower() == "update")
             {
-                //关闭原有的应用程序 
-                System.Diagnostics.Process[] proc = System.Diagnostics.Process.GetProcessesByName("Vanchip");
-                //关闭原有应用程序的所有进程 
-                foreach (System.Diagnostics.Process pro in proc)
-                {
-                    pro.Kill();
-                }
-
                 PerformUpdate(args[1], args[2]);
-                Process.Start("DataAnalysisTool.exe");
             }
+            else
+            {
+                object[] Result = Program.GetRemoteVersion(remoteVersionURL);
+                PerformUpdate(Result[1].ToString(), Result[2].ToString());
+
+            }
+
+            // Start DataAnalysisTool
+            Process.Start("DataAnalysisTool.exe");
 
         }
 

@@ -1,9 +1,0 @@
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\x64\Debug\Vanchip.Data.dll
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\x64\Debug\Vanchip.Data.pdb
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\x64\Debug\LumenWorks.Framework.IO.dll
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\x64\Debug\STDF Viewer.pdb
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\x64\Debug\LumenWorks.Framework.IO.xml
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\x64\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\x64\Debug\Vanchip.Data.dll
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\obj\x64\Debug\Vanchip.Data.pdb
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\Vanchip.Data\bin\x64\Debug\STDF Viewer.dll
