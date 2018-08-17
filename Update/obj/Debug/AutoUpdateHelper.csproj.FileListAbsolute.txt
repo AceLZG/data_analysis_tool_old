@@ -1,6 +1,5 @@
 X:\Documents\github\data_analysis_tool\Update\bin\Debug\Update.exe.config
 X:\Documents\github\data_analysis_tool\Update\bin\Debug\Update.exe
 X:\Documents\github\data_analysis_tool\Update\bin\Debug\Update.pdb
-X:\Documents\github\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper.csprojResolveAssemblyReference.cache
 X:\Documents\github\data_analysis_tool\Update\obj\Debug\Update.exe
 X:\Documents\github\data_analysis_tool\Update\obj\Debug\Update.pdb

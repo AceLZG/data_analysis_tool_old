@@ -1,6 +1,7 @@
 /// Revesion History
 ///
 /// Rev 1.0.0.0         Initial release                             Ace     2016-11-30
+/// Rev 1.2.0.0         bug fix                                     Ace     2018-08-17
 
 using System;
 using System.Net;
@@ -19,9 +20,9 @@ namespace Update
 {
     class Program
     {
-        static string remoteVersionURL = "https://raw.githubusercontent.com/AceLZG/data_analysis_tool/master/Release/version.txt";
+        static string remoteVersionURL = "https://raw.githubusercontent.com/AceLZG/data_analysis_tool/master/Release/";
         //static string remoteVersionURL = "https://acelzg.tk/dat/version.txt";
-
+        
         static void Main(string[] args)
         {
             //关闭原有的应用程序 
@@ -39,8 +40,8 @@ namespace Update
             }
             else
             {
-                object[] Result = Program.GetRemoteVersion(remoteVersionURL);
-                PerformUpdate(Result[1].ToString(), Result[2].ToString());
+                object[] Result = Program.GetRemoteVersion(remoteVersionURL + "version.txt");
+                PerformUpdate(remoteVersionURL + Result[1].ToString(), Result[2].ToString());
 
             }
 

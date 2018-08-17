@@ -13,7 +13,7 @@
 ///     Rev2.5.1.4      Rewrite data parsing structure and bug fix                                  Ace Li      2016-11-28
 ///     Rev2.6.0.0      Add auto update function and fix smoe bugs                                  Ace Li      2016-11-30
 ///     Rev2.7.1.1      fix stdf parse bug                                                          Ace Li      2017-12-14
-///     Rev2.8.0.0      regular upgrade & bug fix                                                   Ace Li      2018-08-17
+///     Rev2.8.0.1      regular upgrade & bug fix                                                   Ace Li      2018-08-17
 
 using System;
 using System.Diagnostics;
@@ -116,8 +116,8 @@ namespace DataAnalysisTool
         #endregion *** Variable declare ***
 
         DataParse _DataParse = new DataParse();
-        static string remoteVersionURL = "http://acelzg.tk/dat/version.txt";
-       
+        static string remoteVersionURL = "https://raw.githubusercontent.com/AceLZG/data_analysis_tool/master/Release/";
+
         public frmMain(string[] args)
         {
             if (File.Exists("UpdateTemp.exe")) File.Delete("UpdateTemp.exe");
@@ -162,7 +162,7 @@ namespace DataAnalysisTool
             if ((args.Length > 0 && args[0] != null && args[0].ToLower() != "update") || args.Length == 0)
             {
                 Version localVersion = new Version(this.ProductVersion);
-                object[] Result = Program.GetRemoteVersion(remoteVersionURL);
+                object[] Result = Program.GetRemoteVersion(remoteVersionURL+ "version.txt");
 
                 if ((Version)Result[0] > localVersion)
                 {
@@ -172,7 +172,7 @@ namespace DataAnalysisTool
                             {
                                 File.Copy("Update.exe", "UpdateTemp.exe", true);
                                 ProcessStartInfo psi = new ProcessStartInfo("UpdateTemp.exe");
-                                psi.Arguments = "update " + Result[1].ToString() + " " + Result[2].ToString();
+                                psi.Arguments = "update " + remoteVersionURL + Result[1].ToString() + " " + Result[2].ToString();
                                 Process p_update = new Process();
                                 p_update.StartInfo = psi;
                                 p_update.Start();
