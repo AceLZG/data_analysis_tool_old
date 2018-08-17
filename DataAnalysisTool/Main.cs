@@ -13,11 +13,7 @@
 ///     Rev2.5.1.4      Rewrite data parsing structure and bug fix                                  Ace Li      2016-11-28
 ///     Rev2.6.0.0      Add auto update function and fix smoe bugs                                  Ace Li      2016-11-30
 ///     Rev2.7.1.1      fix stdf parse bug                                                          Ace Li      2017-12-14
-<<<<<<< HEAD
 ///     Rev2.8.0.0      regular upgrade & bug fix                                                   Ace Li      2018-08-17
-=======
-///     test github for vs2015                                                                      Ace Li      2018-03-30
->>>>>>> 28befb722f77ccec53f1fd48cf0d72a626ec41cd
 
 using System;
 using System.Diagnostics;
@@ -70,6 +66,7 @@ namespace DataAnalysisTool
         #region *** Variable declare ***
         OpenFileDialog OpenFile;
 
+        
         Util _Util = new Util();
         LastSaved _lastsaved = new LastSaved();
         Export _Export = new Export();

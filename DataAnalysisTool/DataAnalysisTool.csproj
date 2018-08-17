@@ -137,6 +137,10 @@
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Interop.JMP">
+      <HintPath>.\Interop.JMP.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="LumenWorks.Framework.IO, Version=3.8.0.0, Culture=neutral, PublicKeyToken=5ad3ea2f85776344, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\LumenWorks.Framework.IO.dll</HintPath>
@@ -265,17 +269,6 @@
   <ItemGroup>
     <Content Include="Help.ico" />
     <Content Include="VanchipLogo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="JMP">
-      <Guid>{DCD36DE0-78F8-11CF-9E68-0020AF24E9FE}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Update\AutoUpdateHelper.csproj">

@@ -27,6 +27,14 @@ namespace Update
             // Perform update
             if (args.Length > 0 && args[0] != null && args[0].ToLower() == "update")
             {
+                //关闭原有的应用程序 
+                System.Diagnostics.Process[] proc = System.Diagnostics.Process.GetProcessesByName("Vanchip");
+                //关闭原有应用程序的所有进程 
+                foreach (System.Diagnostics.Process pro in proc)
+                {
+                    pro.Kill();
+                }
+
                 PerformUpdate(args[1], args[2]);
                 Process.Start("DataAnalysisTool.exe");
             }
