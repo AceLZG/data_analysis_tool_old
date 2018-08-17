@@ -193,6 +193,7 @@ C:\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmTest.resour
 C:\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.csproj.GenerateResource.Cache
 C:\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.exe
 C:\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.pdb
+<<<<<<< HEAD
 X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\ICSharpCode.SharpZipLib.dll
 X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\SharpCompress.dll
 X:\Documents\Vanchip\github\data_analysis_tool\DataAnalysisTool\bin\Debug\System.Buffers.dll
@@ -279,3 +280,42 @@ X:\Documents\github\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.Wpf.xm
 X:\Documents\github\data_analysis_tool\DataAnalysisTool\bin\Debug\System.Buffers.xml
 X:\Documents\github\data_analysis_tool\DataAnalysisTool\bin\Debug\STDF Viewer.pdb
 X:\Documents\github\data_analysis_tool\DataAnalysisTool\obj\Debug\Interop.JMP.dll
+=======
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.exe.config
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.exe
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\DataAnalysisTool.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\LumenWorks.Framework.IO.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\Microsoft.Exchange.WebServices.Auth.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\Microsoft.Exchange.WebServices.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.WindowsForms.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.Wpf.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\Update.exe
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\Vanchip.Data.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\STDF Viewer.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\Update.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\Vanchip.Data.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\Microsoft.Exchange.WebServices.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\Microsoft.Exchange.WebServices.xml
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\Microsoft.Exchange.WebServices.Auth.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\Microsoft.Exchange.WebServices.Auth.xml
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.xml
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.WindowsForms.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.WindowsForms.xml
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.Wpf.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\OxyPlot.Wpf.xml
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\Debug\STDF Viewer.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.csprojResolveAssemblyReference.cache
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\Interop.JMP.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.csproj.ResolveComReference.cache
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmAbout.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.GoldenSample.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.ImportGold.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmJMPScriptSelect.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmMain.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.frmTest.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.csproj.GenerateResource.Cache
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.exe
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.pdb
+>>>>>>> 28befb722f77ccec53f1fd48cf0d72a626ec41cd

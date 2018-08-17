@@ -26,6 +26,7 @@ C:\data_analysis_tool\Update\bin\Debug\Update.pdb
 C:\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper.csprojResolveAssemblyReference.cache
 C:\data_analysis_tool\Update\obj\Debug\Update.exe
 C:\data_analysis_tool\Update\obj\Debug\Update.pdb
+<<<<<<< HEAD
 X:\Documents\Vanchip\github\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper.csprojResolveAssemblyReference.cache
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.exe.config
 \\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\Update\bin\Debug\Update.exe
@@ -39,3 +40,10 @@ X:\Documents\github\data_analysis_tool\Update\bin\Debug\Update.pdb
 X:\Documents\github\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper.csprojResolveAssemblyReference.cache
 X:\Documents\github\data_analysis_tool\Update\obj\Debug\Update.exe
 X:\Documents\github\data_analysis_tool\Update\obj\Debug\Update.pdb
+=======
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Update\bin\Debug\Update.exe.config
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Update\bin\Debug\Update.exe
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Update\bin\Debug\Update.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Update\obj\Debug\Update.exe
+C:\Users\ace_li\Source\Repos\data_analysis_tool\Update\obj\Debug\Update.pdb
+>>>>>>> 28befb722f77ccec53f1fd48cf0d72a626ec41cd
