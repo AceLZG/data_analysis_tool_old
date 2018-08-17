@@ -118,7 +118,7 @@ namespace Update
             // Copy the extracted files and replace everything in the current directory to finish the update
             // C# doesn't easily let us extract & replace at the same time
             // From http://stackoverflow.com/a/3822913/1460422
-            foreach (string newPath in Directory.GetFiles(extractTarget, "*.*", SearchOption.AllDirectories))
+            foreach (string newPath in Directory.GetFiles(extractTarget, "*.*", SearchOption.TopDirectoryOnly))
             {
                 Console.WriteLine(" - Updating : " + newPath.Replace(extractTarget, "."));  
                 string name = Path.GetFileNameWithoutExtension(newPath);
@@ -137,7 +137,7 @@ namespace Update
                 File.Copy(newPath, newPath.Replace(extractTarget, "."), true);
               
 
-                Console.WriteLine(" ... done.");  
+                Console.WriteLine(" ... done.");
             }
 
             // Clean up the temporary files

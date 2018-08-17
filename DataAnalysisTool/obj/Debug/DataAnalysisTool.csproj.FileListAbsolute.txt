@@ -37,3 +37,5 @@ X:\Documents\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTo
 X:\Documents\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.csproj.GenerateResource.Cache
 X:\Documents\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.exe
 X:\Documents\github\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.pdb
+X:\Documents\github\data_analysis_tool\DataAnalysisTool\bin\Debug\MySql.Data.dll
+X:\Documents\github\data_analysis_tool\DataAnalysisTool\bin\Debug\MySql.Web.dll
