@@ -1,0 +1,423 @@
+
+Distribution(
+	Stack( 1 ),
+	Continuous Distribution(
+		Column( :Current ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX1_3000_Insertion Loss ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX2_3000_Insertion Loss ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX3_3000_Insertion Loss ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX4_3000_Insertion Loss ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX5_3000_Insertion Loss ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX6_3000_Insertion Loss ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX7_3000_Insertion Loss ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX8_3000_Insertion Loss ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX1_3000_IsoLationRX5 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX5_3000_IsoLationRX1 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX3_3000_IsoLationRX7 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX7_3000_IsoLationRX3 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX8_3000_IsoLationRX4 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX4_3000_IsoLationRX8 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX6_3000_IsoLationRX2 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :TRX2_3000_IsoLationRX6 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	SendToReport(
+		Dispatch(
+			{"Current"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Current"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX1_3000_Insertion Loss"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX1_3000_Insertion Loss"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX2_3000_Insertion Loss"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX2_3000_Insertion Loss"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX3_3000_Insertion Loss"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX3_3000_Insertion Loss"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX4_3000_Insertion Loss"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX4_3000_Insertion Loss"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX5_3000_Insertion Loss"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX5_3000_Insertion Loss"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX6_3000_Insertion Loss"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX6_3000_Insertion Loss"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX7_3000_Insertion Loss"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX7_3000_Insertion Loss"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX8_3000_Insertion Loss"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX8_3000_Insertion Loss"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX1_3000_IsoLationRX5"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX1_3000_IsoLationRX5"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX5_3000_IsoLationRX1"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX5_3000_IsoLationRX1"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX3_3000_IsoLationRX7"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX3_3000_IsoLationRX7"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX7_3000_IsoLationRX3"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX7_3000_IsoLationRX3"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX8_3000_IsoLationRX4"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX8_3000_IsoLationRX4"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX4_3000_IsoLationRX8"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX4_3000_IsoLationRX8"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX6_3000_IsoLationRX2"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX6_3000_IsoLationRX2"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"TRX2_3000_IsoLationRX6"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"TRX2_3000_IsoLationRX6"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		)
+	)
+);
+
+Overlay Plot(
+	Y(
+		:Current,
+		:TRX1_3000_Insertion Loss,
+		:TRX2_3000_Insertion Loss,
+		:TRX3_3000_Insertion Loss,
+		:TRX4_3000_Insertion Loss,
+		:TRX5_3000_Insertion Loss,
+		:TRX6_3000_Insertion Loss,
+		:TRX7_3000_Insertion Loss,
+		:TRX8_3000_Insertion Loss,
+		:TRX1_3000_IsoLationRX5,
+		:TRX5_3000_IsoLationRX1,
+		:TRX3_3000_IsoLationRX7,
+		:TRX7_3000_IsoLationRX3,
+		:TRX8_3000_IsoLationRX4,
+		:TRX4_3000_IsoLationRX8,
+		:TRX6_3000_IsoLationRX2,
+		:TRX2_3000_IsoLationRX6
+	),
+	Overlay( 0 ),
+	Ungroup Plots( 1 ),
+	SendToReport(
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 19 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 20 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 21 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 22 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 23 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 24 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 25 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 26 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 27 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 28 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 29 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 30 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 31 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 32 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 33 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 34 ),
+			{Frame Size( 653, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 35 ),
+			{Frame Size( 653, 140 )}
+		)
+	)
+);

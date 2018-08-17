@@ -1,9 +1,0 @@
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot.Wpf\bin\Debug\OxyPlot.Wpf.dll
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot.Wpf\bin\Debug\OxyPlot.Wpf.pdb
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot.Wpf\bin\Debug\OxyPlot.dll
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot.Wpf\bin\Debug\OxyPlot.pdb
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot.Wpf\obj\Debug\OxyPlot.Wpf.csprojResolveAssemblyReference.cache
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot.Wpf\obj\Debug\OxyPlot.Wpf.Properties.Resources.resources
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot.Wpf\obj\Debug\OxyPlot.Wpf.csproj.GenerateResource.Cache
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot.Wpf\obj\Debug\OxyPlot.Wpf.dll
-\\Mac\Home\Documents\Vanchip\github\data_analysis_tool\oxyplot-0.0.1\Source\OxyPlot.Wpf\obj\Debug\OxyPlot.Wpf.pdb

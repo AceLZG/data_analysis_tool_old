@@ -13,6 +13,7 @@
 ///     Rev2.5.1.4      Rewrite data parsing structure and bug fix                                  Ace Li      2016-11-28
 ///     Rev2.6.0.0      Add auto update function and fix smoe bugs                                  Ace Li      2016-11-30
 ///     Rev2.7.1.1      fix stdf parse bug                                                          Ace Li      2017-12-14
+///     Rev2.8.0.0      regular upgrade & bug fix                                                   Ace Li      2018-08-17
 
 using System;
 using System.Diagnostics;
@@ -41,7 +42,8 @@ using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Axes;
 using owa = Microsoft.Exchange.WebServices.Data;
-using System.Net;
+using ICSharpCode.SharpZipLib.GZip;
+using ICSharpCode.SharpZipLib.Tar;
 
 namespace DataAnalysisTool
 {
@@ -1022,7 +1024,7 @@ namespace DataAnalysisTool
             frmAbout about = new frmAbout();
             about.ShowDialog();
         }
-        
+
         #endregion *** Sub Functions ***
 
 
@@ -1168,7 +1170,7 @@ namespace DataAnalysisTool
                                 {
                                     var buf1 = new byte[size];
                                     count = gzs.Read(buf1, 0, size);
-                                    if (buf1[0] != 2 || buf1[1] != 0) throw new Exception("This gzip file does not cotain an valid std file!");
+                                    //if (buf1[0] != 2 || buf1[1] != 0) throw new Exception("This gzip file does not cotain an valid std file!");
                                 }
                             }
                             else
@@ -1866,13 +1868,32 @@ namespace DataAnalysisTool
             {
                 if (strFileName.Length == 1)
                 {
+                    string strDirTemp = Path.GetTempPath()+Path.GetRandomFileName();
+
                     using (FileStream fs = new FileStream(strFileName[0], FileMode.Open))
                     {
-                        using (GZipStream gzs = new GZipStream(fs, CompressionMode.Decompress))
+                        using (Stream gzipStream = new GZipInputStream(fs))
                         {
-                            tblDataResult = await Task.Run(() => _DP.GetDataFromStdfviewer(gzs));
+                            TarArchive tarArchive = TarArchive.CreateInputTarArchive(gzipStream);
+                            tarArchive.ExtractContents(strDirTemp);
+                            tarArchive.Close();
                         }
                     }
+                    string[] strFileName_gz = Directory.GetFiles(strDirTemp, "*.std*");
+                    if (strFileName_gz.Length == 1)
+                    {
+                        using (FileStream fs = new FileStream(strFileName_gz[0], FileMode.Open))
+                        {
+                            tblDataResult = await Task.Run(() => _DP.GetDataFromStdfviewer(fs));
+                        }
+                        // Delete temp directory after parse done.
+                        if (Directory.Exists(strDirTemp)) Directory.Delete(strDirTemp,true);
+                    }
+                    else if (strFileName_gz.Length > 1)
+                    {
+                        tblDataResult = await Task.Run(() => _DP.GetDataFromStdfviewerTask(strFileName_gz));
+                    }
+                    
                 }
                 else
                 {
@@ -3155,7 +3176,7 @@ namespace DataAnalysisTool
             #region *** Selected file ***
             OpenFileDialog OpenFile = new OpenFileDialog();
             OpenFile.RestoreDirectory = true;
-            OpenFile.Filter = "STDF Files(*.std/*.stdf)|*.std|All Files|*.*";
+            OpenFile.Filter = "STDF Files(*.std/*.stdf)|*.std;*.stdf|All Files|*.*";
             //OpenFile.Filter = "STDF data file(*.std)|*.std|TXT data file(*.txt)|*.txt";
             if (OpenFile.ShowDialog() != DialogResult.OK) return;
             strKGUPath = OpenFile.FileName;
@@ -3712,6 +3733,7 @@ namespace DataAnalysisTool
         }
 
         #endregion *** Data Analysis ***
+
 
         #region *** Golden Sample ***
         private void importKGUDataToolStripMenuItem_Click(object sender, EventArgs e)

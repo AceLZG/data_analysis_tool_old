@@ -1,0 +1,304 @@
+
+Distribution(
+	Stack( 1 ),
+	Continuous Distribution(
+		Column( :Idle_H_Vbat ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Idle_H_Vcc ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Idle_H_Total ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Pin_H_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Pout_H_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Gain_H_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Icc_H_Vbat_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Icc_H_Vcc_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Icc_H_Total_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :PAE_H_Total_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :ACP_L_H_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :ACP_U_H_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :ALT_L_H_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :ALT_U_H_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :EVM_H_824 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "2fo_H_824" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "3fo_H_824" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Leakage_Current ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Test Time ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Index Time ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	SendToReport(
+		Dispatch(
+			{"Idle_H_Vbat"},
+			"1",
+			ScaleBox,
+			{Min( 1.8768115942029 ), Max( 2.7 ), Inc( 0.1 ), Minor Ticks( 3 )}
+		),
+		Dispatch(
+			{"Idle_H_Vbat"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 312, 36 )}
+		),
+		Dispatch(
+			{"Idle_H_Vbat"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 312, 82 )}
+		),
+		Dispatch(
+			{"Idle_H_Vcc"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 347, 36 )}
+		),
+		Dispatch(
+			{"Idle_H_Vcc"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 347, 82 )}
+		)
+	)
+);
+
+Overlay Plot(
+	Y(
+		:Idle_H_Vbat,
+		:Idle_H_Vcc,
+		:Idle_H_Total,
+		:Pin_H_824,
+		:Pout_H_824,
+		:Gain_H_824,
+		:Icc_H_Vbat_824,
+		:Icc_H_Vcc_824,
+		:Icc_H_Total_824,
+		:PAE_H_Total_824,
+		:ACP_L_H_824,
+		:ACP_U_H_824,
+		:ALT_L_H_824,
+		:ALT_U_H_824,
+		:EVM_H_824,
+		:Name( "2fo_H_824" ),
+		:Name( "3fo_H_824" ),
+		:Leakage_Current,
+		:Test Time,
+		:Index Time
+	),
+	Overlay( 0 ),
+	Ungroup Plots( 1 ),
+	:Idle_H_Vbat( Overlay Marker( 8 ) ),
+	:Idle_H_Vcc( Overlay Marker( 1 ) ),
+	:Pin_H_824( Overlay Marker( 2 ) ),
+	:Pout_H_824( Overlay Marker( 5 ) ),
+	:Gain_H_824( Overlay Marker( 6 ) ),
+	:Icc_H_Vbat_824( Overlay Marker( 17 ) ),
+	:Icc_H_Vcc_824( Overlay Marker( 7 ) ),
+	:Icc_H_Total_824( Overlay Marker( 11 ) ),
+	:PAE_H_Total_824( Overlay Marker( 3 ) ),
+	:ACP_L_H_824( Overlay Marker( 18 ) ),
+	:ACP_U_H_824( Overlay Marker( 19 ) ),
+	:ALT_L_H_824( Overlay Marker( 24 ) ),
+	:ALT_U_H_824( Overlay Marker( 25 ) ),
+	:EVM_H_824( Overlay Marker( 26 ) ),
+	:Name( "2fo_H_824" )(Overlay Marker( 27 )),
+	:Name( "3fo_H_824" )(Overlay Marker( 28 )),
+	:Leakage_Current( Overlay Marker( 29 ) ),
+	:Test Time( Overlay Marker( 30 ) ),
+	:Index Time( Overlay Marker( 31 ) ),
+	SendToReport(
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 22 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 23 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 24 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 25 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 26 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 27 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 28 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 29 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 30 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 31 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 32 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 33 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 34 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 35 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 36 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 37 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 38 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 39 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 40 ),
+			{Frame Size( 638, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 41 ),
+			{Frame Size( 638, 140 )}
+		)
+	)
+);

@@ -3414,7 +3414,7 @@ namespace Vanchip.Data
                     string ext = Path.GetExtension(fileName);
                     using (FileStream fs = new FileStream(fileName, FileMode.Open))
                     {
-                        if (ext.ToLower() == ".std")
+                        if (ext.ToLower() == ".std" || ext.ToLower() == ".stdf")
                         {
                             DataParseResultTemp[i] = await Task.Run(() => this.GetDataFromStdfviewer(fs));
                         }

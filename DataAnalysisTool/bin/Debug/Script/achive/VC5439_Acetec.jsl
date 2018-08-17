@@ -1,0 +1,664 @@
+
+Overlay Plot(
+	Y(
+		:Idle_H_Vbat,
+		:Idle_H__Vcc,
+		:Idle_H_Total,
+		:Pin_H_1880,
+		:Pout_H_1880,
+		:Gain_H_1880,
+		:Icc_H_Vbat_1880,
+		:Icc_H_Vcc_1880,
+		:Icc_H_Total_1880,
+		:PAE_H_Total_1880,
+		:Name( "E-UTRA_ACP_L_B39_1880" ),
+		:UTRA_ACP1_L_B39_1880,
+		:UTRA_ACP2_L_B39_1880,
+		:EVM_H_1880,
+		:Pin_H_1920,
+		:Pout_H_1920,
+		:Gain_H_1920,
+		:Icc_H_Vbat_1920,
+		:Icc_H_Vcc_1920,
+		:Icc_H_Total_1920,
+		:PAE_H_Total_1920,
+		:Name( "E-UTRA_ACP_L_B39_1920" ),
+		:UTRA_ACP1_L_B39_1920,
+		:UTRA_ACP2_L_B39_1920,
+		:EVM_H_1920,
+		:Leakage Current
+	),
+	Overlay( 0 ),
+	Ungroup Plots( 1 ),
+	:Idle_H_Vbat( Overlay Marker( 8 ) ),
+	:Idle_H__Vcc( Overlay Marker( 1 ) ),
+	:Pin_H_1880( Overlay Marker( 2 ) ),
+	:Pout_H_1880( Overlay Marker( 5 ) ),
+	:Gain_H_1880( Overlay Marker( 6 ) ),
+	:Icc_H_Vbat_1880( Overlay Marker( 17 ) ),
+	:Icc_H_Vcc_1880( Overlay Marker( 7 ) ),
+	:Icc_H_Total_1880( Overlay Marker( 11 ) ),
+	:PAE_H_Total_1880( Overlay Marker( 3 ) ),
+	:Name( "E-UTRA_ACP_L_B39_1880" )(Overlay Marker( 18 )),
+	:UTRA_ACP1_L_B39_1880( Overlay Marker( 19 ) ),
+	:UTRA_ACP2_L_B39_1880( Overlay Marker( 24 ) ),
+	:EVM_H_1880( Overlay Marker( 25 ) ),
+	:Pin_H_1920( Overlay Marker( 26 ) ),
+	:Pout_H_1920( Overlay Marker( 27 ) ),
+	:Gain_H_1920( Overlay Marker( 28 ) ),
+	:Icc_H_Vbat_1920( Overlay Marker( 29 ) ),
+	:Icc_H_Vcc_1920( Overlay Marker( 30 ) ),
+	:Icc_H_Total_1920( Overlay Marker( 31 ) ),
+	:PAE_H_Total_1920( Overlay Marker( 9 ) ),
+	:Name( "E-UTRA_ACP_L_B39_1920" )(Overlay Marker( 10 )),
+	:UTRA_ACP1_L_B39_1920( Overlay Marker( 8 ) ),
+	:UTRA_ACP2_L_B39_1920( Overlay Marker( 1 ) ),
+	:EVM_H_1920( Overlay Marker( 4 ) ),
+	:Leakage Current( Overlay Marker( 2 ) ),
+	SendToReport(
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 28 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 29 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 30 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 31 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 32 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 33 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 34 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 35 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 36 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 37 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 38 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 39 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 40 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 41 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 42 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 43 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 44 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 45 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 46 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 47 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 48 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 49 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 50 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 51 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 52 ),
+			{Frame Size( 394, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 53 ),
+			{Frame Size( 394, 140 )}
+		)
+	)
+);
+
+Distribution(
+	Stack( 1 ),
+	Continuous Distribution(
+		Column( :Idle_H_Vbat ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Idle_H__Vcc ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Idle_H_Total ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Pin_H_1880 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Pout_H_1880 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Gain_H_1880 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Icc_H_Vbat_1880 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Icc_H_Vcc_1880 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Icc_H_Total_1880 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :PAE_H_Total_1880 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "E-UTRA_ACP_L_B39_1880" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :UTRA_ACP1_L_B39_1880 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :UTRA_ACP2_L_B39_1880 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :EVM_H_1880 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Pin_H_1920 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Pout_H_1920 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Gain_H_1920 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Icc_H_Vbat_1920 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Icc_H_Vcc_1920 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Icc_H_Total_1920 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :PAE_H_Total_1920 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "E-UTRA_ACP_L_B39_1920" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :UTRA_ACP1_L_B39_1920 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :UTRA_ACP2_L_B39_1920 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :EVM_H_1920 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Leakage Current ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	SendToReport(
+		Dispatch(
+			{"Idle_H_Vbat"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Idle_H_Vbat"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Idle_H__Vcc"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Idle_H__Vcc"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Idle_H_Total"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Idle_H_Total"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Pin_H_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Pin_H_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Pout_H_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Pout_H_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Gain_H_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Gain_H_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Icc_H_Vbat_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Icc_H_Vbat_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Icc_H_Vcc_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Icc_H_Vcc_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Icc_H_Total_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Icc_H_Total_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"PAE_H_Total_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"PAE_H_Total_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"E-UTRA_ACP_L_B39_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"E-UTRA_ACP_L_B39_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"UTRA_ACP1_L_B39_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"UTRA_ACP1_L_B39_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"UTRA_ACP2_L_B39_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"UTRA_ACP2_L_B39_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"EVM_H_1880"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"EVM_H_1880"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Pin_H_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Pin_H_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Pout_H_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Pout_H_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Gain_H_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Gain_H_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Icc_H_Vbat_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Icc_H_Vbat_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Icc_H_Vcc_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Icc_H_Vcc_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Icc_H_Total_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Icc_H_Total_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"PAE_H_Total_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"PAE_H_Total_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"E-UTRA_ACP_L_B39_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"E-UTRA_ACP_L_B39_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"UTRA_ACP1_L_B39_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"UTRA_ACP1_L_B39_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"UTRA_ACP2_L_B39_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"UTRA_ACP2_L_B39_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"EVM_H_1920"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"EVM_H_1920"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		),
+		Dispatch(
+			{"Leakage Current"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 396, 36 )}
+		),
+		Dispatch(
+			{"Leakage Current"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 396, 82 )}
+		)
+	)
+);

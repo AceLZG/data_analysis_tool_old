@@ -7,7 +7,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DataAnalysisTool")]
-[assembly: AssemblyDescription("Build for data parse - 20170704")]
+[assembly: AssemblyDescription("beta testing")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Vanchip")]
 [assembly: AssemblyProduct("DataAnalysisTool")]
@@ -33,6 +33,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.7.1.1")]
-[assembly: AssemblyFileVersion("2.7.1.1")]
+[assembly: AssemblyVersion("2.8.0.0")]
+[assembly: AssemblyFileVersion("2.8.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

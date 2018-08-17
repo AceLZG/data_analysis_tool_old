@@ -55,3 +55,24 @@ C:\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb
 X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
 X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
 X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+X:\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csprojResolveAssemblyReference.cache
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.pdb
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csprojResolveAssemblyReference.cache
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.ResolveComReference.cache
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Form1.resources
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Properties.Resources.resources
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.GenerateResource.Cache
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+\\Mac\Home\Dropbox\Documents\Vanchip\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb
+X:\Documents\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
+X:\Documents\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
+X:\Documents\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.pdb
+X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csprojResolveAssemblyReference.cache
+X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.ResolveComReference.cache
+X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Form1.resources
+X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Properties.Resources.resources
+X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.GenerateResource.Cache
+X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb

@@ -1,0 +1,1014 @@
+
+Overlay Plot(
+	Y(
+		:GSM915 Idle Current,
+		:Name( "GSM915 Max Pout @ 0dBm Drive" ),
+		:Name( "GSM915 Max Pout @ 3dBm Drive" ),
+		:GSM915 Max Icc,
+		:GSM915 Max PAE,
+		:GSM915 Rated Pout,
+		:GSM915 Rated Vramp,
+		:GSM915 Rated Icc,
+		:GSM915 Rated PAE,
+		:Name( "GSM915 2nd har@30dBm" ),
+		:Name( "GSM915 3rd har@30dBm" ),
+		:GSM915 Fwd Isolation 1,
+		:GSM915 Fwd Isolation 2,
+		:Name( "GSM915 Pout Leakage@TRX1" ),
+		:Name( "GSM915 Pout Leakage@TRX2" ),
+		:GSM915 CMOS Pout,
+		:GSM915 Pout Slope,
+		:GSM915 Stress Delta,
+		:DCS1910 Idle Current,
+		:Name( "DCS1910 Max Pout @ 0dBm Drive" ),
+		:Name( "DCS1910 Max Pout @ 3dBm Drive" ),
+		:DCS1910 Max Icc,
+		:DCS1910 Max PAE,
+		:DCS1910 Rated Pout,
+		:DCS1910 Rated Vramp,
+		:DCS1910 Rated Icc,
+		:DCS1910 Rated PAE,
+		:Name( "DCS1910 2nd har@30dBm" ),
+		:Name( "DCS1910 3rd har@30dBm" ),
+		:DCS1910 Fwd Isolation 1,
+		:DCS1910 Fwd Isolation 2,
+		:Name( "DCS1910 Pout Leakage@TRX1" ),
+		:Name( "DCS1910 Pout Leakage@TRX2" ),
+		:DCS1910 CMOS Pout,
+		:DCS1910 Pout Slope,
+		:DCS1910 Stress Delta,
+		:Insertion Loss TRX1,
+		:Insertion Loss TRX2,
+		:Leakage Current,
+		:Leakage Current Wait Time
+	),
+	Overlay( 0 ),
+	Ungroup Plots( 1 ),
+	:GSM915 Idle Current( Overlay Marker( 8 ) ),
+	:Name( "GSM915 Max Pout @ 0dBm Drive" )(Overlay Marker( 1 )),
+	:GSM915 Max Icc( Overlay Marker( 2 ) ),
+	:GSM915 Max PAE( Overlay Marker( 5 ) ),
+	:GSM915 Rated Pout( Overlay Marker( 6 ) ),
+	:GSM915 Rated Vramp( Overlay Marker( 17 ) ),
+	:GSM915 Rated Icc( Overlay Marker( 7 ) ),
+	:GSM915 Rated PAE( Overlay Marker( 11 ) ),
+	:Name( "GSM915 2nd har@30dBm" )(Overlay Marker( 3 )),
+	:Name( "GSM915 3rd har@30dBm" )(Overlay Marker( 18 )),
+	:GSM915 Fwd Isolation 1( Overlay Marker( 19 ) ),
+	:GSM915 Fwd Isolation 2( Overlay Marker( 24 ) ),
+	:Name( "GSM915 Pout Leakage@TRX1" )(Overlay Marker( 25 )),
+	:Name( "GSM915 Pout Leakage@TRX2" )(Overlay Marker( 26 )),
+	:GSM915 CMOS Pout( Overlay Marker( 27 ) ),
+	:GSM915 Pout Slope( Overlay Marker( 28 ) ),
+	:GSM915 Stress Delta( Overlay Marker( 29 ) ),
+	:DCS1910 Idle Current( Overlay Marker( 30 ) ),
+	:Name( "DCS1910 Max Pout @ 0dBm Drive" )(Overlay Marker( 31 )),
+	:Name( "DCS1910 Max Pout @ 3dBm Drive" )(Overlay Marker( 9 )),
+	:DCS1910 Max Icc( Overlay Marker( 10 ) ),
+	:DCS1910 Max PAE( Overlay Marker( 8 ) ),
+	:DCS1910 Rated Pout( Overlay Marker( 1 ) ),
+	:DCS1910 Rated Vramp( Overlay Marker( 4 ) ),
+	:DCS1910 Rated Icc( Overlay Marker( 2 ) ),
+	:DCS1910 Rated PAE( Overlay Marker( 5 ) ),
+	:Name( "DCS1910 2nd har@30dBm" )(Overlay Marker( 6 )),
+	:Name( "DCS1910 3rd har@30dBm" )(Overlay Marker( 17 )),
+	:DCS1910 Fwd Isolation 1( Overlay Marker( 7 ) ),
+	:DCS1910 Fwd Isolation 2( Overlay Marker( 11 ) ),
+	:Name( "DCS1910 Pout Leakage@TRX1" )(Overlay Marker( 3 )),
+	:Name( "DCS1910 Pout Leakage@TRX2" )(Overlay Marker( 18 )),
+	:DCS1910 CMOS Pout( Overlay Marker( 19 ) ),
+	:DCS1910 Pout Slope( Overlay Marker( 24 ) ),
+	:DCS1910 Stress Delta( Overlay Marker( 25 ) ),
+	:Insertion Loss TRX1( Overlay Marker( 26 ) ),
+	:Insertion Loss TRX2( Overlay Marker( 27 ) ),
+	:Leakage Current( Overlay Marker( 28 ) ),
+	:Leakage Current Wait Time( Overlay Marker( 29 ) ),
+	SendToReport(
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 42 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 43 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 44 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 45 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 46 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 47 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 48 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 49 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 50 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 51 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 52 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 53 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 54 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 55 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 56 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 57 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 58 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 59 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 60 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 61 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 62 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 63 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 64 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 65 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 66 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 67 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 68 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 69 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 70 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 71 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 72 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 73 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 74 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 75 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 76 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 77 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 78 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 79 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 80 ),
+			{Frame Size( 441, 140 )}
+		),
+		Dispatch(
+			{},
+			"Overlay Plot Graph",
+			FrameBox( 81 ),
+			{Frame Size( 441, 140 )}
+		)
+	)
+);
+
+Distribution(
+	Stack( 1 ),
+	Continuous Distribution(
+		Column( :GSM915 Idle Current ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "GSM915 Max Pout @ 0dBm Drive" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "GSM915 Max Pout @ 3dBm Drive" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 Max Icc ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 Max PAE ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 Rated Pout ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 Rated Vramp ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 Rated Icc ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 Rated PAE ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "GSM915 2nd har@30dBm" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "GSM915 3rd har@30dBm" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 Fwd Isolation 1 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 Fwd Isolation 2 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "GSM915 Pout Leakage@TRX1" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "GSM915 Pout Leakage@TRX2" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 CMOS Pout ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 Pout Slope ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :GSM915 Stress Delta ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Idle Current ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "DCS1910 Max Pout @ 0dBm Drive" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "DCS1910 Max Pout @ 3dBm Drive" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Max Icc ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Max PAE ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Rated Pout ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Rated Vramp ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Rated Icc ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Rated PAE ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "DCS1910 2nd har@30dBm" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "DCS1910 3rd har@30dBm" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Fwd Isolation 1 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Fwd Isolation 2 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "DCS1910 Pout Leakage@TRX1" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Name( "DCS1910 Pout Leakage@TRX2" ) ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 CMOS Pout ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Pout Slope ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :DCS1910 Stress Delta ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Insertion Loss TRX1 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Insertion Loss TRX2 ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Leakage Current ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	Continuous Distribution(
+		Column( :Leakage Current Wait Time ),
+		Horizontal Layout( 1 ),
+		Vertical( 0 )
+	),
+	SendToReport(
+		Dispatch(
+			{"GSM915 Idle Current"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Idle Current"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Max Pout @ 0dBm Drive"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Max Pout @ 0dBm Drive"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Max Pout @ 3dBm Drive"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Max Pout @ 3dBm Drive"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Max Icc"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Max Icc"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Max PAE"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Max PAE"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Rated Pout"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Rated Pout"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Rated Vramp"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Rated Vramp"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Rated Icc"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Rated Icc"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Rated PAE"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Rated PAE"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 2nd har@30dBm"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 2nd har@30dBm"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 3rd har@30dBm"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 3rd har@30dBm"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Fwd Isolation 1"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Fwd Isolation 1"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Fwd Isolation 2"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Fwd Isolation 2"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Pout Leakage@TRX1"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Pout Leakage@TRX1"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Pout Leakage@TRX2"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Pout Leakage@TRX2"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 CMOS Pout"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 CMOS Pout"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Pout Slope"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Pout Slope"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"GSM915 Stress Delta"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"GSM915 Stress Delta"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Idle Current"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Idle Current"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Max Pout @ 0dBm Drive"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Max Pout @ 0dBm Drive"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Max Pout @ 3dBm Drive"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Max Pout @ 3dBm Drive"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Max Icc"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Max Icc"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Max PAE"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Max PAE"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Rated Pout"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Rated Pout"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Rated Vramp"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Rated Vramp"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Rated Icc"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Rated Icc"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Rated PAE"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Rated PAE"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 2nd har@30dBm"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 2nd har@30dBm"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 3rd har@30dBm"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 3rd har@30dBm"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Fwd Isolation 1"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Fwd Isolation 1"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Fwd Isolation 2"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Fwd Isolation 2"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Pout Leakage@TRX1"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Pout Leakage@TRX1"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Pout Leakage@TRX2"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Pout Leakage@TRX2"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 CMOS Pout"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 CMOS Pout"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Pout Slope"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Pout Slope"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"DCS1910 Stress Delta"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"DCS1910 Stress Delta"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"Insertion Loss TRX1"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"Insertion Loss TRX1"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"Insertion Loss TRX2"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"Insertion Loss TRX2"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"Leakage Current"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"Leakage Current"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		),
+		Dispatch(
+			{"Leakage Current Wait Time"},
+			"Distrib Outlier Box",
+			FrameBox,
+			{Frame Size( 391, 36 )}
+		),
+		Dispatch(
+			{"Leakage Current Wait Time"},
+			"Distrib Histogram",
+			FrameBox,
+			{Frame Size( 391, 82 )}
+		)
+	)
+);
