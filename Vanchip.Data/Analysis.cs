@@ -185,7 +185,7 @@ namespace Vanchip.Data
         {
             #region *** Variable define ***
             //m_FailureArray = new string[dataTable.Rows.Count - 3];
-            m_FailureArray = new string[100000];
+            m_FailureArray = new string[1000000];
             string[] deviceNoArray;
             Dictionary<string, string> myDic = new Dictionary<string, string>();
             List<FailureMode> failureModeList = new List<FailureMode>();

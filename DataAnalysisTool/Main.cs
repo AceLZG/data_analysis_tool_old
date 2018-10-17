@@ -14,6 +14,8 @@
 ///     Rev2.6.0.0      Add auto update function and fix smoe bugs                                  Ace Li      2016-11-30
 ///     Rev2.7.1.1      fix stdf parse bug                                                          Ace Li      2017-12-14
 ///     Rev2.8.0.1      regular upgrade & bug fix                                                   Ace Li      2018-08-17
+///     Rev2.8.0.2      fix kgu issue                                                               Ace Li      2018-12-17
+///     Rev2.8.0.3      fix failure mode out of index issue                                                               Ace Li      2018-12-17
 
 using System;
 using System.Diagnostics;
@@ -3186,7 +3188,13 @@ namespace DataAnalysisTool
             if (strExtension.ToLower() == ".txt")
                 tblKGURaw = _DataParse.GetDataFromTxt(strKGUPath);
             else if (strExtension.ToLower() == ".std" || strExtension.ToLower() == ".stdf")
-                tblKGURaw = _DataParse.GetDataFromStdfviewer(strKGUPath);
+            {
+                //tblKGURaw = _DataParse.GetDataFromStdfviewer(strKGUPath);
+                using (FileStream fs = new FileStream(strKGUPath, FileMode.Open))
+                {
+                    tblKGURaw = _DataParse.GetDataFromStdfviewer(fs);
+                }
+            }
 
             string[] tmp = _DataParse.Header.ProgramRev.Split('.');
             //strGoldenPath = Application.StartupPath + @".\GoldenSample\" + _DataParse.Header.Product.ToString() + "_" + _DataParse.Header.ProgramRev.Substring(0, 2)
