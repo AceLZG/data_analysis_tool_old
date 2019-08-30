@@ -1325,7 +1325,7 @@ namespace DataAnalysisTool
         // *** Import test data from formatted csv file ***
         private async void ImportfromCSVToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             #region *** Selected file ***
             OpenFileDialog openfiledialog1 = new OpenFileDialog();
             openfiledialog1.Filter = "CSV datat file(*.csv)|*.csv";
@@ -1363,6 +1363,9 @@ namespace DataAnalysisTool
 
             // wait cache data to be finished
             this.CacheDataAsync(await result);
+            lblBar.Text += "...Done";
+            this.Cursor = Cursors.Default;
+            this.Refresh();
 
         } //end of ImportfromCSVToolStripMenuItem_Click
 

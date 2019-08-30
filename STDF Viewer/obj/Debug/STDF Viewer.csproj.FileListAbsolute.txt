@@ -7,3 +7,12 @@ X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Propert
 X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.GenerateResource.Cache
 X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
 X:\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb
+Z:\Dropbox\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
+Z:\Dropbox\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb
+Z:\Dropbox\Documents\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll.config
+Z:\Dropbox\Documents\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.dll
+Z:\Dropbox\Documents\github\data_analysis_tool\STDF Viewer\bin\Debug\STDF Viewer.pdb
+Z:\Dropbox\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Form1.resources
+Z:\Dropbox\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewer.Properties.Resources.resources
+Z:\Dropbox\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.GenerateResource.Cache
+Z:\Dropbox\Documents\github\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csprojResolveAssemblyReference.cache

@@ -7,3 +7,12 @@ X:\Documents\github\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framewo
 X:\Documents\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
 X:\Documents\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
 X:\Documents\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb
+Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.dll
+Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.pdb
+Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.dll
+Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.dll
+Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.pdb
+Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.xml
+Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
+Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb
+Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
