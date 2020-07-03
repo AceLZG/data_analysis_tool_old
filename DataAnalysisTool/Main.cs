@@ -16,7 +16,7 @@
 ///     Rev2.8.0.1      regular upgrade & bug fix                                                   Ace Li      2018-08-17
 ///     Rev2.8.0.2      fix kgu issue                                                               Ace Li      2018-12-17
 ///     Rev2.8.0.3      fix failure mode out of index issue                                         Ace Li      2018-12-17
-///     Rev2.8.0.4      fix bug, datagrid sum of columns' fillweight values cannot exceed 65535     Ace Li      2020-07-03
+///     Rev2.8.0.5      fix bug, datagrid sum of columns' fillweight values cannot exceed 65535     Ace Li      2020-07-03
 
 using System;
 using System.Diagnostics;
