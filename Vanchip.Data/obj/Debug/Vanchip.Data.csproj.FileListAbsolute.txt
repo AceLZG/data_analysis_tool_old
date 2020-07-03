@@ -16,3 +16,12 @@ Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks
 Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
 Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb
 Z:\Dropbox\Documents\github\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.dll
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\Vanchip.Data.pdb
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.dll
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.dll
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\STDF Viewer.pdb
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Vanchip.Data\bin\Debug\LumenWorks.Framework.IO.xml
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.csprojResolveAssemblyReference.cache
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.dll
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Vanchip.Data\obj\Debug\Vanchip.Data.pdb

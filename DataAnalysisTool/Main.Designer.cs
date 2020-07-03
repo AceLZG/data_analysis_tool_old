@@ -607,6 +607,7 @@
             this.dgvData.TabIndex = 0;
             this.dgvData.VirtualMode = true;
             this.dgvData.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvData_CellFormatting);
+            this.dgvData.ColumnAdded += DgvData_ColumnAdded;
             // 
             // TabUserMenu
             // 
@@ -686,6 +687,12 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void DgvData_ColumnAdded(object sender, System.Windows.Forms.DataGridViewColumnEventArgs e)
+        {
+            e.Column.FillWeight = 10;
+            //throw new System.NotImplementedException();
         }
 
         #endregion
