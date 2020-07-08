@@ -12,6 +12,5 @@ Z:\Dropbox\Documents\github\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Update\bin\Debug\Update.exe.config
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Update\bin\Debug\Update.exe
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Update\bin\Debug\Update.pdb
-C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Update\obj\Debug\AutoUpdateHelper.csprojResolveAssemblyReference.cache
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Update\obj\Debug\Update.exe
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\Update\obj\Debug\Update.pdb

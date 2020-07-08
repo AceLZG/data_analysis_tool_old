@@ -19,6 +19,7 @@
 ///     Rev2.8.0.5      fix bug, datagrid sum of columns' fillweight values cannot exceed 65535     Ace Li      2020-07-03
 ///     Rev2.8.0.6      fix bug, datagrid sum of columns' fillweight values cannot exceed 65535
 ///                     on KGU mode                                                                 Ace Li      2020-07-07
+///     Rev2.8.0.7      add test houde mode                                                         Ace Li      2020-07-08
 
 using System;
 using System.Diagnostics;
@@ -65,6 +66,8 @@ namespace DataAnalysisTool
         DataTable tblCpk = new DataTable();
 
         int intFrozenColumn;
+
+        DataGridViewCellStyle FrozenGroupCellStyle = new DataGridViewCellStyle();
 
         #endregion *** Global Variable ***
 
@@ -136,7 +139,8 @@ namespace DataAnalysisTool
             //tvDataList.Controls.Remove(hs);
             lblBar.Text = "";
             this.Text = "Data Tools";
-            
+            rowModeToolStripMenuItem.Text = "Cell Mode";
+
             this.Refresh();
             //Initialize tblHeader
             tblHeader.Columns.Add("Name", typeof(string));
@@ -150,9 +154,11 @@ namespace DataAnalysisTool
             dgvData.AllowUserToResizeRows = false;
             dgvData.AllowUserToAddRows = false;
             dgvData.AllowUserToOrderColumns = false;
-            //dgvData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
             dgvData.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dgvData.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dgvData.SelectionMode = DataGridViewSelectionMode.CellSelect;
 
             dgvData.EnableHeadersVisualStyles = true;
             dgvData.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised;
@@ -160,8 +166,24 @@ namespace DataAnalysisTool
             style.Font = new Font(dgvData.Font, FontStyle.Bold);
             style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
+            FrozenGroupCellStyle.Font = new Font(dgvData.Font, FontStyle.Bold);
+            FrozenGroupCellStyle.BackColor = Color.LightGray;
 
-        #endregion  *** Initialize ***
+            // disable some function for test house
+            if (false)
+            {
+                distributionToolStripMenuItem.Visible = false;
+                customViewToolStripMenuItem.Visible = false;
+                toolStripSeparator1.Visible = true;
+                rowModeToolStripMenuItem.Visible = true;
+                jMPToolStripMenuItem.Visible = false;
+                productionTestInfoToolStripMenuItem.Visible = false;
+                toolsToolStripMenuItem.Visible = false;
+                userToolStripMenuItem.Visible = false;
+                dBVersionToolStripMenuItem.Visible = false;
+            }
+
+            #endregion  *** Initialize ***
 
             #region // check if new version available
             if ((args.Length > 0 && args[0] != null && args[0].ToLower() != "update") || args.Length == 0)
@@ -307,24 +329,6 @@ namespace DataAnalysisTool
             float currentSize = dgvData.Font.SizeInPoints - 1;
             try
             {
-                //// Complete the initialization of the DataGridView.
-                //dgvData.Dock = DockStyle.Fill;
-                ////dgvData.VirtualMode = true;
-                //dgvData.ReadOnly = true;
-                //dgvData.RowHeadersVisible = false;
-                //dgvData.AllowUserToResizeRows = false;
-                //dgvData.AllowUserToAddRows = false;
-                //dgvData.AllowUserToOrderColumns = false;
-                ////dgvData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                //dgvData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
-                //dgvData.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                //dgvData.EnableHeadersVisualStyles = true;
-                //dgvData.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Raised;
-                //DataGridViewCellStyle style = dgvData.ColumnHeadersDefaultCellStyle;
-                //style.Font = new Font(dgvData.Font, FontStyle.Bold);
-                //style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
                 if (intFrozenColumn == 5)
                 {
                     dgvData.Columns[0].Width = 80;
@@ -341,29 +345,21 @@ namespace DataAnalysisTool
                 }
 
                 TimeSpan ts1 = DateTime.Now - dtStart;
-
-                //for (int i = 0; i < _DataParse.FreezeColumn; i++)
-                //{
-                //    dgvData.Columns[i].Width = 70;
-                //    //dgvData.Columns[i].ReadOnly = true;
-                //    //dgvData.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-                //    //dgvData.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-
-                //}
-
-                TimeSpan ts2 = DateTime.Now - dtStart;
-
+          
                 for (int i = 0; i < 4; i++)
                 {
+                    if (rowModeToolStripMenuItem.Text == "Cell Mode") dgvData.Rows[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
+                    ////////comment out due to cost lots lof delay on some machine disable in full row mode
+
                     dgvData.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
-                    dgvData.Rows[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
                     dgvData.Rows[i].Frozen = true;
                 }
                 for (int i = 0; i < intFrozenColumn; i++)
                 {
-                    dgvData.Columns[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
+                    if (rowModeToolStripMenuItem.Text == "Cell Mode") dgvData.Columns[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
+                    ////////comment out due to cost lots lof delay on some machine, disable in full row mode
+
                     dgvData.Columns[i].DefaultCellStyle.BackColor = Color.LightGray;
-                    //dgvData.Columns[i].Width = 45;
                     dgvData.Columns[i].Frozen = true;
                 }
 
@@ -561,7 +557,7 @@ namespace DataAnalysisTool
             DateTime dtStart = DateTime.Now;
 
             dgvData.DataSource = null;
-            //TimeSpan ts1 = DateTime.Now - dtStart;
+            TimeSpan ts1 = DateTime.Now - dtStart;
 
             dgvData.DataSource = tblData;
             TimeSpan ts2 = DateTime.Now - dtStart;
