@@ -17,6 +17,8 @@
 ///     Rev2.8.0.2      fix kgu issue                                                               Ace Li      2018-12-17
 ///     Rev2.8.0.3      fix failure mode out of index issue                                         Ace Li      2018-12-17
 ///     Rev2.8.0.5      fix bug, datagrid sum of columns' fillweight values cannot exceed 65535     Ace Li      2020-07-03
+///     Rev2.8.0.6      fix bug, datagrid sum of columns' fillweight values cannot exceed 65535
+///                     on KGU mode                                                                 Ace Li      2020-07-07
 
 using System;
 using System.Diagnostics;
@@ -3386,6 +3388,8 @@ namespace DataAnalysisTool
             tabcontrol.SelectedTab = tabKGU;
 
             DataGridView dgvKGU = new DataGridView();
+            dgvKGU.ColumnAdded += DgvKGU_ColumnAdded;
+            
             tabKGU.Controls.Add(dgvKGU);
             dgvKGU.Dock = DockStyle.Fill;
 
@@ -3469,6 +3473,12 @@ namespace DataAnalysisTool
             this.Refresh();
 
         } // end of kGUToolStripMenuItem_Click
+
+        private void DgvKGU_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+        {
+            e.Column.FillWeight = 10;
+            //throw new NotImplementedException();
+        }
 
         // *** AceTech KGU Verify
         private void AceTechKGUVerify(DataTable tblKGURaw, string[] arrayKGU)

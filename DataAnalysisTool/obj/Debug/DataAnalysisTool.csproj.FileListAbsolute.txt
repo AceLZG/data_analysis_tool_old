@@ -38,3 +38,4 @@ C:\Users\Ace_Li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataA
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.csproj.GenerateResource.Cache
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.exe
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.pdb
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\Debug\DataAnalysisTool.csprojResolveAssemblyReference.cache
