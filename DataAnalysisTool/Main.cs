@@ -20,7 +20,11 @@
 ///     Rev2.8.0.6      fix bug, datagrid sum of columns' fillweight values cannot exceed 65535
 ///                     on KGU mode                                                                 Ace Li      2020-07-07
 ///     Rev2.8.0.7      add test house mode                                                         Ace Li      2020-07-08
-///     Rev2.8.0.8      optimize speed by deisable font change                                      Ace Li      2020-07-09
+///     Rev2.8.0.8      optimize speed by deisable font change                                      
+///                     disable these two and enable double buffered ***
+///                 dgvData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+///                 dgvData.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;         Ace Li      2020-07-10
+
 
 using System;
 using System.Diagnostics;
@@ -51,11 +55,13 @@ using OxyPlot.Axes;
 using owa = Microsoft.Exchange.WebServices.Data;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
+using System.Reflection;
 
 namespace DataAnalysisTool
 {
     public partial class frmMain : Form
     {
+
         #region *** Global Variable ***
 
         DataTable tblData = new DataTable();
@@ -126,14 +132,25 @@ namespace DataAnalysisTool
 
         DataParse _DataParse = new DataParse();
         static string remoteVersionURL = "https://raw.githubusercontent.com/AceLZG/data_analysis_tool/master/Release/";
-        bool issimpleversion = true;
+        bool issimpleversion = false;
 
         public frmMain(string[] args)
         {
             if (File.Exists("UpdateTemp.exe")) File.Delete("UpdateTemp.exe");
 
+
             #region  *** Initialize ***
+            //设置窗体的双缓冲
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.AllPaintingInWmPaint, true);
+            this.UpdateStyles();
+
             InitializeComponent();
+            
+            //利用反射设置DataGridView的双缓冲
+            Type dgvType = this.dgvData.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(this.dgvData, true, null);
+
             this.WindowState = FormWindowState.Normal;
             SplitContainer.FixedPanel = FixedPanel.Panel1;
             SplitContainer.SplitterDistance = 300;
@@ -158,8 +175,17 @@ namespace DataAnalysisTool
             dgvData.AllowUserToOrderColumns = false;
             dgvData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells);
             dgvData.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dgvData.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+
+            //// *** Really important to set AutoSize to None on both Rows and Columns
+            //// *** Really important to set AutoSize to None on both Rows and Columns
+            //// *** Really important to set AutoSize to None on both Rows and Columns
+            //dgvData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            //dgvData.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dgvData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvData.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            //// *** above ***
+            //// *** important *** do not change ***
+
             dgvData.SelectionMode = DataGridViewSelectionMode.CellSelect;
 
             dgvData.EnableHeadersVisualStyles = true;
@@ -168,8 +194,8 @@ namespace DataAnalysisTool
             style.Font = new Font(dgvData.Font, FontStyle.Bold);
             style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            FrozenGroupCellStyle.Font = new Font(dgvData.Font, FontStyle.Bold);
-            FrozenGroupCellStyle.BackColor = Color.LightGray;
+            //FrozenGroupCellStyle.Font = new Font(dgvData.Font, FontStyle.Bold);
+            //FrozenGroupCellStyle.BackColor = Color.LightGray;
 
             // disable some function for test house
             if (issimpleversion)
@@ -364,9 +390,11 @@ namespace DataAnalysisTool
                     dgvData.Columns[i].DefaultCellStyle.BackColor = Color.LightGray;
                     dgvData.Columns[i].Frozen = true;
                 }
+                
+                TimeSpan ts2 = DateTime.Now - dtStart;
 
-
-                TimeSpan ts3 = DateTime.Now - dtStart;
+                //dgvData.Invalidate();
+                //TimeSpan ts3 = DateTime.Now - dtStart;
             }
             catch (Exception ex)
             {
