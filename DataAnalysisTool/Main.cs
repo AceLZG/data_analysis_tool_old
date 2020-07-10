@@ -19,7 +19,8 @@
 ///     Rev2.8.0.5      fix bug, datagrid sum of columns' fillweight values cannot exceed 65535     Ace Li      2020-07-03
 ///     Rev2.8.0.6      fix bug, datagrid sum of columns' fillweight values cannot exceed 65535
 ///                     on KGU mode                                                                 Ace Li      2020-07-07
-///     Rev2.8.0.7      add test houde mode                                                         Ace Li      2020-07-08
+///     Rev2.8.0.7      add test house mode                                                         Ace Li      2020-07-08
+///     Rev2.8.0.8      optimize speed by deisable font change                                      Ace Li      2020-07-09
 
 using System;
 using System.Diagnostics;
@@ -125,6 +126,7 @@ namespace DataAnalysisTool
 
         DataParse _DataParse = new DataParse();
         static string remoteVersionURL = "https://raw.githubusercontent.com/AceLZG/data_analysis_tool/master/Release/";
+        bool issimpleversion = true;
 
         public frmMain(string[] args)
         {
@@ -170,7 +172,7 @@ namespace DataAnalysisTool
             FrozenGroupCellStyle.BackColor = Color.LightGray;
 
             // disable some function for test house
-            if (false)
+            if (issimpleversion)
             {
                 distributionToolStripMenuItem.Visible = false;
                 customViewToolStripMenuItem.Visible = false;
@@ -348,7 +350,7 @@ namespace DataAnalysisTool
           
                 for (int i = 0; i < 4; i++)
                 {
-                    if (rowModeToolStripMenuItem.Text == "Cell Mode") dgvData.Rows[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
+                    //if (rowModeToolStripMenuItem.Text == "Cell Mode") dgvData.Rows[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
                     ////////comment out due to cost lots lof delay on some machine disable in full row mode
 
                     dgvData.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
@@ -356,7 +358,7 @@ namespace DataAnalysisTool
                 }
                 for (int i = 0; i < intFrozenColumn; i++)
                 {
-                    if (rowModeToolStripMenuItem.Text == "Cell Mode") dgvData.Columns[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
+                    //if (rowModeToolStripMenuItem.Text == "Cell Mode") dgvData.Columns[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
                     ////////comment out due to cost lots lof delay on some machine, disable in full row mode
 
                     dgvData.Columns[i].DefaultCellStyle.BackColor = Color.LightGray;
@@ -436,7 +438,7 @@ namespace DataAnalysisTool
             }
             for (int i = 0; i < 5; i++)
             {
-                dgvCpk.Columns[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
+                //dgvCpk.Columns[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
                 dgvCpk.Columns[i].DefaultCellStyle.BackColor = Color.LightGray;
             }
             dgvCpk.Columns[0].Width = 40;
@@ -3409,12 +3411,12 @@ namespace DataAnalysisTool
             for (int i = 0; i < 4; i++)
             {
                 dgvKGU.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
-                dgvKGU.Rows[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
+                //dgvKGU.Rows[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
             }
             dgvKGU.Columns[0].Width = 130;
             dgvKGU.Columns[1].Width = 50;
             dgvKGU.Columns[2].Width = 60;
-            dgvKGU.Columns[0].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
+            //dgvKGU.Columns[0].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
             dgvKGU.Columns[0].DefaultCellStyle.BackColor = Color.LightGray;
             dgvKGU.Columns[1].DefaultCellStyle.BackColor = Color.LightGray;
             dgvKGU.Columns[2].DefaultCellStyle.BackColor = Color.LightGray;
@@ -3637,12 +3639,12 @@ namespace DataAnalysisTool
             for (int i = 0; i < 4; i++)
             {
                 dgvKGU.Rows[i].DefaultCellStyle.BackColor = Color.LightGray;
-                dgvKGU.Rows[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
+                //dgvKGU.Rows[i].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
             }
             dgvKGU.Columns[0].Width = 130;
             dgvKGU.Columns[1].Width = 50;
             dgvKGU.Columns[2].Width = 60;
-            dgvKGU.Columns[0].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
+            //dgvKGU.Columns[0].DefaultCellStyle.Font = new Font("Microsoft Sans Serif", currentSize, FontStyle.Bold);
             dgvKGU.Columns[0].DefaultCellStyle.BackColor = Color.LightGray;
             dgvKGU.Columns[1].DefaultCellStyle.BackColor = Color.LightGray;
             dgvKGU.Columns[2].DefaultCellStyle.BackColor = Color.LightGray;

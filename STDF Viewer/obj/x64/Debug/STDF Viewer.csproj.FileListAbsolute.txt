@@ -1,0 +1,8 @@
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\bin\x64\Debug\STDF Viewer.dll.config
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\bin\x64\Debug\STDF Viewer.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\bin\x64\Debug\STDF Viewer.pdb
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\x64\Debug\STDF_Viewer.Form1.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\x64\Debug\STDF_Viewer.Properties.Resources.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\x64\Debug\STDF Viewer.csproj.GenerateResource.Cache
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\x64\Debug\STDF Viewer.dll
+C:\Users\ace_li\Source\Repos\data_analysis_tool\STDF Viewer\obj\x64\Debug\STDF Viewer.pdb

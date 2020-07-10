@@ -1,0 +1,9 @@
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\bin\x64\Release\DataAnalysisTool.exe.config
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\x64\Release\DataAnalysisTool.csprojResolveAssemblyReference.cache
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\x64\Release\DataAnalysisTool.frmAbout.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\x64\Release\DataAnalysisTool.GoldenSample.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\x64\Release\DataAnalysisTool.ImportGold.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\x64\Release\DataAnalysisTool.frmJMPScriptSelect.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\x64\Release\DataAnalysisTool.frmMain.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\x64\Release\DataAnalysisTool.frmTest.resources
+C:\Users\ace_li\Source\Repos\data_analysis_tool\DataAnalysisTool\obj\x64\Release\DataAnalysisTool.csproj.GenerateResource.Cache
