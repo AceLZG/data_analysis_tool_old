@@ -24,3 +24,4 @@ C:\Users\Ace_Li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF_Viewe
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csproj.GenerateResource.Cache
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.dll
 C:\Users\Ace_Li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.pdb
+C:\Users\Ace_Li\Source\Repos\data_analysis_tool\STDF Viewer\obj\Debug\STDF Viewer.csprojResolveAssemblyReference.cache

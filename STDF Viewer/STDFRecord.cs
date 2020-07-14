@@ -804,6 +804,12 @@ namespace STDF_Viewer
                     else if (scale == 6) new_unit = "uA";
                     else if (scale == 9) new_unit = "nA";
                 }
+                else if (unit.ToUpper() == "V")
+                {
+                    if (scale == 3) new_unit = "mV";
+                    else if (scale == 6) new_unit = "uV";
+                    else if (scale == 9) new_unit = "nV";
+                }
                 else if (unit.ToUpper() == "S")
                 {
                     if (scale == 3) new_unit = "mS";

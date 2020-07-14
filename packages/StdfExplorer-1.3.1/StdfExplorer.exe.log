@@ -1,0 +1,96 @@
+exc_string() failed to extract exception string
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "threading.pyo", line 442, in __bootstrap
+  File "pystdf\explorer\MainFrame.pyo", line 87, in run
+  File "wx\_core.pyo", line 7528, in PostEvent
+TypeError: in method 'PostEvent', expected argument 1 of type 'wxEvtHandler *'
+
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
+Traceback (most recent call last):
+  File "StdfExplorer.pyw", line 22, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\__init__.pyo", line 45, in ?
+  File "zipextimporter.pyo", line 82, in load_module
+  File "wx\_core.pyo", line 4, in ?
+  File "zipextimporter.pyo", line 98, in load_module
+ImportError: MemoryLoadLibrary failed loading wx\_core_.pyd
